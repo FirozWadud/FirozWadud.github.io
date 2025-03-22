@@ -1293,43 +1293,61 @@
   <!-- JavaScript for a standalone page (when accessed directly) -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Auto-display the popup when the page is loaded directly
+      // Get references to elements
       const projectPopup = document.getElementById('projectPopup');
       const modalOverlay = document.getElementById('modalOverlay');
+      const closePopupBtn = document.getElementById('closePopupBtn');
       
-      // Only show automatically if this is not loaded in a popup
-      if (window.self === window.top) {
-        projectPopup.style.display = 'flex';
+      // Show popup immediately without animation
+      function showPopup() {
         modalOverlay.style.display = 'block';
+        projectPopup.style.display = 'flex';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
       }
       
+      // Hide popup immediately without animation
+      function hidePopup(callback) {
+        modalOverlay.style.display = 'none';
+        projectPopup.style.display = 'none';
+        document.body.style.overflow = '';
+        
+        // Execute callback if provided
+        if (typeof callback === 'function') {
+          callback();
+        }
+      }
+      
+      // Only show automatically if this is not loaded in a popup
+      if (window.self === window.top) {
+        showPopup();
+      }
+      
       // Setup close button functionality
-      const closePopupBtn = document.getElementById('closePopupBtn');
       if (closePopupBtn) {
         closePopupBtn.addEventListener('click', function() {
-          // If accessed directly, redirect to index
+          // Direct link to portfolio section
           if (window.self === window.top) {
-            window.location.href = 'index.html';
+            hidePopup(function() {
+              window.location.href = 'index.html#portfolio';
+            });
           } else {
-            // If in a popup, just hide
-            projectPopup.style.display = 'none';
-            modalOverlay.style.display = 'none';
-            document.body.style.overflow = '';
+            hidePopup();
           }
         });
       }
       
-      // Close when clicking on overlay
-      modalOverlay.addEventListener('click', function() {
-        if (window.self === window.top) {
-          window.location.href = 'index.html';
-        } else {
-          projectPopup.style.display = 'none';
-          modalOverlay.style.display = 'none';
-          document.body.style.overflow = '';
-        }
-      });
+      // Close when clicking on overlay - same approach
+      if (modalOverlay) {
+        modalOverlay.addEventListener('click', function() {
+          if (window.self === window.top) {
+            hidePopup(function() {
+              window.location.href = 'index.html#portfolio';
+            });
+          } else {
+            hidePopup();
+          }
+        });
+      }
       
       // Smooth scrolling for TOC links
       const tocLinks = document.querySelectorAll('.toc-link');

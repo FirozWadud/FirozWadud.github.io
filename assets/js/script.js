@@ -2,6 +2,24 @@
 
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', function() {
+  // Check for hash in URL (e.g., #portfolio)
+  if (window.location.hash) {
+    // Get the section name from the hash (remove the # character)
+    const sectionName = window.location.hash.substring(1);
+    
+    // We'll handle this after components are loaded
+    const hashSection = sectionName;
+    
+    // Start component loading check
+    checkComponentsLoaded(hashSection);
+  } else {
+    // No hash, just check if components are loaded
+    checkComponentsLoaded();
+  }
+});
+
+// Function to check if components are loaded
+function checkComponentsLoaded(hashSection) {
   // Check if all components are loaded every 100ms
   const componentsLoaded = setInterval(function() {
     // Count how many component placeholders are still empty
@@ -10,13 +28,13 @@ document.addEventListener('DOMContentLoaded', function() {
     if (pendingComponents === 0) {
       // All components are loaded, clear interval and initialize
       clearInterval(componentsLoaded);
-      initializePortfolio();
+      initializePortfolio(hashSection);
     }
   }, 100);
-});
+}
 
 // Main initialization function - only called after all components are loaded
-function initializePortfolio() {
+function initializePortfolio(hashSection) {
   console.log('All components loaded, initializing functionality');
   
   // Initialize sidebar
@@ -32,7 +50,7 @@ function initializePortfolio() {
   initContactForm();
   
   // Initialize page navigation
-  initNavigation();
+  initNavigation(hashSection);
 }
 
 // Sidebar functionality
@@ -170,26 +188,80 @@ function initContactForm() {
 }
 
 // Page navigation functionality
-function initNavigation() {
+function initNavigation(hashSection) {
   const navigationLinks = document.querySelectorAll("[data-nav-link]");
   const pages = document.querySelectorAll("[data-page]");
   
-  // Check if elements exist (navbar component loaded)
-  if (navigationLinks.length && pages.length) {
-    // Add event to all nav links
+  // Priority for activation:
+  // 1. Hash fragment in URL (direct link to section)
+  // 2. localStorage (remembered section)
+  // 3. Default (first section)
+  
+  // Helper function to activate a specific section
+  function activateSection(sectionName) {
+    // Loop through all nav links and pages
     for (let i = 0; i < navigationLinks.length; i++) {
-      navigationLinks[i].addEventListener("click", function() {
-        for (let j = 0; j < pages.length; j++) {
-          if (this.innerHTML.toLowerCase() === pages[j].dataset.page) {
-            pages[j].classList.add("active");
-            navigationLinks[i].classList.add("active");
-            window.scrollTo(0, 0);
-          } else {
-            pages[j].classList.remove("active");
-            navigationLinks[j].classList.remove("active");
-          }
+      if (navigationLinks[i].innerHTML.toLowerCase() === sectionName) {
+        navigationLinks[i].classList.add("active");
+      } else {
+        navigationLinks[i].classList.remove("active");
+      }
+    }
+    
+    for (let i = 0; i < pages.length; i++) {
+      if (pages[i].dataset.page === sectionName) {
+        pages[i].classList.add("active");
+      } else {
+        pages[i].classList.remove("active");
+      }
+    }
+    
+    window.scrollTo(0, 0);
+  }
+  
+  // First check if we have a hash section (highest priority)
+  if (hashSection) {
+    // Activate the section from hash
+    activateSection(hashSection);
+    // Also store it in localStorage for future visits
+    localStorage.setItem('activeSection', hashSection);
+  } 
+  // Then check localStorage
+  else {
+    const storedSection = localStorage.getItem('activeSection');
+    if (storedSection) {
+      activateSection(storedSection);
+    }
+    // Default behavior is already handled by HTML (first section active)
+  }
+  
+  // Add click event to all nav links
+  for (let i = 0; i < navigationLinks.length; i++) {
+    navigationLinks[i].addEventListener("click", function() {
+      const targetPage = this.innerHTML.toLowerCase();
+      
+      // Store the active section
+      localStorage.setItem('activeSection', targetPage);
+      
+      // Activate the section
+      activateSection(targetPage);
+      
+      // Update URL hash without page reload (optional, makes back button work better)
+      history.replaceState(null, null, '#' + targetPage);
+    });
+  }
+  
+  // Store section when clicking on project links
+  const projectLinks = document.querySelectorAll('.project-item a');
+  if (projectLinks.length) {
+    projectLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        // Find the current active page
+        const currentPage = document.querySelector('[data-page].active');
+        if (currentPage) {
+          localStorage.setItem('activeSection', currentPage.dataset.page);
         }
       });
-    }
+    });
   }
 }

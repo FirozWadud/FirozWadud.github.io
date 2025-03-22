@@ -53,5 +53,26 @@
   
   <!-- Main script - load this after components -->
   <script src="./assets/js/script.js"></script>
+  <script>
+    // This script remembers which section you were in when clicking external links
+    document.addEventListener('DOMContentLoaded', function() {
+      // Find all section containers
+      const sectionContainers = document.querySelectorAll('[data-page]');
+      
+      // Process each section
+      sectionContainers.forEach(section => {
+        // Find all links in this section that go to other pages
+        const externalLinks = section.querySelectorAll('a[href$=".html"]');
+        
+        // Add click handler to remember which section we're in
+        externalLinks.forEach(link => {
+          link.addEventListener('click', function() {
+            // Store the current section name
+            localStorage.setItem('activeSection', section.dataset.page);
+          });
+        });
+      });
+    });
+  </script>
 </body>
 </html>
