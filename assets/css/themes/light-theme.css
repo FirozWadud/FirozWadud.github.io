@@ -1,52 +1,173 @@
 /*-----------------------------------*\
   #LIGHT-THEME.CSS
-  Light theme color override
+  Light theme color scheme for personal portfolio
 \*-----------------------------------*/
+@import url("unified-theme-variables.css");
 
 :root {
     /* Main colors */
-    --primary-accent: hsl(220, 60%, 50%); 
-    --primary-accent-alt: hsl(220, 50%, 40%);
-    --primary-accent-gradient: linear-gradient(to right, hsl(220, 60%, 50%), hsl(230, 60%, 45%));
+    --primary-accent: hsl(220, 70%, 45%); /* Primary blue */
+    --primary-accent-alt: hsl(220, 60%, 35%); /* Darker blue */
+    --primary-accent-gradient: linear-gradient(to right, hsl(220, 70%, 45%), hsl(230, 70%, 55%));
     
     /* Background colors */
-    --bg-main: hsl(0, 0%, 95%);
-    --bg-card: hsl(0, 0%, 100%);
-    --bg-card-alt: hsl(0, 0%, 98%);
+    --bg-main: hsl(0, 0%, 97%); /* Off-white background */
+    --bg-card: hsl(0, 0%, 100%); /* Pure white cards */
+    --bg-card-alt: hsl(0, 0%, 98%); /* Slightly off-white for alternate card backgrounds */
     
     /* Border and shadow */
-    --border-color: hsl(0, 0%, 85%);
-    --card-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.1);
+    --border-color: hsl(0, 0%, 85%); /* Light gray borders */
+    --card-shadow: 0 4px 15px hsla(0, 0%, 0%, 0.08); /* Softer shadows */
     
     /* Text colors */
-    --text-primary: hsl(0, 0%, 10%);
-    --text-secondary: hsl(0, 0%, 30%);
-    --text-muted: hsla(0, 0%, 40%, 0.85);
-    --text-error: hsl(0, 65%, 45%);
+    --text-primary: hsl(220, 15%, 20%); /* Near black but with a blue undertone */
+    --text-secondary: hsl(220, 10%, 35%); /* Dark gray with blue undertone */
+    --text-muted: hsla(220, 10%, 50%, 0.85); /* Medium gray for less important text */
+    --text-error: hsl(0, 65%, 45%); /* Red for errors */
   
     /* Gradient overrides */
-    --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 90%) 3%, hsl(0, 0%, 85%) 97%);
-    --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 96%, 0.251) 0%, hsla(0, 0%, 98%, 0) 100%), hsl(0, 0%, 98%);
-    --bg-gradient-yellow-1: linear-gradient(to bottom right, hsl(220, 100%, 75%) 0%, hsla(220, 100%, 80%, 0) 50%);
-    --bg-gradient-yellow-2: linear-gradient(135deg, hsla(220, 100%, 75%, 0.251) 0%, hsla(220, 100%, 80%, 0) 59.86%), hsl(0, 0%, 98%);
+    --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 92%) 3%, hsl(0, 0%, 87%) 97%);
+    --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 98%, 0.251) 0%, hsla(0, 0%, 100%, 0) 100%), hsl(0, 0%, 100%);
+    --bg-gradient-yellow-1: linear-gradient(to bottom right, hsl(220, 100%, 80%) 0%, hsla(220, 100%, 85%, 0) 50%);
+    --bg-gradient-yellow-2: linear-gradient(135deg, hsla(220, 100%, 80%, 0.251) 0%, hsla(220, 100%, 85%, 0) 59.86%), hsl(0, 0%, 100%);
     --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 85%) 0%, hsla(0, 0%, 85%, 0) 50%);
+    
+    /* Shadow adjustments for light theme */
+    --shadow-1: 0 3px 8px hsla(0, 0%, 0%, 0.08);
+    --shadow-2: 0 5px 12px hsla(0, 0%, 0%, 0.1);
+    --shadow-3: 0 8px 16px hsla(0, 0%, 0%, 0.12);
+    --shadow-4: 0 12px 24px hsla(0, 0%, 0%, 0.15);
+    --shadow-5: 0 16px 32px hsla(0, 0%, 0%, 0.15);
   }
   
   /* Invert the map colors for light mode */
   .mapbox iframe {
-    filter: grayscale(1);
+    filter: grayscale(0.5) invert(0);
   }
   
-  /* Adjust scrollbar for light mode */
+  /* Scrollbar customization for light mode */
   body::-webkit-scrollbar-track { 
     background: var(--bg-main); 
   }
   
   body::-webkit-scrollbar-thumb {
     border: 5px solid var(--bg-main);
-    background: hsla(0, 0%, 40%, 0.4);
+    background: hsla(220, 50%, 50%, 0.3);
+    border-radius: 20px;
   }
   
   body::-webkit-scrollbar-thumb:hover { 
-    background: hsla(0, 0%, 40%, 0.7); 
+    background: hsla(220, 50%, 50%, 0.5); 
+  }
+  
+  /* Timeline styling adjustment */
+  .timeline-item:not(:last-child)::before {
+    background: var(--border-color);
+  }
+  
+  .timeline-item::after {
+    background: var(--primary-accent-gradient);
+    box-shadow: 0 0 0 4px hsla(220, 70%, 45%, 0.15);
+  }
+  
+  /* Portfolio filter buttons */
+  .filter-item button.active {
+    color: var(--primary-accent);
+    font-weight: var(--fw-medium);
+  }
+  
+  /* Form elements */
+  .form-input {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+  }
+  
+  .form-input:focus {
+    border-color: var(--primary-accent);
+    box-shadow: 0 0 0 3px hsla(220, 70%, 45%, 0.15);
+  }
+  
+  /* Testimonials adjustments */
+  .testimonials-avatar-box {
+    box-shadow: var(--shadow-1);
+  }
+  
+  /* Content card hover effect */
+  .service-item:hover,
+  .project-item > a:hover,
+  .blog-post-item > a:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-3);
+    transition: var(--transition-short);
+  }
+  
+  /* Navbar light theme adjustment */
+  .navbar {
+    background: hsla(0, 0%, 100%, 0.9);
+    border-color: var(--border-color);
+  }
+  
+  /* Skills progress bar */
+  .skill-progress-bg {
+    background: hsla(220, 20%, 90%, 1);
+  }
+  
+  /* Social icons */
+  .social-item .social-link {
+    color: var(--text-muted);
+  }
+  
+  .social-item .social-link:hover {
+    color: var(--primary-accent);
+  }
+  
+  /* Client logos */
+  .clients-item img {
+    filter: grayscale(1) contrast(0.8);
+  }
+  
+  .clients-item img:hover {
+    filter: grayscale(0) contrast(1);
+  }
+  
+  /* Testimonial modal */
+  .modal-container.active .overlay {
+    opacity: 0.6;
+  }
+  
+  /* Form button */
+  .form-btn:enabled:hover {
+    background: var(--primary-accent-gradient);
+    color: white;
+  }
+  
+  .form-btn:enabled:hover::before {
+    background: transparent;
+  }
+  
+  /* Project popup */
+  .popup-header {
+    background: var(--bg-gradient-onyx);
+    border-bottom: 1px solid var(--border-color);
+  }
+  
+  /* Timeline adjustment */
+  .timeline .title-wrapper .icon-box {
+    background: var(--bg-gradient-onyx);
+    border: 1px solid var(--border-color);
+  }
+  
+  /* Sidebar button and info box */
+  .info_more-btn {
+    background: var(--primary-accent-gradient);
+    color: white;
+  }
+  
+  .info_more-btn::before {
+    background: transparent;
+  }
+  
+  .sidebar-info .title {
+    background: hsla(220, 70%, 45%, 0.1);
+    color: var(--primary-accent);
   }

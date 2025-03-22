@@ -1,0 +1,213 @@
+/*-----------------------------------*\
+  #UNIFIED-THEME-VARIABLES
+  CSS variables that work across all pages to ensure theme consistency
+\*-----------------------------------*/
+
+/* Common transition styles for all themes */
+.theme-transition {
+    transition: background-color 0.3s, color 0.3s, border-color 0.3s, box-shadow 0.3s;
+  }
+  
+  /* Global CSS variable selectors for theme variants */
+  /* These will be included in all theme CSS files */
+  
+  /* IMPORTANT: Create these selectors in ALL theme CSS files */
+  [data-theme="dark"] .popup-container,
+  [data-theme="light"] .popup-container,
+  [data-theme="blue"] .popup-container {
+    background: var(--bg-card);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+  }
+  
+  [data-theme="dark"] .popup-header,
+  [data-theme="light"] .popup-header,
+  [data-theme="blue"] .popup-header {
+    background: var(--bg-gradient-onyx);
+    border-bottom-color: var(--border-color);
+  }
+  
+  [data-theme="dark"] .popup-title,
+  [data-theme="light"] .popup-title,
+  [data-theme="blue"] .popup-title {
+    color: var(--primary-accent);
+  }
+  
+  [data-theme="dark"] .popup-content,
+  [data-theme="light"] .popup-content,
+  [data-theme="blue"] .popup-content {
+    background-color: var(--bg-card);
+    color: var(--text-secondary);
+  }
+  
+  [data-theme="dark"] .close-btn,
+  [data-theme="light"] .close-btn,
+  [data-theme="blue"] .close-btn {
+    color: var(--text-secondary);
+  }
+  
+  [data-theme="dark"] .close-btn:hover,
+  [data-theme="light"] .close-btn:hover,
+  [data-theme="blue"] .close-btn:hover {
+    color: var(--primary-accent);
+  }
+  
+  /* Article sections */
+  [data-theme="dark"] .article-section,
+  [data-theme="light"] .article-section,
+  [data-theme="blue"] .article-section {
+    color: var(--text-secondary);
+  }
+  
+  [data-theme="dark"] .section-title,
+  [data-theme="light"] .section-title,
+  [data-theme="blue"] .section-title {
+    color: var(--primary-accent);
+    border-bottom-color: var(--border-color);
+  }
+  
+  [data-theme="dark"] .section-title::after,
+  [data-theme="light"] .section-title::after,
+  [data-theme="blue"] .section-title::after {
+    background: var(--primary-accent-gradient);
+  }
+  
+  [data-theme="dark"] .subsection-title,
+  [data-theme="light"] .subsection-title,
+  [data-theme="blue"] .subsection-title {
+    color: var(--text-primary);
+  }
+  
+  [data-theme="dark"] .article-text,
+  [data-theme="light"] .article-text,
+  [data-theme="blue"] .article-text {
+    color: var(--text-secondary);
+  }
+  
+  /* Timeline elements */
+  [data-theme="dark"] .timeline-container::before,
+  [data-theme="light"] .timeline-container::before,
+  [data-theme="blue"] .timeline-container::before {
+    background: var(--border-color);
+  }
+  
+  [data-theme="dark"] .timeline-dot,
+  [data-theme="light"] .timeline-dot,
+  [data-theme="blue"] .timeline-dot {
+    background: var(--primary-accent-gradient);
+    box-shadow: 0 0 0 4px var(--border-color);
+  }
+  
+  [data-theme="dark"] .timeline-date,
+  [data-theme="light"] .timeline-date,
+  [data-theme="blue"] .timeline-date {
+    color: var(--primary-accent-alt);
+  }
+  
+  [data-theme="dark"] .timeline-title,
+  [data-theme="light"] .timeline-title,
+  [data-theme="blue"] .timeline-title {
+    color: var(--text-primary);
+  }
+  
+  /* Cards and features */
+  [data-theme="dark"] .feature-card,
+  [data-theme="dark"] .science-card,
+  [data-theme="dark"] .competition-card,
+  [data-theme="dark"] .video-card,
+  [data-theme="dark"] .team-member,
+  [data-theme="light"] .feature-card,
+  [data-theme="light"] .science-card,
+  [data-theme="light"] .competition-card,
+  [data-theme="light"] .video-card,
+  [data-theme="light"] .team-member,
+  [data-theme="blue"] .feature-card,
+  [data-theme="blue"] .science-card,
+  [data-theme="blue"] .competition-card,
+  [data-theme="blue"] .video-card,
+  [data-theme="blue"] .team-member {
+    background: var(--border-gradient-onyx);
+    box-shadow: var(--shadow-2);
+  }
+  
+  [data-theme="dark"] .feature-card::before,
+  [data-theme="dark"] .science-card::before,
+  [data-theme="dark"] .competition-card::before,
+  [data-theme="dark"] .video-card::before,
+  [data-theme="dark"] .team-member::before,
+  [data-theme="light"] .feature-card::before,
+  [data-theme="light"] .science-card::before,
+  [data-theme="light"] .competition-card::before,
+  [data-theme="light"] .video-card::before,
+  [data-theme="light"] .team-member::before,
+  [data-theme="blue"] .feature-card::before,
+  [data-theme="blue"] .science-card::before,
+  [data-theme="blue"] .competition-card::before,
+  [data-theme="blue"] .video-card::before,
+  [data-theme="blue"] .team-member::before {
+    background: var(--bg-gradient-jet);
+  }
+  
+  [data-theme="dark"] .feature-title,
+  [data-theme="dark"] .science-title,
+  [data-theme="dark"] .competition-name,
+  [data-theme="dark"] .video-title,
+  [data-theme="dark"] .team-name,
+  [data-theme="light"] .feature-title,
+  [data-theme="light"] .science-title,
+  [data-theme="light"] .competition-name,
+  [data-theme="light"] .video-title,
+  [data-theme="light"] .team-name,
+  [data-theme="blue"] .feature-title,
+  [data-theme="blue"] .science-title,
+  [data-theme="blue"] .competition-name,
+  [data-theme="blue"] .video-title,
+  [data-theme="blue"] .team-name {
+    color: var(--primary-accent);
+  }
+  
+  /* Table of contents */
+  [data-theme="dark"] .toc,
+  [data-theme="light"] .toc,
+  [data-theme="blue"] .toc {
+    background: var(--border-gradient-onyx);
+    box-shadow: var(--shadow-2);
+  }
+  
+  [data-theme="dark"] .toc::before,
+  [data-theme="light"] .toc::before,
+  [data-theme="blue"] .toc::before {
+    background: var(--bg-gradient-jet);
+  }
+  
+  [data-theme="dark"] .toc-title,
+  [data-theme="light"] .toc-title,
+  [data-theme="blue"] .toc-title {
+    color: var(--primary-accent);
+    border-bottom-color: var(--border-color);
+  }
+  
+  [data-theme="dark"] .toc-link,
+  [data-theme="light"] .toc-link,
+  [data-theme="blue"] .toc-link {
+    color: var(--text-secondary);
+  }
+  
+  [data-theme="dark"] .toc-link:hover,
+  [data-theme="light"] .toc-link:hover,
+  [data-theme="blue"] .toc-link:hover {
+    color: var(--primary-accent);
+  }
+  
+  /* Hero section */
+  [data-theme="dark"] .hero-title,
+  [data-theme="light"] .hero-title,
+  [data-theme="blue"] .hero-title {
+    color: var(--text-primary);
+  }
+  
+  [data-theme="dark"] .hero-subtitle,
+  [data-theme="light"] .hero-subtitle,
+  [data-theme="blue"] .hero-subtitle {
+    color: var(--primary-accent);
+  }

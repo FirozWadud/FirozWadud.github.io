@@ -34,12 +34,14 @@
 /* Responsive - Media queries for responsive design */
 @import url("responsive.css");
 
+@import url("theme-switcher.css");
+
 /*-----------------------------------*\
   #THEME SWITCHER
   Uncomment the theme you want to use
 \*-----------------------------------*/
 
 /* If you want to switch themes, uncomment one of these imports */
-/* @import url("themes/light-theme.css"); */
+ @import url("themes/light-theme.css"); */
 /* @import url("themes/blue-theme.css"); */
 /* @import url("themes/green-theme.css"); */
