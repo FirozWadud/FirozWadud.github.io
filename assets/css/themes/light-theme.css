@@ -1,0 +1,52 @@
+/*-----------------------------------*\
+  #LIGHT-THEME.CSS
+  Light theme color override
+\*-----------------------------------*/
+
+:root {
+    /* Main colors */
+    --primary-accent: hsl(220, 60%, 50%); 
+    --primary-accent-alt: hsl(220, 50%, 40%);
+    --primary-accent-gradient: linear-gradient(to right, hsl(220, 60%, 50%), hsl(230, 60%, 45%));
+    
+    /* Background colors */
+    --bg-main: hsl(0, 0%, 95%);
+    --bg-card: hsl(0, 0%, 100%);
+    --bg-card-alt: hsl(0, 0%, 98%);
+    
+    /* Border and shadow */
+    --border-color: hsl(0, 0%, 85%);
+    --card-shadow: 0 4px 10px hsla(0, 0%, 0%, 0.1);
+    
+    /* Text colors */
+    --text-primary: hsl(0, 0%, 10%);
+    --text-secondary: hsl(0, 0%, 30%);
+    --text-muted: hsla(0, 0%, 40%, 0.85);
+    --text-error: hsl(0, 65%, 45%);
+  
+    /* Gradient overrides */
+    --bg-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 90%) 3%, hsl(0, 0%, 85%) 97%);
+    --bg-gradient-jet: linear-gradient(to bottom right, hsla(0, 0%, 96%, 0.251) 0%, hsla(0, 0%, 98%, 0) 100%), hsl(0, 0%, 98%);
+    --bg-gradient-yellow-1: linear-gradient(to bottom right, hsl(220, 100%, 75%) 0%, hsla(220, 100%, 80%, 0) 50%);
+    --bg-gradient-yellow-2: linear-gradient(135deg, hsla(220, 100%, 75%, 0.251) 0%, hsla(220, 100%, 80%, 0) 59.86%), hsl(0, 0%, 98%);
+    --border-gradient-onyx: linear-gradient(to bottom right, hsl(0, 0%, 85%) 0%, hsla(0, 0%, 85%, 0) 50%);
+  }
+  
+  /* Invert the map colors for light mode */
+  .mapbox iframe {
+    filter: grayscale(1);
+  }
+  
+  /* Adjust scrollbar for light mode */
+  body::-webkit-scrollbar-track { 
+    background: var(--bg-main); 
+  }
+  
+  body::-webkit-scrollbar-thumb {
+    border: 5px solid var(--bg-main);
+    background: hsla(0, 0%, 40%, 0.4);
+  }
+  
+  body::-webkit-scrollbar-thumb:hover { 
+    background: hsla(0, 0%, 40%, 0.7); 
+  }

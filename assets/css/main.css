@@ -1,0 +1,45 @@
+/*-----------------------------------*\
+  #MAIN.CSS
+  Main stylesheet that imports all modular CSS files
+\*-----------------------------------*/
+
+/**
+ * This is the main stylesheet that imports all modular CSS files.
+ * Edit specific modules rather than this file.
+ */
+
+/*-----------------------------------*\
+  #IMPORTS
+  Import all modular CSS files in the correct order
+\*-----------------------------------*/
+
+/* Variables - Edit colors, sizes and fonts here */
+@import url("variables.css");
+
+/* Reset - Browser normalization */
+@import url("reset.css");
+
+/* Base - Common elements and utilities */
+@import url("base.css");
+
+/* Layout - Structure and positioning */
+@import url("layout.css");
+
+/* Components - UI component styles */
+@import url("components.css");
+
+/* Project - Project details page styles */
+@import url("project.css");
+
+/* Responsive - Media queries for responsive design */
+@import url("responsive.css");
+
+/*-----------------------------------*\
+  #THEME SWITCHER
+  Uncomment the theme you want to use
+\*-----------------------------------*/
+
+/* If you want to switch themes, uncomment one of these imports */
+/* @import url("themes/light-theme.css"); */
+/* @import url("themes/blue-theme.css"); */
+/* @import url("themes/green-theme.css"); */

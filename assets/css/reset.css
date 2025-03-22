@@ -1,0 +1,90 @@
+/*-----------------------------------*\
+  #RESET
+  Reset browser defaults for consistent styling
+\*-----------------------------------*/
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html { 
+    font-family: var(--ff-primary); 
+    scroll-behavior: smooth;
+  }
+  
+  body { 
+    background: var(--bg-main); 
+    color: var(--text-secondary);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+  
+  a { 
+    text-decoration: none; 
+    color: inherit;
+  }
+  
+  li { list-style: none; }
+  
+  img, ion-icon, a, button, time, span { display: block; }
+  
+  button {
+    font: inherit;
+    background: none;
+    border: none;
+    text-align: left;
+    cursor: pointer;
+  }
+  
+  input, textarea {
+    display: block;
+    width: 100%;
+    background: none;
+    font: inherit;
+  }
+  
+  ::selection {
+    background: var(--primary-accent);
+    color: var(--bg-main);
+  }
+  
+  :focus { outline-color: var(--primary-accent); }
+  
+  /* Scrollbars */
+  .has-scrollbar::-webkit-scrollbar {
+    width: 5px; /* for vertical scrollbar */
+    height: 5px; /* for horizontal scrollbar */
+  }
+  
+  .has-scrollbar::-webkit-scrollbar-track {
+    background: var(--border-color);
+    border-radius: 5px;
+  }
+  
+  .has-scrollbar::-webkit-scrollbar-thumb {
+    background: var(--primary-accent);
+    border-radius: 5px;
+  }
+  
+  .has-scrollbar::-webkit-scrollbar-button { width: 20px; }
+  
+  /* Large screen scrollbar */
+  @media (min-width: 1250px) {
+    body::-webkit-scrollbar { width: 20px; }
+    
+    body::-webkit-scrollbar-track { background: var(--bg-main); }
+    
+    body::-webkit-scrollbar-thumb {
+      border: 5px solid var(--bg-main);
+      background: hsla(0, 0%, 100%, 0.1);
+      border-radius: 20px;
+      box-shadow: inset 1px 1px 0 hsla(0, 0%, 100%, 0.11),
+                  inset -1px -1px 0 hsla(0, 0%, 100%, 0.11);
+    }
+    
+    body::-webkit-scrollbar-thumb:hover { background: hsla(0, 0%, 100%, 0.15); }
+    
+    body::-webkit-scrollbar-button { height: 60px; }
+  }
