@@ -3,9 +3,8 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>BRACU Mongol-Tori - Project Details</title>
+  <title>BRACU Mongol-Tori - Mars Rover Project</title>
 
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
@@ -17,795 +16,1273 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
   
-  <!-- 
-    CUSTOM STYLES FOR SCROLLABLE SECTIONS AND EFFECTS
-    You can modify these styles to change card appearances, animations, and layout
-  -->
+  <!-- Custom styles -->
   <style>
-      /* Features list specific styles */
-  .features-list {
-    display: flex;
-    justify-content: flex-start;
-    align-items: flex-start;
-    gap: 15px;
-    margin: 0 -15px;
-    padding: 25px 15px;
-    padding-bottom: 35px;
-    overflow-x: auto;
-    scroll-behavior: smooth;
-    overscroll-behavior-inline: contain;
-    scroll-snap-type: inline mandatory;
-  }
-  
-  .feature-item {
-    min-width: 300px;
-    scroll-snap-align: center;
-  }
-  
-  /* Make feature cards match testimonial cards */
-  .feature-item .content-card {
-    padding-top: 15px;
-  }
-    /* Parallax container for the collapsing header image */
-    .parallax-container {
+    /* Popup window container */
+    .popup-container {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 90vw;
+      height: 90vh;
+      max-width: 1200px;
+      background: var(--eerie-black-2);
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-direction: column;
       overflow: hidden;
-      position: relative;
-      margin-bottom: 30px;
-      border-radius: 14px;
-      height: 300px; /* Set a fixed height for the container */
+      z-index: 1000;
     }
     
-    .parallax-image {
+    /* Popup header */
+    .popup-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 20px;
+      border-bottom: 1px solid var(--jet);
+      background: linear-gradient(to right, var(--eerie-black-1), var(--eerie-black-2));
+    }
+    
+    .popup-title {
+      margin: 0;
+      color: var(--orange-yellow-crayola);
+      font-family: 'Roboto', sans-serif;
+      font-weight: 700;
+      font-size: 1.5rem;
+    }
+    
+    .close-btn {
+      background: none;
+      border: none;
+      color: var(--light-gray);
+      font-size: 24px;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    
+    .close-btn:hover {
+      color: var(--orange-yellow-crayola);
+    }
+    
+    /* Popup content container */
+    .popup-content {
+      flex: 1;
+      overflow-y: auto;
+      padding: 0;
       width: 100%;
-      border-radius: 14px;
-      transition: transform 0.1s ease-out;
-      transform-origin: center top;
-      display: block;
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      
+      /* Custom scrollbar for the popup content */
+      scrollbar-width: thin;
+      scrollbar-color: var(--orange-yellow-crayola) var(--eerie-black-1);
     }
     
-    /* Overlay effect that grows from top */
-    .overlay-effect {
+    /* Article hero section */
+    .article-hero {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+    }
+    
+    .hero-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.8;
+    }
+    
+    .hero-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 40px 30px 30px;
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
+    }
+    
+    .hero-title {
+      color: white;
+      font-size: 2.5rem;
+      margin: 0 0 10px;
+      font-weight: 700;
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+    }
+    
+    .hero-subtitle {
+      color: var(--orange-yellow-crayola);
+      font-size: 1.2rem;
+      margin: 0;
+      font-weight: 500;
+      max-width: 70%;
+    }
+    
+    /* Article content */
+    .article-content {
+      padding: 30px;
+    }
+    
+    /* Table of contents */
+    .toc {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 30px;
+      position: sticky;
+      top: 20px;
+    }
+    
+    .toc-title {
+      color: var(--orange-yellow-crayola);
+      font-size: 1.2rem;
+      margin-top: 0;
+      margin-bottom: 15px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--jet);
+    }
+    
+    .toc-list {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .toc-item {
+      margin-bottom: 8px;
+    }
+    
+    .toc-link {
+      color: var(--light-gray);
+      text-decoration: none;
+      transition: color 0.2s;
+      display: block;
+      padding: 5px 0;
+    }
+    
+    .toc-link:hover {
+      color: var(--orange-yellow-crayola);
+    }
+    
+    /* Project article layout */
+    .article-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: 30px;
+    }
+    
+    @media (max-width: 992px) {
+      .article-layout {
+        grid-template-columns: 1fr;
+      }
+      
+      .hero-title {
+        font-size: 2rem;
+      }
+      
+      .hero-subtitle {
+        max-width: 100%;
+      }
+    }
+    
+    /* Article sections */
+    .article-section {
+      margin-bottom: 40px;
+    }
+    
+    .section-title {
+      color: var(--orange-yellow-crayola);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid var(--jet);
+      font-weight: 700;
+    }
+    
+    .subsection-title {
+      color: white;
+      font-size: 1.4rem;
+      margin: 25px 0 15px;
+      font-weight: 600;
+    }
+    
+    .article-text {
+      margin-bottom: 20px;
+      color: var(--light-gray);
+    }
+    
+    /* Feature cards grid */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    .feature-card {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+      border: 1px solid var(--jet);
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .feature-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .feature-content {
+      padding: 20px;
+    }
+    
+    .feature-title {
+      color: var(--orange-yellow-crayola);
+      margin-top: 0;
+      margin-bottom: 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .feature-description {
+      color: var(--light-gray);
+      margin: 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+    
+    /* Timeline */
+    .timeline-container {
+      position: relative;
+      margin: 30px 0;
+    }
+    
+    .timeline-container::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 20px;
+      width: 4px;
+      background: var(--jet);
+      border-radius: 2px;
+    }
+    
+    .timeline-item {
+      position: relative;
+      padding-left: 60px;
+      margin-bottom: 30px;
+    }
+    
+    .timeline-dot {
+      position: absolute;
+      left: 12px;
+      top: 5px;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--orange-yellow-crayola);
+      border: 4px solid var(--eerie-black-2);
+    }
+    
+    .timeline-date {
+      color: var(--orange-yellow-crayola);
+      font-weight: 600;
+      margin-bottom: 10px;
+      font-size: 1.1rem;
+    }
+    
+    .timeline-title {
+      color: white;
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .timeline-content {
+      color: var(--light-gray);
+    }
+    
+    /* Competition results */
+    .competition-card {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+      border: 1px solid var(--jet);
+    }
+    
+    .competition-header {
+      padding: 15px 20px;
+      background: linear-gradient(to right, var(--eerie-black-1), var(--eerie-black-2));
+      border-bottom: 1px solid var(--jet);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    
+    .competition-name {
+      color: white;
+      margin: 0;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .competition-year {
+      color: var(--orange-yellow-crayola);
+      font-weight: 500;
+      font-size: 0.9rem;
+      padding: 3px 10px;
+      background: rgba(255, 165, 0, 0.1);
+      border-radius: 20px;
+    }
+    
+    .competition-content {
+      display: flex;
+      align-items: stretch;
+    }
+    
+    .competition-image {
+      width: 150px;
+      height: 150px;
+      object-fit: cover;
+    }
+    
+    .competition-details {
+      padding: 15px 20px;
+      flex: 1;
+    }
+    
+    .competition-location {
+      color: var(--light-gray);
+      margin: 0 0 10px;
+      font-size: 0.9rem;
+      display: flex;
+      align-items: center;
+    }
+    
+    .competition-location ion-icon {
+      margin-right: 5px;
+      color: var(--orange-yellow-crayola);
+    }
+    
+    .competition-result {
+      color: white;
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+    
+    .competition-description {
+      color: var(--light-gray);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    
+    @media (max-width: 576px) {
+      .competition-content {
+        flex-direction: column;
+      }
+      
+      .competition-image {
+        width: 100%;
+        height: 200px;
+      }
+    }
+    
+    /* Video section */
+    .video-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    @media (max-width: 992px) {
+      .video-container {
+        grid-template-columns: 1fr;
+      }
+    }
+    
+    .video-card {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--jet);
+    }
+    
+    .video-frame {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+    }
+    
+    .video-frame iframe {
       position: absolute;
       top: 0;
       left: 0;
-      right: 0;
-      height: 0%; /* Starts at 0% */
-      background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
-      transition: height 0.1s ease-out;
-      pointer-events: none; /* Let clicks pass through */
+      width: 100%;
+      height: 100%;
+      border: none;
     }
     
-    /* Shared styles for feature and competition cards */
-    .scroll-card {
-      flex: 0 0 auto;
-      width: 300px;
-      border-radius: 14px;
+    .video-content {
+      padding: 15px 20px;
+    }
+    
+    .video-title {
+      color: white;
+      font-size: 1.1rem;
+      margin: 0 0 10px;
+      font-weight: 600;
+    }
+    
+    .video-description {
+      color: var(--light-gray);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    
+    /* Gallery grid */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+      gap: 15px;
+      margin: 25px 0;
+    }
+    
+    .gallery-item {
+      border-radius: 10px;
       overflow: hidden;
-      background: var(--eerie-black-1);
-      padding-bottom: 15px;
       position: relative;
+      height: 200px;
+      cursor: pointer;
       transition: transform 0.3s;
-      box-shadow: 0 0 20px rgba(255, 165, 0, 0.1);
     }
     
-    /* Modified shiny border effect - less prominent */
-    .scroll-card::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    border-radius: 14px;
-    padding: 1px; /* Reduced from 2px */
-    background: var(--border-gradient-onyx); /* Use existing gradient from main theme */
-    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
-    pointer-events: none;
-    opacity: 0.7; /* Reduced opacity */
+    .gallery-item:hover {
+      transform: scale(1.03);
     }
-        
-    /* Hover effect */
-    .scroll-card:hover {
+    
+    .gallery-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    
+    .gallery-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: rgba(0, 0, 0, 0.7);
+      color: white;
+      padding: 10px;
+      font-size: 0.9rem;
+      transform: translateY(100%);
+      transition: transform 0.3s;
+    }
+    
+    .gallery-item:hover .gallery-caption {
+      transform: translateY(0);
+    }
+    
+    /* Science module */
+    .science-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 20px;
+      margin: 25px 0;
+    }
+    
+    .science-card {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+      border: 1px solid var(--jet);
+      transition: transform 0.3s;
+    }
+    
+    .science-card:hover {
       transform: translateY(-5px);
     }
     
-    /* Scroll container styles */
-    .horizontal-scroll {
-      display: flex;
-      overflow-x: auto;
-      scroll-behavior: smooth;
+    .science-image {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .science-content {
+      padding: 20px;
+    }
+    
+    .science-title {
+      color: var(--orange-yellow-crayola);
+      margin: 0 0 10px;
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .science-description {
+      color: var(--light-gray);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+    
+    /* Team section */
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
       gap: 20px;
-      padding: 15px 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      margin: 25px 0;
     }
     
-    .horizontal-scroll::-webkit-scrollbar {
-      display: none;
+    .team-member {
+      background: var(--eerie-black-1);
+      border-radius: 10px;
+      overflow: hidden;
+      text-align: center;
+      transition: transform 0.3s;
+      border: 1px solid var(--jet);
     }
     
-    /* Scroll buttons */
-    .scroll-btn {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 2;
-      background: var(--orange-yellow-crayola);
+    .team-member:hover {
+      transform: translateY(-5px);
+    }
+    
+    .team-photo {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+    
+    .team-info {
+      padding: 15px;
+    }
+    
+    .team-name {
       color: white;
-      border: none;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
-      transition: all 0.3s;
+      margin: 0 0 5px;
+      font-size: 1.1rem;
+      font-weight: 600;
     }
     
-    .scroll-btn:hover {
-      background: var(--vegas-gold);
+    .team-role {
+      color: var(--orange-yellow-crayola);
+      margin: 0 0 10px;
+      font-size: 0.9rem;
     }
     
-    .scroll-btn.left {
+    .team-bio {
+      color: var(--light-gray);
+      margin: 0;
+      font-size: 0.9rem;
+    }
+
+    /* Webkit scrollbar styling */
+    .popup-content::-webkit-scrollbar {
+      width: 8px;
+    }
+    
+    .popup-content::-webkit-scrollbar-track {
+      background: var(--eerie-black-1);
+      border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb {
+      background-color: var(--orange-yellow-crayola);
+      border-radius: 4px;
+    }
+    
+    .popup-content::-webkit-scrollbar-thumb:hover {
+      background-color: var(--vegas-gold);
+    }
+    
+    /* Modal background overlay */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
       left: 0;
-    }
-    
-    .scroll-btn.right {
       right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.7);
+      z-index: 999;
     }
     
-    /* Container for scrollable content */
-    .scroll-container {
-      position: relative;
-      margin-bottom: 30px;
+    /* For demo purposes only - toggle button */
+    .show-popup-btn {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      padding: 10px 15px;
+      background: var(--orange-yellow-crayola);
+      color: var(--eerie-black-2);
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-weight: bold;
+      z-index: 900;
     }
-    /* Back to Portfolio button - positioned at top left */
-.back-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  z-index: 10;
-  display: inline-block;
-  padding: 10px 15px;
-  background: var(--border-gradient-onyx);
-  color: var(--orange-yellow-crayola);
-  border-radius: 14px;
-  font-size: var(--fs-6);
-  font-weight: var(--fw-500);
-  transition: var(--transition-1);
-  box-shadow: var(--shadow-2);
-}
-
-.back-button::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background: var(--bg-gradient-jet);
-  transition: var(--transition-1);
-  z-index: -1;
-}
-
-.back-button:hover,
-.back-button:focus {
-  background: var(--bg-gradient-yellow-1);
-}
-
-.back-button:hover::before,
-.back-button:focus::before {
-  background: var(--bg-gradient-yellow-2);
-}
-
-/* Make article position relative for absolute positioning */
-article.about {
-  position: relative;
-}
-
-/* Scroll to top button */
-.scroll-top-btn {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background: var(--border-gradient-onyx);
-  color: var(--orange-yellow-crayola);
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  box-shadow: var(--shadow-2);
-  z-index: 20;
-  opacity: 0;
-  visibility: hidden;
-  transition: var(--transition-1);
-  cursor: pointer;
-}
-
-.scroll-top-btn.visible {
-  opacity: 1;
-  visibility: visible;
-}
-
-.scroll-top-btn::before {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background: var(--bg-gradient-jet);
-  transition: var(--transition-1);
-  z-index: -1;
-}
-
-.scroll-top-btn:hover,
-.scroll-top-btn:focus {
-  background: var(--bg-gradient-yellow-1);
-}
-
-.scroll-top-btn:hover::before,
-.scroll-top-btn:focus::before {
-  background: var(--bg-gradient-yellow-2);
-}
-
   </style>
 </head>
 
 <body>
-
-  <!--
-    - #MAIN SECTION
-    - Contains the page structure including sidebar and main content
-  -->
-  <main>
-
-    <!--
-      - #SIDEBAR
-      - Contains profile information, contact details, and social links
-      - This is shared across all pages
-    -->
-    <aside class="sidebar" data-sidebar>
-
-      <div class="sidebar-info">
-        <figure class="avatar-box">
-          <img src="./assets/images/firoz_profile.png" alt="Md Firoz Wadud" width="90">
-        </figure>
-
-        <div class="info-content">
-          <h1 class="name" title="Md Firoz Wadud">Md Firoz Wadud</h1>
-          <p class="title">Robotics Engineer</p>
-        </div>
-
-        <button class="info_more-btn" data-sidebar-btn>
-          <span>Show Contacts</span>
-          <ion-icon name="chevron-down"></ion-icon>
-        </button>
-      </div>
-
-      <div class="sidebar-info_more">
-        <div class="separator"></div>
-
-        <ul class="contacts-list">
-          <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="mail-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Email</p>
-              <a href="mailto:mdfirozwadud@gmail.com" class="contact-link">mdfirozwadud@gmail.com</a>
-            </div>
-          </li>
-
-          <li class="contact-item">
-            <div class="icon-box">
-              <ion-icon name="phone-portrait-outline"></ion-icon>
-            </div>
-
-            <div class="contact-info">
-              <p class="contact-title">Phone</p>
-              <a href="tel:+8801762416878" class="contact-link">(+880) 176-241-6878</a>
-            </div>
-          </li>
-        </ul>
-
-        <div class="separator"></div>
-
-        <ul class="social-list">
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-facebook"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-twitter"></ion-icon>
-            </a>
-          </li>
-
-          <li class="social-item">
-            <a href="#" class="social-link">
-              <ion-icon name="logo-instagram"></ion-icon>
-            </a>
-          </li>
-        </ul>
-      </div>
-    </aside>
-
-    <!--
-      - #MAIN CONTENT
-      - Contains all the project details and sections
-    -->
-    <div class="main-content">
-
-      <!--
-        - #PROJECT DETAILS ARTICLE
-        - The main container for all project content
-      -->
-      <nav class="navbar">
-        <ul class="navbar-list">
-          <li class="navbar-item">
-            <a href="index.html#about" class="navbar-link" data-nav-link>About</a>
-          </li>
-      
-          <li class="navbar-item">
-            <a href="index.html#resume" class="navbar-link" data-nav-link>Resume</a>
-          </li>
-      
-          <li class="navbar-item">
-            <a href="index.html#portfolio" class="navbar-link active" data-nav-link>Portfolio</a>
-          </li>
-      
-          <li class="navbar-item">
-            <a href="index.html#blog" class="navbar-link" data-nav-link>Blog</a>
-          </li>
-      
-          <li class="navbar-item">
-            <a href="index.html#contact" class="navbar-link" data-nav-link>Contact</a>
-          </li>
-        </ul>
-      </nav>
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          const navLinks = document.querySelectorAll('.navbar-link');
-          
-          navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-              // If link points to index.html, let it navigate normally
-              if (this.getAttribute('href').includes('index.html')) {
-                return true;
-              }
-              
-              // Otherwise prevent default (for future page sections)
-              e.preventDefault();
-              
-              // Remove active class from all links
-              navLinks.forEach(l => l.classList.remove('active'));
-              
-              // Add active class to clicked link
-              this.classList.add('active');
-            });
-          });
-        });
-      </script>
-
-        <article class="about active" data-page="about">
+  <!-- For demo purposes - button to show popup -->
+  <button class="show-popup-btn" id="showPopupBtn">View Project</button>
   
-
-        <!-- Page Header -->
-        <header>
-          <h2 class="h2 article-title">BRACU Mongol-Tori</h2>
-        </header>
-
-        <!--
-          - #HERO SECTION
-          - Main project image with collapsing effect
-          - Project introduction text
-        -->
-        <section class="about-text">
-          <!-- Parallax image container with collapse effect -->
-          <div class="parallax-container" id="image-container">
-            <img src="./assets/mongoltori/fullrover.png" alt="BRACU Mongol-Tori" class="parallax-image" id="parallax-img">
-            <div class="overlay-effect" id="overlay"></div>
-          </div>
-          
-          <!-- Project introduction paragraphs -->
-          <p>
-            BRACU Mongol-Tori was a pioneering Mars rover project developed by BRAC University's robotics team. As a key team member, I contributed to designing and implementing various systems for this rover that competed in international competitions.
-          </p>
-
-          <p>
-            The project aimed to create a fully functional Mars rover prototype capable of traversing difficult terrain, collecting samples, and performing scientific analysis - similar to rovers deployed on actual Mars missions.
-          </p>
-        </section>
-
-        <!--
-          - #KEY FEATURES SECTION
-          - Horizontally scrolling cards with project features
-          - Each card has an image and description
-        -->
-        <section class="service">
-          <h3 class="h3 service-title">Key Features</h3>
-          
-          <div class="scroll-container">
-            <!-- Scroll indicators -->
-            <button class="scroll-btn left" onclick="scrollContent('features-scroll', -1)">
-              <ion-icon name="chevron-back-outline"></ion-icon>
-            </button>
-            
-            <button class="scroll-btn right" onclick="scrollContent('features-scroll', 1)">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </button>
-            
-            <!-- Scrollable features container -->
-            <div class="horizontal-scroll" id="features-scroll">
-              <!-- Feature 1: Custom Chassis -->
-              <div class="scroll-card">
-                <div style="width: 100%; height: 180px; overflow: hidden;">
-                  <img src="./assets/mongoltori/chassis.jpg" alt="Custom Chassis" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="padding: 15px 15px 5px 15px;">
-                  <h4 class="h4 service-item-title">Custom Chassis</h4>
-                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
-                    Designed for optimal performance on rough terrain with advanced rocker-bogie suspension system inspired by NASA's Mars rovers.
-                  </p>
-                </div>
-              </div>
-              
-              <!-- Feature 2: Robotic Arm -->
-              <div class="scroll-card">
-                <div style="width: 100%; height: 180px; overflow: hidden;">
-                  <img src="./assets/mongoltori/arm.jpg" alt="Robotic Arm" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="padding: 15px 15px 5px 15px;">
-                  <h4 class="h4 service-item-title">Robotic Arm</h4>
-                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
-                    5-DOF robotic arm with specialized end effector for soil sampling and precision manipulation of objects in the Martian terrain simulations.
-                  </p>
-                </div>
-              </div>
-              
-              <!-- Feature 3: Real-time Control -->
-              <div class="scroll-card">
-                <div style="width: 100%; height: 180px; overflow: hidden;">
-                  <img src="./assets/mongoltori/control.jpg" alt="Real-time Control" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="padding: 15px 15px 5px 15px;">
-                  <h4 class="h4 service-item-title">Real-time Control</h4>
-                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
-                    Custom control station with real-time video transmission and telemetry feedback enabling precise remote operations during competition challenges.
-                  </p>
-                </div>
-              </div>
-              
-              <!-- Feature 4: Sensor Systems -->
-              <div class="scroll-card">
-                <div style="width: 100%; height: 180px; overflow: hidden;">
-                  <img src="./assets/mongoltori/sensors.jpg" alt="Sensor Systems" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="padding: 15px 15px 5px 15px;">
-                  <h4 class="h4 service-item-title">Sensor Systems</h4>
-                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
-                    Integrated sensor array for environmental data collection, obstacle detection, and autonomous navigation using computer vision algorithms.
-                  </p>
-                </div>
-              </div>
-              
-              <!-- Feature 5: Power Management -->
-              <div class="scroll-card">
-                <div style="width: 100%; height: 180px; overflow: hidden;">
-                  <img src="./assets/mongoltori/power.jpg" alt="Power Management" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="padding: 15px 15px 5px 15px;">
-                  <h4 class="h4 service-item-title">Power Management</h4>
-                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
-                    Efficient power distribution system with solar panel integration, providing extended operational time during competition challenges.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!--
-          - #PROJECT TIMELINE SECTION
-          - Vertical timeline showing project progression and your role
-        -->
-        <section class="timeline">
-          <div class="title-wrapper">
-            <div class="icon-box">
-              <ion-icon name="time-outline"></ion-icon>
-            </div>
-            <h3 class="h3">Project Timeline & My Role</h3>
-          </div>
-
-          <ol class="timeline-list">
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Project Inception & Design</h4>
-              <span>2019</span>
-              <p class="timeline-text">
-                Joined the Mongol-Tori team as a junior design engineer. Contributed to the initial chassis design and mechanical systems planning. Helped with research and component selection for the robotic arm.
-              </p>
-            </li>
-
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Development & Testing</h4>
-              <span>2020</span>
-              <p class="timeline-text">
-                Promoted to lead the robotics control systems team. Developed the navigation algorithms and sensor integration. Coordinated weekly testing sessions and implemented improvements based on performance data.
-              </p>
-            </li>
-
-            <li class="timeline-item">
-              <h4 class="h4 timeline-item-title">Advanced Implementation</h4>
-              <span>2021</span>
-              <p class="timeline-text">
-                Served as technical project manager overseeing system integration. Led the final assembly phase and conducted comprehensive testing protocols. Represented the technical aspects during university presentations.
-              </p>
-            </li>
-          </ol>
-        </section>
-
-        <!--
-          - #INTERNATIONAL COMPETITIONS SECTION
-          - Horizontally scrolling cards with competition details
-          - Each card has an image and description
-        -->
-        <!-- International Competitions Section with matching scrolling style -->
-        <section class="testimonials">
-            <h3 class="h3 testimonials-title">International Competitions</h3>
-            
-            <ul class="testimonials-list has-scrollbar">
-            <!-- Competition 1 -->
-            <li class="testimonials-item">
-                <div class="content-card">
-                <figure class="testimonials-avatar-box">
-                    <img src="./assets/mongoltori/urc.jpg" alt="University Rover Challenge" style="object-fit: cover;">
-                </figure>
-                
-                <h4 class="h4 testimonials-item-title">University Rover Challenge</h4>
-                
-                <div class="testimonials-text">
-                    <p>
-                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2020, Utah, USA</span>
-                    Competed against 36 university teams from around the world. Our team qualified for the finals and achieved 8th place overall. Our rover excelled in the autonomous navigation challenge.
-                    </p>
-                </div>
-                </div>
-            </li>
-            
-            <!-- Competition 2 -->
-            <li class="testimonials-item">
-                <div class="content-card">
-                <figure class="testimonials-avatar-box">
-                    <img src="./assets/mongoltori/erc.jpg" alt="European Rover Challenge" style="object-fit: cover;">
-                </figure>
-                
-                <h4 class="h4 testimonials-item-title">European Rover Challenge</h4>
-                
-                <div class="testimonials-text">
-                    <p>
-                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2021, Poland (Virtual)</span>
-                    Participated in the remote edition due to global travel restrictions. Designed a custom control system to meet the remote operation requirements. Secured 12th position overall.
-                    </p>
-                </div>
-                </div>
-            </li>
-            
-            <!-- Competition 3 -->
-            <li class="testimonials-item">
-                <div class="content-card">
-                <figure class="testimonials-avatar-box">
-                    <img src="./assets/mongoltori/aiaa.jpg" alt="AIAA Space Design Competition" style="object-fit: cover;">
-                </figure>
-                
-                <h4 class="h4 testimonials-item-title">AIAA Space Design Competition</h4>
-                
-                <div class="testimonials-text">
-                    <p>
-                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2021, Online</span>
-                    Represented BRAC University in the rover design category. Presented our innovative solutions for Martian terrain navigation and sample collection. Received honorable mention for our design approach.
-                    </p>
-                </div>
-                </div>
-            </li>
-            </ul>
-        </section>
-
-        <!--
-          - #PROJECT VIDEOS SECTION
-          - Embedded YouTube videos showing project demos
-        -->
-        <section class="service">
-          <h3 class="h3 service-title">Project Videos</h3>
-          
-          <div class="video-container" style="margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;">
-            <!-- Video 1 - responsive but half width on desktop -->
-            <div style="flex: 1 1 45%; min-width: 280px; margin-bottom: 20px;">
-              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px;">
-                <iframe 
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                  src="https://www.youtube.com/embed/2oXj6f-N9iI?start=6" 
-                  title="BRACU Mongol-Tori Demo"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-                </iframe>
-              </div>
-              <p class="timeline-text" style="text-align: center; margin-top: 10px;">
-                SAR Video of URC-2021
-              </p>
-            </div>
-            
-            <!-- Video 2 - responsive but half width on desktop -->
-            <div style="flex: 1 1 45%; min-width: 280px; margin-bottom: 20px;">
-              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px;">
-                <iframe 
-                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
-                  src="https://www.youtube.com/embed/y5UN2gw1dQ4"
-                  title="BRACU Mongol-Tori Development"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen>
-                </iframe>
-              </div>
-              <p class="timeline-text" style="text-align: center; margin-top: 10px;">
-                SAR Video of SAR-2020
-              </p>
-            </div>
-          </div>
-        </section>
-        
-        <!--
-          - #PROJECT GALLERY SECTION
-          - Horizontally scrolling image gallery
-        -->
-        <section class="service">
-          <h3 class="h3 service-title">Project Gallery</h3>
-          
-          <div class="scroll-container">
-            <!-- Scroll indicators -->
-            <button class="scroll-btn left" onclick="scrollContent('gallery-scroll', -1)">
-              <ion-icon name="chevron-back-outline"></ion-icon>
-            </button>
-            
-            <button class="scroll-btn right" onclick="scrollContent('gallery-scroll', 1)">
-              <ion-icon name="chevron-forward-outline"></ion-icon>
-            </button>
-            
-            <!-- Scrollable image container -->
-            <div class="horizontal-scroll" id="gallery-scroll">
-              <!-- Gallery Images -->
-              <div class="scroll-card" style="padding-bottom: 5px;">
-                <img src="./assets/mongoltori/team_1.jpg" alt="Mongol-Tori Image 1" style="width: 100%; height: 200px; object-fit: cover;">
-                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Rover front view</p>
-              </div>
-              
-              <div class="scroll-card" style="padding-bottom: 5px;">
-                <img src="./assets/mongoltori/team_2.jpg" alt="Mongol-Tori Image 2" style="width: 100%; height: 200px; object-fit: cover;">
-                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Robotic arm detail</p>
-              </div>
-              
-              <div class="scroll-card" style="padding-bottom: 5px;">
-                <img src="./assets/mongoltori/team_3.jpg" alt="Mongol-Tori Image 3" style="width: 100%; height: 200px; object-fit: cover;">
-                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Team working on rover</p>
-              </div>
-              
-              <div class="scroll-card" style="padding-bottom: 5px;">
-                <img src="./assets/images/blog-1.jpg" alt="Mongol-Tori Image 4" style="width: 100%; height: 200px; object-fit: cover;">
-                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Control station setup</p>
-              </div>
-              
-              <div class="scroll-card" style="padding-bottom: 5px;">
-                <img src="./assets/images/blog-2.jpg" alt="Mongol-Tori Image 5" style="width: 100%; height: 200px; object-fit: cover;">
-                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Testing environment</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-
-      </article>
-
+  <!-- Modal overlay for popup -->
+  <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
+  
+  <!-- Popup window container -->
+  <div class="popup-container" id="projectPopup" style="display: none;">
+    <!-- Popup header with title and close button -->
+    <div class="popup-header">
+      <h2 class="popup-title">Mars Rover Project: BRACU Mongol-Tori</h2>
+      <button class="close-btn" id="closePopupBtn">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
     </div>
-
-  </main>
-
-  <!--
-    - JAVASCRIPT SECTION
-    - Contains all scripts for interactivity
-  -->
-  
-  <!-- Custom JavaScript for the page -->
-  <script>
-    // Scroll effect for the header image
-    window.addEventListener('load', function() {
-      const parallaxImg = document.getElementById('parallax-img');
-      const overlayElement = document.getElementById('overlay');
-      const containerElement = document.getElementById('image-container');
-      
-      // Base values for the effect
-      const scrollFactor = 0.003; // How quickly the effect happens when scrolling
-      const maxScaleY = 1.0;   // Starting vertical scale
-      const minScaleY = 0.7;  // Minimum vertical scale the image will shrink to
-      
-      // Set initial position
-      parallaxImg.style.transformOrigin = 'center top';
-      
-      // Apply the scroll effect
-      window.addEventListener('scroll', function() {
-        // Get scroll position
-        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        
-        // Calculate how much to scale/transform the image
-        const imgRect = containerElement.getBoundingClientRect();
-        const isVisible = imgRect.bottom > 0 && imgRect.top < window.innerHeight;
-        
-        if (isVisible) {
-          // Calculate scale based on scroll amount - more aggressive on Y scale
-          let scaleY = maxScaleY - (scrollTop * scrollFactor);
-          scaleY = Math.max(scaleY, minScaleY); // Don't go smaller than minScaleY
-          
-          // Apply the transformation - only changing Y scale for vertical shrinking
-          parallaxImg.style.transform = `scaleY(${scaleY})`;
-          
-          // Add the overlay effect that grows from top
-          const overlayHeight = ((maxScaleY - scaleY) / (maxScaleY - minScaleY)) * 50; // Max overlay at 50%
-          overlayElement.style.height = `${overlayHeight}%`;
-          
-          // Move the image up slightly as it shrinks to create occlusion effect
-          const offsetY = (1 - scaleY) * 15; // Move up by 15% of the shrinkage
-          parallaxImg.style.marginTop = `-${offsetY}%`;
-        }
-      });
-      
-      // Initial call to set proper position
-      window.dispatchEvent(new Event('scroll'));
-    });
     
-    // Shared function for horizontal scrolling sections
-    function scrollContent(containerId, direction) {
-      const container = document.getElementById(containerId);
-      const scrollAmount = 320; // Slightly more than card width
-      container.scrollBy({
-        left: direction * scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-  </script>
+    <!-- Popup content with scrollbar -->
+    <div class="popup-content">
+      <!-- Article hero section -->
+      <div class="article-hero">
+        <img src="./assets/mongoltori/fullrover.png" alt="BRACU Mongol-Tori Mars Rover" class="hero-image">
+        <div class="hero-overlay">
+          <h1 class="hero-title">BRACU Mongol-Tori: Mars Rover</h1>
+          <p class="hero-subtitle">A multidisciplinary project creating Mars exploration technology for international competitions</p>
+        </div>
+      </div>
+      
+      <!-- Article content -->
+      <div class="article-content">
+        <div class="article-layout">
+          <!-- Main content column -->
+          <div class="article-main">
+            <!-- Introduction section -->
+            <div class="article-section" id="introduction">
+              <h2 class="section-title">Project Overview</h2>
+              <p class="article-text">
+                BRACU Mongol-Tori is a pioneering Mars rover project developed by BRAC University's robotics team. The name "Mongol-Tori" comes from the Bengali words for "Mars" (Mongol) and "Boat" (Tori), symbolizing our journey to explore the red planet.
+              </p>
+              <p class="article-text">
+                Comprehending the significance of teamwork and cooperation in the voyage of discovering greatness, the team has successfully combined their skills and efforts to build a rover capable of aiding inquisitive observers to discover the unknown and perform science-related verification tasks.
+              </p>
+              <p class="article-text">
+                The project is led by a group of tech enthusiasts from different departments, mostly consisting of engineering students with BRAC University's Robotic Club (ROBU) serving as a parent organization for financial and mechanical engineering support.
+              </p>
+            </div>
+            
+            <!-- Key Features section -->
+            <div class="article-section" id="features">
+              <h2 class="section-title">Key Features</h2>
+              <p class="article-text">
+                The BRACU Mongol-Tori rover incorporates several advanced features that enable it to perform complex tasks in simulated Martian environments. Each system was carefully designed to meet the challenging requirements of international rover competitions.
+              </p>
+              
+              <div class="feature-grid">
+                <!-- Feature 1 -->
+                <div class="feature-card">
+                  <img src="./assets/mongoltori/chassis.jpg" alt="Custom Chassis" class="feature-image">
+                  <div class="feature-content">
+                    <h3 class="feature-title">Specialized Chassis</h3>
+                    <p class="feature-description">
+                      Our H-shaped chassis (0.7m long and 0.55m wide) features triangulation to reduce deformation while traversing rocky terrain. The heavy space frame transmits flexing loads as tension and compression along each strut, providing stability in challenging conditions.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Feature 2 -->
+                <div class="feature-card">
+                  <img src="./assets/mongoltori/arm.jpg" alt="Robotic Arm" class="feature-image">
+                  <div class="feature-content">
+                    <h3 class="feature-title">Articulated Arm</h3>
+                    <p class="feature-description">
+                      A strong articulated arm with six degrees of freedom (base, shoulder, elbow, wrist) and two degrees of freedom in the end effector. Features feedback actuators for implementing inverse kinematics algorithms and a worm gear system that locks if the motor fails.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Feature 3 -->
+                <div class="feature-card">
+                  <img src="./assets/mongoltori/control.jpg" alt="Real-time Control" class="feature-image">
+                  <div class="feature-content">
+                    <h3 class="feature-title">Advanced Suspension</h3>
+                    <p class="feature-description">
+                      Our modified rocker-bogie suspension system with four wheels includes two bogies directly connected to the chassis and supported by a U-shaped differential bar. The system can expand from 0.76m to 1.2m using heavy-duty feedback actuators for vertical drops and slopes.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Feature 4 -->
+                <div class="feature-card">
+                  <img src="./assets/mongoltori/sensors.jpg" alt="Sensor Systems" class="feature-image">
+                  <div class="feature-content">
+                    <h3 class="feature-title">Communication System</h3>
+                    <p class="feature-description">
+                      Utilizes a peer-to-peer network with 2.4GHz routers for seamless data flow. The base station uses a Ubiquiti Rocket M2 with a 15dBi directional sector antenna, while the rover has a Ubiquiti Bullet M2 with a 12dBi omnidirectional antenna for 360° coverage up to 1km.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Feature 5 -->
+                <div class="feature-card">
+                  <img src="./assets/mongoltori/power.jpg" alt="Science Module" class="feature-image">
+                  <div class="feature-content">
+                    <h3 class="feature-title">Science Module</h3>
+                    <p class="feature-description">
+                      Our integrated science module can collect soil samples and analyze them for signs of life. It includes environmental sensors (temperature, humidity, gases), biomass testing, water capillary testing, and specialized spectroscopy for analyzing soil composition.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Development Timeline section -->
+            <div class="article-section" id="timeline">
+              <h2 class="section-title">Project Timeline</h2>
+              <p class="article-text">
+                The BRACU Mongol-Tori project has evolved over several years, with each iteration building upon previous experiences and improving different aspects of the rover's capabilities.
+              </p>
+              
+              <div class="timeline-container">
+                <!-- Timeline item 1 -->
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2019</div>
+                  <h3 class="timeline-title">URC 2019 Participation</h3>
+                  <div class="timeline-content">
+                    <p>
+                      The team's fourth-year entry featured a K-shaped chassis, four-wheel rocker-bogie suspension, and a six-degree robotic arm. The rover's communication system used 2.4GHz for control signals and 5.8GHz for video streams to achieve over 1km range.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Timeline item 2 -->
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2020</div>
+                  <h3 class="timeline-title">Advanced Development & IRC Participation</h3>
+                  <div class="timeline-content">
+                    <p>
+                      The team refined their H-shaped chassis, improved the articulated arm with a worm gear, and enhanced the communication system. The rover successfully participated in the Indian Rover Challenge (IRC) 2020, providing valuable competition experience.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Timeline item 3 -->
+                <div class="timeline-item">
+                  <div class="timeline-dot"></div>
+                  <div class="timeline-date">2021</div>
+                  <h3 class="timeline-title">URC 2021 Optimization</h3>
+                  <div class="timeline-content">
+                    <p>
+                      Building on previous experience, the team reformed the rover with tweaked autonomous systems, mechanical improvements, and introduced AI. The science setup was completely redeveloped, with improved chassis, additional arm and claw, and enhanced control GUI.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Competitions section -->
+            <div class="article-section" id="competitions">
+              <h2 class="section-title">International Competitions</h2>
+              <p class="article-text">
+                The BRACU Mongol-Tori rover has participated in multiple international competitions, demonstrating its capabilities against university teams from around the world.
+              </p>
+              
+              <!-- Competition 1 -->
+              <div class="competition-card">
+                <div class="competition-header">
+                  <h3 class="competition-name">University Rover Challenge</h3>
+                  <span class="competition-year">2021</span>
+                </div>
+                <div class="competition-content">
+                  <img src="./assets/mongoltori/urc.jpg" alt="University Rover Challenge" class="competition-image">
+                  <div class="competition-details">
+                    <p class="competition-location">
+                      <ion-icon name="location-outline"></ion-icon> Utah, USA
+                    </p>
+                    <p class="competition-description">
+                      The team participated in URC 2021 with a rover featuring improvements to autonomous systems, electronics, and science setup. The rover was designed for extreme retrieval, equipment servicing, autonomous traversal, and science task challenges.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Competition 2 -->
+              <div class="competition-card">
+                <div class="competition-header">
+                  <h3 class="competition-name">University Rover Challenge</h3>
+                  <span class="competition-year">2020</span>
+                </div>
+                <div class="competition-content">
+                  <img src="./assets/mongoltori/urc.jpg" alt="University Rover Challenge" class="competition-image">
+                  <div class="competition-details">
+                    <p class="competition-location">
+                      <ion-icon name="globe-outline"></ion-icon> Virtual
+                    </p>
+                    <p class="competition-description">
+                      Prepared for URC 2020 with improved mechanical design, communications, and software development. The team worked on their H-shaped chassis, arm with worm gear, and a custom peer-to-peer network designed to operate over 1km distances.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Competition 3 -->
+              <div class="competition-card">
+                <div class="competition-header">
+                  <h3 class="competition-name">Indian Rover Challenge</h3>
+                  <span class="competition-year">2020</span>
+                </div>
+                <div class="competition-content">
+                  <img src="./assets/mongoltori/erc.jpg" alt="Indian Rover Challenge" class="competition-image">
+                  <div class="competition-details">
+                    <p class="competition-location">
+                      <ion-icon name="location-outline"></ion-icon> India
+                    </p>
+                    <p class="competition-description">
+                      The team participated in IRC 2020 from January 17-19, 2020. The rover's communication and electronic systems performed well, providing valuable real-world testing experience and validation of the team's design approach.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <!-- Competition 4 -->
+              <div class="competition-card">
+                <div class="competition-header">
+                  <h3 class="competition-name">University Rover Challenge</h3>
+                  <span class="competition-year">2019</span>
+                </div>
+                <div class="competition-content">
+                  <img src="./assets/mongoltori/urc.jpg" alt="University Rover Challenge" class="competition-image">
+                  <div class="competition-details">
+                    <p class="competition-location">
+                      <ion-icon name="location-outline"></ion-icon> Utah, USA
+                    </p>
+                    <p class="competition-description">
+                      The team's fourth rover iteration participated in URC 2019, featuring a K-shaped chassis, four-wheel modified rocker-bogie suspension system, and a 6-DOF robotic arm. The experience gained from this competition informed many of the subsequent design improvements.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Technical Systems section -->
+            <div class="article-section" id="technical">
+              <h2 class="section-title">Technical Systems</h2>
+              
+              <h3 class="subsection-title">Mechanical Design</h3>
+              <p class="article-text">
+                The rover's mechanical design has been optimized through several iterations. The chassis evolved from a K-shape to an H-shape design, measuring 0.7m long and 0.55m wide. The triangulation installed in the chassis reduces deformation during rough terrain traversal by transmitting loads as tension and compression along each strut.
+              </p>
+              <p class="article-text">
+                The wheels are 0.3m in diameter and 0.10m wide, constructed with a stainless steel ring via U-shaped rim. To reduce weight while maintaining strength, small holes were drilled in the wheels. Rubber pads are used on the wheels for better grip when climbing rocks, performing 360-degree rotation, and handling vertical drops.
+              </p>
+              <p class="article-text">
+                A unique feature is the extender system that increases the length of the rover's base from 0.76m to 1.2m, preventing it from flipping over during vertical drops and providing greater stability on steep slopes.
+              </p>
+              
+              <h3 class="subsection-title">Control Systems</h3>
+              <p class="article-text">
+                The rover uses an ATMega2560 microcontroller to process commands. For wheel control, back EMF protected 30A motor drivers provide smooth PWM operation. The arm uses 13A motor drivers and 10A relay modules for precise movements. A reverse polarity protection circuit using Schottky diodes protects against unexpected errors.
+              </p>
+              <p class="article-text">
+                The control station features a custom GUI built in Java that follows TCP/IP protocol, with the base station acting as the client and the rover as the server. A feedback system allows for precise control of feedback end effectors. For science operations, a separate GUI provides real-time sensor readings with graphical visualization.
+              </p>
+              
+              <h3 class="subsection-title">Autonomous Navigation</h3>
+              <p class="article-text">
+                For autonomous traversal, the rover employs a Pixhawk 4.0 with ardurover firmware and a Radiolink SE100 GPS-Compass module, achieving positioning accuracy within 50cm. The "Mission Planner" interface allows for waypoint setting, holding positions, and creating search patterns using loiter mode.
+              </p>
+              <p class="article-text">
+                Object detection is handled by an Rplidar that rotates 360 degrees, firing 150,000 laser pulses per second. AR tag recognition uses image processing with OpenCV through contour detection and homography, with an accuracy of approximately 80%.
+              </p>
+              
+              <h3 class="subsection-title">Power System</h3>
+              <p class="article-text">
+                The power system has evolved from separate batteries to a centralized power distribution system. The 2021 design uses five 8000mAh Lithium Jump Starter batteries, chosen for ease of charging, portability, and flight security clearance. This configuration provides an average runtime of 48 minutes.
+              </p>
+              <p class="article-text">
+                Earlier designs used 10,000mAh Li-Po batteries (2019) and later six 10,000mAh batteries (2020) with an average run time of 45 minutes. A high-ampere kill switch provides emergency shutdown capability in line with competition safety requirements.
+              </p>
+            </div>
+            
+            <!-- Science Module section -->
+            <div class="article-section" id="science">
+              <h2 class="section-title">Science Module</h2>
+              <p class="article-text">
+                The science module has gone through significant evolution across iterations, focusing on analyzing soil samples for signs of life and water history. The system is divided into three main components: a digging module and sample collector, an environmental data collection sensor box, and an automatic onboard laboratory.
+              </p>
+              
+              <div class="science-container">
+                <!-- Science Component 1 -->
+                <div class="science-card">
+                  <img src="./assets/mongoltori/science-sensor.jpg" alt="Environmental Sensors" class="science-image">
+                  <div class="science-content">
+                    <h3 class="science-title">Environmental Sensors</h3>
+                    <p class="science-description">
+                      The sensor array includes air temperature and humidity sensors (DHT22), soil temperature sensors (DS18B20), soil moisture sensors, gas sensors (CO, CO2, H2), light intensity measurement, UV radiation detection, magnetic field sensors, and an endoscopic camera for trench visualization.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Science Component 2 -->
+                <div class="science-card">
+                  <img src="./assets/mongoltori/biomass.jpg" alt="Biomass Testing" class="science-image">
+                  <div class="science-content">
+                    <h3 class="science-title">Biomass Testing</h3>
+                    <p class="science-description">
+                      Uses a load cell to detect weight variation and a nichrome wire heater. The biomass is calculated as (difference of weight/previous weight) × 100, helping determine organic content in soil samples which could indicate past or present biological activity.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Science Component 3 -->
+                <div class="science-card">
+                  <img src="./assets/mongoltori/water-test.jpg" alt="Water Capillary Test" class="science-image">
+                  <div class="science-content">
+                    <h3 class="science-title">Water Capillary Test</h3>
+                    <p class="science-description">
+                      Utilizes a centrifugal tube to hold soil and a servo-controlled syringe to supply water. This test indicates whether the soil surface holds water (as surface water) or absorbs and stores it (as groundwater), providing insights into the soil's history and composition.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Science Component 4 -->
+                <div class="science-card">
+                  <img src="./assets/mongoltori/spectroscopy.jpg" alt="Spectroscopic Analysis" class="science-image">
+                  <div class="science-content">
+                    <h3 class="science-title">Spectroscopic Analysis</h3>
+                    <p class="science-description">
+                      The 2021 model introduced Raman spectroscopy for more accurate soil analysis. This quantitative technique uses light sources and sensors to measure light absorbance, determining the presence of crucial elements like Nitrogen, Potassium, and Phosphorus in soil samples.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="article-text">
+                The sample collection system can extract around 80-100 grams of soil per grab using an excavator claw that can dig up to 20cm deep. For amino acid detection, ninhydrin reagent is used with a heat generator to identify potential biomarkers. The system also includes digital microscopy for examining soil composition at magnifications up to 800x.
+              </p>
+            </div>
+            
+            <!-- Testing & Operations section -->
+            <div class="article-section" id="testing">
+              <h2 class="section-title">Testing & Operations</h2>
+              <p class="article-text">
+                Each iteration of the rover underwent extensive testing procedures to ensure reliable performance in competition conditions. The team follows a three-step testing protocol:
+              </p>
+              
+              <h3 class="subsection-title">Subsystem Testing</h3>
+              <p class="article-text">
+                Individual components are first evaluated using Solidworks simulation before physical implementation. Subsystems including wheels, suspension, chassis, end effectors, and the sample collector are tested separately. Custom test fixtures, such as ramps for wheel testing and object manipulation trials for arm testing, are used to validate specific functionalities.
+              </p>
+              
+              <h3 class="subsection-title">Complete System Testing</h3>
+              <p class="article-text">
+                After assembly, full system integration tests evaluate how components work together. Communication systems, electronic configurations, robotic arm operation, and end effector functionality are tested as a complete unit. The team verifies that all systems can maintain reliable operation for the expected mission duration.
+              </p>
+              
+              <h3 class="subsection-title">Operational Testing</h3>
+              <p class="article-text">
+                Final testing replicates competition conditions at remote locations with terrain similar to the Mars Desert Research Station. The team conducts trials for each competition task: Extreme Retrieval and Delivery, Equipment Servicing, Autonomous Traversal, and Science Task. Each operation is performed within time constraints to simulate competition pressure.
+              </p>
+              
+              <div class="gallery-grid">
+                <!-- Gallery item 1 -->
+                <div class="gallery-item">
+                  <img src="./assets/mongoltori/team_1.jpg" alt="Field Testing" class="gallery-image">
+                  <div class="gallery-caption">Rover field testing on rugged terrain</div>
+                </div>
+                
+                <!-- Gallery item 2 -->
+                <div class="gallery-item">
+                  <img src="./assets/mongoltori/team_2.jpg" alt="Lab Testing" class="gallery-image">
+                  <div class="gallery-caption">Laboratory arm precision testing</div>
+                </div>
+                
+                <!-- Gallery item 3 -->
+                <div class="gallery-item">
+                  <img src="./assets/mongoltori/team_3.jpg" alt="Team Assembly" class="gallery-image">
+                  <div class="gallery-caption">Team assembling rover components</div>
+                </div>
+                
+                <!-- Gallery item 4 -->
+                <div class="gallery-item">
+                  <img src="./assets/images/blog-1.jpg" alt="Control Station" class="gallery-image">
+                  <div class="gallery-caption">Control station during operations</div>
+                </div>
+                
+                <!-- Gallery item 5 -->
+                <div class="gallery-item">
+                  <img src="./assets/images/blog-2.jpg" alt="Science Testing" class="gallery-image">
+                  <div class="gallery-caption">Science module testing procedures</div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Team Leadership section -->
+            <div class="article-section" id="team">
+              <h2 class="section-title">Team Leadership</h2>
+              <p class="article-text">
+                The BRACU Mongol-Tori project has been led by dedicated team leaders across its iterations, each bringing unique expertise and vision to the project:
+              </p>
+              
+              <div class="team-grid">
+                <!-- Team member 1 -->
+                <div class="team-member">
+                  <img src="./assets/images/client-1.jpg" alt="Md. Firoz Wadud" class="team-photo">
+                  <div class="team-info">
+                    <h4 class="team-name">Md. Firoz Wadud</h4>
+                    <p class="team-role">Team Lead (2020-2021)</p>
+                    <p class="team-bio">Led the team for URC 2020 and 2021, focusing on enhancing autonomous systems and science capabilities.</p>
+                  </div>
+                </div>
+                
+                <!-- Team member 2 -->
+                <div class="team-member">
+                  <img src="./assets/images/client-2.jpg" alt="Razin Bin Issa" class="team-photo">
+                  <div class="team-info">
+                    <h4 class="team-name">Razin Bin Issa</h4>
+                    <p class="team-role">Team Lead (2019)</p>
+                    <p class="team-bio">Guided the team through URC 2019, establishing the foundation for the rover's mechanical and control systems.</p>
+                  </div>
+                </div>
+                
+                <!-- Team member 3 -->
+                <div class="team-member">
+                  <img src="./assets/images/client-3.jpg" alt="Shahriar Hossain" class="team-photo">
+                  <div class="team-info">
+                    <h4 class="team-name">Shahriar Hossain</h4>
+                    <p class="team-role">Secondary Contact (2021)</p>
+                    <p class="team-bio">Provided technical expertise in rover systems and competition strategy for the 2021 competition cycle.</p>
+                  </div>
+                </div>
+                
+                <!-- Team member 4 -->
+                <div class="team-member">
+                  <img src="./assets/images/client-4.jpg" alt="Raihan Rahman" class="team-photo">
+                  <div class="team-info">
+                    <h4 class="team-name">Raihan Rahman</h4>
+                    <p class="team-role">Secondary Contact (2020)</p>
+                    <p class="team-bio">Supported the team's technical development and logistics for the 2020 competition preparations.</p>
+                  </div>
+                </div>
+              </div>
+              
+              <p class="article-text">
+                The multidisciplinary team behind BRACU Mongol-Tori includes students from mechanical engineering, electronics, computer science, and various other departments. BRAC University's Robotic Club (ROBU) provides organizational support, while faculty advisors offer guidance and expertise.
+              </p>
+            </div>
+            
+            <!-- Media section -->
+            <div class="article-section" id="media">
+              <h2 class="section-title">Project Media</h2>
+              
+              <h3 class="subsection-title">Videos</h3>
+              <div class="video-container">
+                <!-- Video 1 -->
+                <div class="video-card">
+                  <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/2oXj6f-N9iI?start=6" 
+                      title="BRACU Mongol-Tori Demo"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="video-content">
+                    <h4 class="video-title">Search and Rescue Mission</h4>
+                    <p class="video-description">
+                      Footage showing the rover performing search and rescue operations at URC competitions.
+                    </p>
+                  </div>
+                </div>
+                
+                <!-- Video 2 -->
+                <div class="video-card">
+                  <div class="video-frame">
+                    <iframe src="https://www.youtube.com/embed/y5UN2gw1dQ4"
+                      title="BRACU Mongol-Tori Development"
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                      allowfullscreen>
+                    </iframe>
+                  </div>
+                  <div class="video-content">
+                    <h4 class="video-title">Development Process</h4>
+                    <p class="video-description">
+                      Behind-the-scenes footage showing the development, testing, and evolution of the rover over multiple iterations.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Future Directions section -->
+            <div class="article-section" id="future">
+              <h2 class="section-title">Future Directions</h2>
+              <p class="article-text">
+                The BRACU Mongol-Tori project continues to evolve with each iteration, with several development areas planned for future versions:
+              </p>
+              <ul style="color: var(--light-gray); margin-left: 20px; margin-bottom: 20px;">
+                <li style="margin-bottom: 10px;">Enhanced autonomous capabilities with advanced machine learning algorithms for more adaptive terrain navigation</li>
+                <li style="margin-bottom: 10px;">Expanded scientific analysis capabilities, including more sophisticated sample analysis tools</li>
+                <li style="margin-bottom: 10px;">Further refinement of the cartesian arm design for improved precision in sample collection</li>
+                <li style="margin-bottom: 10px;">Integration of AI-based object recognition to improve target identification during missions</li>
+                <li style="margin-bottom: 10px;">Optimization of power management systems to extend operational duration</li>
+              </ul>
+              <p class="article-text">
+                This project has not only produced a successful rover prototype but has also provided invaluable hands-on experience for students interested in robotics, space exploration, and interdisciplinary engineering challenges. The experience gained through international competitions continues to inform future designs and educational opportunities at BRAC University.
+              </p>
+            </div>
+          </div>
+          
+          <!-- Sidebar column -->
+          <div class="article-sidebar">
+            <!-- Table of contents -->
+            <div class="toc">
+              <h3 class="toc-title">Contents</h3>
+              <ul class="toc-list">
+                <li class="toc-item"><a href="#introduction" class="toc-link">Project Overview</a></li>
+                <li class="toc-item"><a href="#features" class="toc-link">Key Features</a></li>
+                <li class="toc-item"><a href="#timeline" class="toc-link">Project Timeline</a></li>
+                <li class="toc-item"><a href="#competitions" class="toc-link">International Competitions</a></li>
+                <li class="toc-item"><a href="#technical" class="toc-link">Technical Systems</a></li>
+                <li class="toc-item"><a href="#science" class="toc-link">Science Module</a></li>
+                <li class="toc-item"><a href="#testing" class="toc-link">Testing & Operations</a></li>
+                <li class="toc-item"><a href="#team" class="toc-link">Team Leadership</a></li>
+                <li class="toc-item"><a href="#media" class="toc-link">Project Media</a></li>
+                <li class="toc-item"><a href="#future" class="toc-link">Future Directions</a></li>
+              </ul>
+            </div>
+            
+            <!-- Project stats -->
+            <div class="toc" style="margin-top: 20px;">
+              <h3 class="toc-title">Project Stats</h3>
+              <ul class="toc-list">
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Development Period:</span>
+                  <span style="color: var(--orange-yellow-crayola);">2019-2021</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Team Size:</span>
+                  <span style="color: var(--orange-yellow-crayola);">10+ Members</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Competitions:</span>
+                  <span style="color: var(--orange-yellow-crayola);">URC, IRC</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Chassis Dimensions:</span>
+                  <span style="color: var(--orange-yellow-crayola);">0.7m × 0.55m</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Wheel Diameter:</span>
+                  <span style="color: var(--orange-yellow-crayola);">0.3m</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Range:</span>
+                  <span style="color: var(--orange-yellow-crayola);">1km+</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Battery Life:</span>
+                  <span style="color: var(--orange-yellow-crayola);">~48 minutes</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Contact info -->
+            <div class="toc" style="margin-top: 20px;">
+              <h3 class="toc-title">Contact Information</h3>
+              <ul class="toc-list">
+                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
+                  <ion-icon name="person-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>Md. Firoz Wadud (Team Lead)</span>
+                </li>
+                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
+                  <ion-icon name="mail-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>mdfirozwadud.adm@gmail.com</span>
+                </li>
+                <li class="toc-item" style="display: flex; align-items: center;">
+                  <ion-icon name="school-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>BRAC University, Dhaka, Bangladesh</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
-  <!-- Original portfolio script -->
-  <script src="./assets/js/script.js"></script>
+  <!-- JavaScript -->
+  <script>
+    // Popup functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      const showPopupBtn = document.getElementById('showPopupBtn');
+      const closePopupBtn = document.getElementById('closePopupBtn');
+      const projectPopup = document.getElementById('projectPopup');
+      const modalOverlay = document.getElementById('modalOverlay');
+      
+      // Show popup
+      showPopupBtn.addEventListener('click', function() {
+        projectPopup.style.display = 'flex';
+        modalOverlay.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+      });
+      
+      // Close popup
+      closePopupBtn.addEventListener('click', function() {
+        projectPopup.style.display = 'none';
+        modalOverlay.style.display = 'none';
+        document.body.style.overflow = ''; // Restore background scrolling
+      });
+      
+      // Close when clicking on overlay
+      modalOverlay.addEventListener('click', function() {
+        projectPopup.style.display = 'none';
+        modalOverlay.style.display = 'none';
+        document.body.style.overflow = '';
+      });
+      
+      // Smooth scrolling for TOC links
+      const tocLinks = document.querySelectorAll('.toc-link');
+      tocLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+          e.preventDefault();
+          
+          const targetId = this.getAttribute('href');
+          const targetElement = document.querySelector(targetId);
+          
+          if (targetElement) {
+            const popupContent = document.querySelector('.popup-content');
+            const targetPosition = targetElement.offsetTop - 20;
+            
+            popupContent.scrollTo({
+              top: targetPosition,
+              behavior: 'smooth'
+            });
+          }
+        });
+      });
+    });
+  </script>
 
   <!-- Icons library -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-
-  <button class="scroll-top-btn" id="scrollTopBtn">
-    <ion-icon name="chevron-up-outline"></ion-icon>
-  </button>
-  <script>
-    // Scroll to top button functionality
-    const scrollTopBtn = document.getElementById('scrollTopBtn');
-    
-    // Show/hide the button based on scroll position
-    window.addEventListener('scroll', function() {
-      if (window.pageYOffset > 300) {
-        scrollTopBtn.classList.add('visible');
-      } else {
-        scrollTopBtn.classList.remove('visible');
-      }
-    });
-    
-    // Scroll to top when button is clicked
-    scrollTopBtn.addEventListener('click', function() {
-      window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-      });
-    });
-  </script>
-
 </body>
 
 </html>
