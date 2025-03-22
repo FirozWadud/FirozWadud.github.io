@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRACU Mongol-Tori - Project Details</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
+
+  <!-- custom css link -->
+  <link rel="stylesheet" href="./assets/css/style.css">
+
+  <!-- google font link -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  
+  <!-- 
+    CUSTOM STYLES FOR SCROLLABLE SECTIONS AND EFFECTS
+    You can modify these styles to change card appearances, animations, and layout
+  -->
+  <style>
+      /* Features list specific styles */
+  .features-list {
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 15px;
+    margin: 0 -15px;
+    padding: 25px 15px;
+    padding-bottom: 35px;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: inline mandatory;
+  }
+  
+  .feature-item {
+    min-width: 300px;
+    scroll-snap-align: center;
+  }
+  
+  /* Make feature cards match testimonial cards */
+  .feature-item .content-card {
+    padding-top: 15px;
+  }
+    /* Parallax container for the collapsing header image */
+    .parallax-container {
+      overflow: hidden;
+      position: relative;
+      margin-bottom: 30px;
+      border-radius: 14px;
+      height: 300px; /* Set a fixed height for the container */
+    }
+    
+    .parallax-image {
+      width: 100%;
+      border-radius: 14px;
+      transition: transform 0.1s ease-out;
+      transform-origin: center top;
+      display: block;
+    }
+    
+    /* Overlay effect that grows from top */
+    .overlay-effect {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 0%; /* Starts at 0% */
+      background: linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, rgba(0,0,0,0) 100%);
+      transition: height 0.1s ease-out;
+      pointer-events: none; /* Let clicks pass through */
+    }
+    
+    /* Shared styles for feature and competition cards */
+    .scroll-card {
+      flex: 0 0 auto;
+      width: 300px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--eerie-black-1);
+      padding-bottom: 15px;
+      position: relative;
+      transition: transform 0.3s;
+      box-shadow: 0 0 20px rgba(255, 165, 0, 0.1);
+    }
+    
+    /* Modified shiny border effect - less prominent */
+    .scroll-card::before {
+    content: "";
+    position: absolute;
+    inset: 1px;
+    border-radius: 14px;
+    padding: 1px; /* Reduced from 2px */
+    background: var(--border-gradient-onyx); /* Use existing gradient from main theme */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    opacity: 0.7; /* Reduced opacity */
+    }
+        
+    /* Hover effect */
+    .scroll-card:hover {
+      transform: translateY(-5px);
+    }
+    
+    /* Scroll container styles */
+    .horizontal-scroll {
+      display: flex;
+      overflow-x: auto;
+      scroll-behavior: smooth;
+      gap: 20px;
+      padding: 15px 0;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .horizontal-scroll::-webkit-scrollbar {
+      display: none;
+    }
+    
+    /* Scroll buttons */
+    .scroll-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+      background: var(--orange-yellow-crayola);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+      transition: all 0.3s;
+    }
+    
+    .scroll-btn:hover {
+      background: var(--vegas-gold);
+    }
+    
+    .scroll-btn.left {
+      left: 0;
+    }
+    
+    .scroll-btn.right {
+      right: 0;
+    }
+    
+    /* Container for scrollable content */
+    .scroll-container {
+      position: relative;
+      margin-bottom: 30px;
+    }
+    /* Back to Portfolio button - positioned at top left */
+.back-button {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 10;
+  display: inline-block;
+  padding: 10px 15px;
+  background: var(--border-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  border-radius: 14px;
+  font-size: var(--fs-6);
+  font-weight: var(--fw-500);
+  transition: var(--transition-1);
+  box-shadow: var(--shadow-2);
+}
+
+.back-button::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--bg-gradient-jet);
+  transition: var(--transition-1);
+  z-index: -1;
+}
+
+.back-button:hover,
+.back-button:focus {
+  background: var(--bg-gradient-yellow-1);
+}
+
+.back-button:hover::before,
+.back-button:focus::before {
+  background: var(--bg-gradient-yellow-2);
+}
+
+/* Make article position relative for absolute positioning */
+article.about {
+  position: relative;
+}
+
+/* Scroll to top button */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 50px;
+  height: 50px;
+  background: var(--border-gradient-onyx);
+  color: var(--orange-yellow-crayola);
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: var(--shadow-2);
+  z-index: 20;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition-1);
+  cursor: pointer;
+}
+
+.scroll-top-btn.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-top-btn::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  border-radius: inherit;
+  background: var(--bg-gradient-jet);
+  transition: var(--transition-1);
+  z-index: -1;
+}
+
+.scroll-top-btn:hover,
+.scroll-top-btn:focus {
+  background: var(--bg-gradient-yellow-1);
+}
+
+.scroll-top-btn:hover::before,
+.scroll-top-btn:focus::before {
+  background: var(--bg-gradient-yellow-2);
+}
+
+  </style>
+</head>
+
+<body>
+
+  <!--
+    - #MAIN SECTION
+    - Contains the page structure including sidebar and main content
+  -->
+  <main>
+
+    <!--
+      - #SIDEBAR
+      - Contains profile information, contact details, and social links
+      - This is shared across all pages
+    -->
+    <aside class="sidebar" data-sidebar>
+
+      <div class="sidebar-info">
+        <figure class="avatar-box">
+          <img src="./assets/images/firoz_profile.png" alt="Md Firoz Wadud" width="90">
+        </figure>
+
+        <div class="info-content">
+          <h1 class="name" title="Md Firoz Wadud">Md Firoz Wadud</h1>
+          <p class="title">Robotics Engineer</p>
+        </div>
+
+        <button class="info_more-btn" data-sidebar-btn>
+          <span>Show Contacts</span>
+          <ion-icon name="chevron-down"></ion-icon>
+        </button>
+      </div>
+
+      <div class="sidebar-info_more">
+        <div class="separator"></div>
+
+        <ul class="contacts-list">
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="mail-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Email</p>
+              <a href="mailto:mdfirozwadud@gmail.com" class="contact-link">mdfirozwadud@gmail.com</a>
+            </div>
+          </li>
+
+          <li class="contact-item">
+            <div class="icon-box">
+              <ion-icon name="phone-portrait-outline"></ion-icon>
+            </div>
+
+            <div class="contact-info">
+              <p class="contact-title">Phone</p>
+              <a href="tel:+8801762416878" class="contact-link">(+880) 176-241-6878</a>
+            </div>
+          </li>
+        </ul>
+
+        <div class="separator"></div>
+
+        <ul class="social-list">
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-facebook"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-twitter"></ion-icon>
+            </a>
+          </li>
+
+          <li class="social-item">
+            <a href="#" class="social-link">
+              <ion-icon name="logo-instagram"></ion-icon>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </aside>
+
+    <!--
+      - #MAIN CONTENT
+      - Contains all the project details and sections
+    -->
+    <div class="main-content">
+
+      <!--
+        - #PROJECT DETAILS ARTICLE
+        - The main container for all project content
+      -->
+      <nav class="navbar">
+        <ul class="navbar-list">
+          <li class="navbar-item">
+            <a href="index.html#about" class="navbar-link" data-nav-link>About</a>
+          </li>
+      
+          <li class="navbar-item">
+            <a href="index.html#resume" class="navbar-link" data-nav-link>Resume</a>
+          </li>
+      
+          <li class="navbar-item">
+            <a href="index.html#portfolio" class="navbar-link active" data-nav-link>Portfolio</a>
+          </li>
+      
+          <li class="navbar-item">
+            <a href="index.html#blog" class="navbar-link" data-nav-link>Blog</a>
+          </li>
+      
+          <li class="navbar-item">
+            <a href="index.html#contact" class="navbar-link" data-nav-link>Contact</a>
+          </li>
+        </ul>
+      </nav>
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          const navLinks = document.querySelectorAll('.navbar-link');
+          
+          navLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+              // If link points to index.html, let it navigate normally
+              if (this.getAttribute('href').includes('index.html')) {
+                return true;
+              }
+              
+              // Otherwise prevent default (for future page sections)
+              e.preventDefault();
+              
+              // Remove active class from all links
+              navLinks.forEach(l => l.classList.remove('active'));
+              
+              // Add active class to clicked link
+              this.classList.add('active');
+            });
+          });
+        });
+      </script>
+
+        <article class="about active" data-page="about">
+  
+
+        <!-- Page Header -->
+        <header>
+          <h2 class="h2 article-title">BRACU Mongol-Tori</h2>
+        </header>
+
+        <!--
+          - #HERO SECTION
+          - Main project image with collapsing effect
+          - Project introduction text
+        -->
+        <section class="about-text">
+          <!-- Parallax image container with collapse effect -->
+          <div class="parallax-container" id="image-container">
+            <img src="./assets/mongoltori/fullrover.png" alt="BRACU Mongol-Tori" class="parallax-image" id="parallax-img">
+            <div class="overlay-effect" id="overlay"></div>
+          </div>
+          
+          <!-- Project introduction paragraphs -->
+          <p>
+            BRACU Mongol-Tori was a pioneering Mars rover project developed by BRAC University's robotics team. As a key team member, I contributed to designing and implementing various systems for this rover that competed in international competitions.
+          </p>
+
+          <p>
+            The project aimed to create a fully functional Mars rover prototype capable of traversing difficult terrain, collecting samples, and performing scientific analysis - similar to rovers deployed on actual Mars missions.
+          </p>
+        </section>
+
+        <!--
+          - #KEY FEATURES SECTION
+          - Horizontally scrolling cards with project features
+          - Each card has an image and description
+        -->
+        <section class="service">
+          <h3 class="h3 service-title">Key Features</h3>
+          
+          <div class="scroll-container">
+            <!-- Scroll indicators -->
+            <button class="scroll-btn left" onclick="scrollContent('features-scroll', -1)">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            
+            <button class="scroll-btn right" onclick="scrollContent('features-scroll', 1)">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+            
+            <!-- Scrollable features container -->
+            <div class="horizontal-scroll" id="features-scroll">
+              <!-- Feature 1: Custom Chassis -->
+              <div class="scroll-card">
+                <div style="width: 100%; height: 180px; overflow: hidden;">
+                  <img src="./assets/mongoltori/chassis.jpg" alt="Custom Chassis" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: 15px 15px 5px 15px;">
+                  <h4 class="h4 service-item-title">Custom Chassis</h4>
+                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
+                    Designed for optimal performance on rough terrain with advanced rocker-bogie suspension system inspired by NASA's Mars rovers.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Feature 2: Robotic Arm -->
+              <div class="scroll-card">
+                <div style="width: 100%; height: 180px; overflow: hidden;">
+                  <img src="./assets/mongoltori/arm.jpg" alt="Robotic Arm" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: 15px 15px 5px 15px;">
+                  <h4 class="h4 service-item-title">Robotic Arm</h4>
+                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
+                    5-DOF robotic arm with specialized end effector for soil sampling and precision manipulation of objects in the Martian terrain simulations.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Feature 3: Real-time Control -->
+              <div class="scroll-card">
+                <div style="width: 100%; height: 180px; overflow: hidden;">
+                  <img src="./assets/mongoltori/control.jpg" alt="Real-time Control" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: 15px 15px 5px 15px;">
+                  <h4 class="h4 service-item-title">Real-time Control</h4>
+                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
+                    Custom control station with real-time video transmission and telemetry feedback enabling precise remote operations during competition challenges.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Feature 4: Sensor Systems -->
+              <div class="scroll-card">
+                <div style="width: 100%; height: 180px; overflow: hidden;">
+                  <img src="./assets/mongoltori/sensors.jpg" alt="Sensor Systems" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: 15px 15px 5px 15px;">
+                  <h4 class="h4 service-item-title">Sensor Systems</h4>
+                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
+                    Integrated sensor array for environmental data collection, obstacle detection, and autonomous navigation using computer vision algorithms.
+                  </p>
+                </div>
+              </div>
+              
+              <!-- Feature 5: Power Management -->
+              <div class="scroll-card">
+                <div style="width: 100%; height: 180px; overflow: hidden;">
+                  <img src="./assets/mongoltori/power.jpg" alt="Power Management" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="padding: 15px 15px 5px 15px;">
+                  <h4 class="h4 service-item-title">Power Management</h4>
+                  <p class="service-item-text" style="margin-top: 10px; font-size: 14px;">
+                    Efficient power distribution system with solar panel integration, providing extended operational time during competition challenges.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!--
+          - #PROJECT TIMELINE SECTION
+          - Vertical timeline showing project progression and your role
+        -->
+        <section class="timeline">
+          <div class="title-wrapper">
+            <div class="icon-box">
+              <ion-icon name="time-outline"></ion-icon>
+            </div>
+            <h3 class="h3">Project Timeline & My Role</h3>
+          </div>
+
+          <ol class="timeline-list">
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Project Inception & Design</h4>
+              <span>2019</span>
+              <p class="timeline-text">
+                Joined the Mongol-Tori team as a junior design engineer. Contributed to the initial chassis design and mechanical systems planning. Helped with research and component selection for the robotic arm.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Development & Testing</h4>
+              <span>2020</span>
+              <p class="timeline-text">
+                Promoted to lead the robotics control systems team. Developed the navigation algorithms and sensor integration. Coordinated weekly testing sessions and implemented improvements based on performance data.
+              </p>
+            </li>
+
+            <li class="timeline-item">
+              <h4 class="h4 timeline-item-title">Advanced Implementation</h4>
+              <span>2021</span>
+              <p class="timeline-text">
+                Served as technical project manager overseeing system integration. Led the final assembly phase and conducted comprehensive testing protocols. Represented the technical aspects during university presentations.
+              </p>
+            </li>
+          </ol>
+        </section>
+
+        <!--
+          - #INTERNATIONAL COMPETITIONS SECTION
+          - Horizontally scrolling cards with competition details
+          - Each card has an image and description
+        -->
+        <!-- International Competitions Section with matching scrolling style -->
+        <section class="testimonials">
+            <h3 class="h3 testimonials-title">International Competitions</h3>
+            
+            <ul class="testimonials-list has-scrollbar">
+            <!-- Competition 1 -->
+            <li class="testimonials-item">
+                <div class="content-card">
+                <figure class="testimonials-avatar-box">
+                    <img src="./assets/mongoltori/urc.jpg" alt="University Rover Challenge" style="object-fit: cover;">
+                </figure>
+                
+                <h4 class="h4 testimonials-item-title">University Rover Challenge</h4>
+                
+                <div class="testimonials-text">
+                    <p>
+                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2020, Utah, USA</span>
+                    Competed against 36 university teams from around the world. Our team qualified for the finals and achieved 8th place overall. Our rover excelled in the autonomous navigation challenge.
+                    </p>
+                </div>
+                </div>
+            </li>
+            
+            <!-- Competition 2 -->
+            <li class="testimonials-item">
+                <div class="content-card">
+                <figure class="testimonials-avatar-box">
+                    <img src="./assets/mongoltori/erc.jpg" alt="European Rover Challenge" style="object-fit: cover;">
+                </figure>
+                
+                <h4 class="h4 testimonials-item-title">European Rover Challenge</h4>
+                
+                <div class="testimonials-text">
+                    <p>
+                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2021, Poland (Virtual)</span>
+                    Participated in the remote edition due to global travel restrictions. Designed a custom control system to meet the remote operation requirements. Secured 12th position overall.
+                    </p>
+                </div>
+                </div>
+            </li>
+            
+            <!-- Competition 3 -->
+            <li class="testimonials-item">
+                <div class="content-card">
+                <figure class="testimonials-avatar-box">
+                    <img src="./assets/mongoltori/aiaa.jpg" alt="AIAA Space Design Competition" style="object-fit: cover;">
+                </figure>
+                
+                <h4 class="h4 testimonials-item-title">AIAA Space Design Competition</h4>
+                
+                <div class="testimonials-text">
+                    <p>
+                    <span style="color: var(--vegas-gold); display: block; margin-bottom: 10px;">2021, Online</span>
+                    Represented BRAC University in the rover design category. Presented our innovative solutions for Martian terrain navigation and sample collection. Received honorable mention for our design approach.
+                    </p>
+                </div>
+                </div>
+            </li>
+            </ul>
+        </section>
+
+        <!--
+          - #PROJECT VIDEOS SECTION
+          - Embedded YouTube videos showing project demos
+        -->
+        <section class="service">
+          <h3 class="h3 service-title">Project Videos</h3>
+          
+          <div class="video-container" style="margin-bottom: 30px; display: flex; flex-wrap: wrap; gap: 20px; justify-content: space-between;">
+            <!-- Video 1 - responsive but half width on desktop -->
+            <div style="flex: 1 1 45%; min-width: 280px; margin-bottom: 20px;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px;">
+                <iframe 
+                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="https://www.youtube.com/embed/2oXj6f-N9iI?start=6" 
+                  title="BRACU Mongol-Tori Demo"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <p class="timeline-text" style="text-align: center; margin-top: 10px;">
+                SAR Video of URC-2021
+              </p>
+            </div>
+            
+            <!-- Video 2 - responsive but half width on desktop -->
+            <div style="flex: 1 1 45%; min-width: 280px; margin-bottom: 20px;">
+              <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 14px;">
+                <iframe 
+                  style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none;" 
+                  src="https://www.youtube.com/embed/y5UN2gw1dQ4"
+                  title="BRACU Mongol-Tori Development"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen>
+                </iframe>
+              </div>
+              <p class="timeline-text" style="text-align: center; margin-top: 10px;">
+                SAR Video of SAR-2020
+              </p>
+            </div>
+          </div>
+        </section>
+        
+        <!--
+          - #PROJECT GALLERY SECTION
+          - Horizontally scrolling image gallery
+        -->
+        <section class="service">
+          <h3 class="h3 service-title">Project Gallery</h3>
+          
+          <div class="scroll-container">
+            <!-- Scroll indicators -->
+            <button class="scroll-btn left" onclick="scrollContent('gallery-scroll', -1)">
+              <ion-icon name="chevron-back-outline"></ion-icon>
+            </button>
+            
+            <button class="scroll-btn right" onclick="scrollContent('gallery-scroll', 1)">
+              <ion-icon name="chevron-forward-outline"></ion-icon>
+            </button>
+            
+            <!-- Scrollable image container -->
+            <div class="horizontal-scroll" id="gallery-scroll">
+              <!-- Gallery Images -->
+              <div class="scroll-card" style="padding-bottom: 5px;">
+                <img src="./assets/mongoltori/team_1.jpg" alt="Mongol-Tori Image 1" style="width: 100%; height: 200px; object-fit: cover;">
+                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Rover front view</p>
+              </div>
+              
+              <div class="scroll-card" style="padding-bottom: 5px;">
+                <img src="./assets/mongoltori/team_2.jpg" alt="Mongol-Tori Image 2" style="width: 100%; height: 200px; object-fit: cover;">
+                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Robotic arm detail</p>
+              </div>
+              
+              <div class="scroll-card" style="padding-bottom: 5px;">
+                <img src="./assets/mongoltori/team_3.jpg" alt="Mongol-Tori Image 3" style="width: 100%; height: 200px; object-fit: cover;">
+                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Team working on rover</p>
+              </div>
+              
+              <div class="scroll-card" style="padding-bottom: 5px;">
+                <img src="./assets/images/blog-1.jpg" alt="Mongol-Tori Image 4" style="width: 100%; height: 200px; object-fit: cover;">
+                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Control station setup</p>
+              </div>
+              
+              <div class="scroll-card" style="padding-bottom: 5px;">
+                <img src="./assets/images/blog-2.jpg" alt="Mongol-Tori Image 5" style="width: 100%; height: 200px; object-fit: cover;">
+                <p class="timeline-text" style="text-align: center; margin-top: 10px;">Testing environment</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+
+      </article>
+
+    </div>
+
+  </main>
+
+  <!--
+    - JAVASCRIPT SECTION
+    - Contains all scripts for interactivity
+  -->
+  
+  <!-- Custom JavaScript for the page -->
+  <script>
+    // Scroll effect for the header image
+    window.addEventListener('load', function() {
+      const parallaxImg = document.getElementById('parallax-img');
+      const overlayElement = document.getElementById('overlay');
+      const containerElement = document.getElementById('image-container');
+      
+      // Base values for the effect
+      const scrollFactor = 0.003; // How quickly the effect happens when scrolling
+      const maxScaleY = 1.0;   // Starting vertical scale
+      const minScaleY = 0.7;  // Minimum vertical scale the image will shrink to
+      
+      // Set initial position
+      parallaxImg.style.transformOrigin = 'center top';
+      
+      // Apply the scroll effect
+      window.addEventListener('scroll', function() {
+        // Get scroll position
+        const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        
+        // Calculate how much to scale/transform the image
+        const imgRect = containerElement.getBoundingClientRect();
+        const isVisible = imgRect.bottom > 0 && imgRect.top < window.innerHeight;
+        
+        if (isVisible) {
+          // Calculate scale based on scroll amount - more aggressive on Y scale
+          let scaleY = maxScaleY - (scrollTop * scrollFactor);
+          scaleY = Math.max(scaleY, minScaleY); // Don't go smaller than minScaleY
+          
+          // Apply the transformation - only changing Y scale for vertical shrinking
+          parallaxImg.style.transform = `scaleY(${scaleY})`;
+          
+          // Add the overlay effect that grows from top
+          const overlayHeight = ((maxScaleY - scaleY) / (maxScaleY - minScaleY)) * 50; // Max overlay at 50%
+          overlayElement.style.height = `${overlayHeight}%`;
+          
+          // Move the image up slightly as it shrinks to create occlusion effect
+          const offsetY = (1 - scaleY) * 15; // Move up by 15% of the shrinkage
+          parallaxImg.style.marginTop = `-${offsetY}%`;
+        }
+      });
+      
+      // Initial call to set proper position
+      window.dispatchEvent(new Event('scroll'));
+    });
+    
+    // Shared function for horizontal scrolling sections
+    function scrollContent(containerId, direction) {
+      const container = document.getElementById(containerId);
+      const scrollAmount = 320; // Slightly more than card width
+      container.scrollBy({
+        left: direction * scrollAmount,
+        behavior: 'smooth'
+      });
+    }
+  </script>
+
+  <!-- Original portfolio script -->
+  <script src="./assets/js/script.js"></script>
+
+  <!-- Icons library -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+  <button class="scroll-top-btn" id="scrollTopBtn">
+    <ion-icon name="chevron-up-outline"></ion-icon>
+  </button>
+  <script>
+    // Scroll to top button functionality
+    const scrollTopBtn = document.getElementById('scrollTopBtn');
+    
+    // Show/hide the button based on scroll position
+    window.addEventListener('scroll', function() {
+      if (window.pageYOffset > 300) {
+        scrollTopBtn.classList.add('visible');
+      } else {
+        scrollTopBtn.classList.remove('visible');
+      }
+    });
+    
+    // Scroll to top when button is clicked
+    scrollTopBtn.addEventListener('click', function() {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+      });
+    });
+  </script>
+
+</body>
+
+</html>
