@@ -622,27 +622,19 @@
       z-index: 999;
     }
     
-    /* For demo purposes only - toggle button */
-    .show-popup-btn {
-      position: fixed;
-      top: 20px;
-      left: 20px;
-      padding: 10px 15px;
-      background: var(--orange-yellow-crayola);
-      color: var(--eerie-black-2);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      font-weight: bold;
-      z-index: 900;
+    /* Define CSS variables in case they're not defined in the parent stylesheet */
+    :root {
+      --eerie-black-1: #1e1e1e;
+      --eerie-black-2: #222;
+      --jet: #333;
+      --light-gray: #ccc;
+      --orange-yellow-crayola: #f9a826;
+      --vegas-gold: #d4af37;
     }
   </style>
 </head>
 
 <body>
-  <!-- For demo purposes - button to show popup -->
-  <button class="show-popup-btn" id="showPopupBtn">View Project</button>
-  
   <!-- Modal overlay for popup -->
   <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
   
@@ -1227,34 +1219,45 @@
     </div>
   </div>
 
-  <!-- JavaScript -->
+  <!-- JavaScript for a standalone page (when accessed directly) -->
   <script>
-    // Popup functionality
     document.addEventListener('DOMContentLoaded', function() {
-      const showPopupBtn = document.getElementById('showPopupBtn');
-      const closePopupBtn = document.getElementById('closePopupBtn');
+      // Auto-display the popup when the page is loaded directly
       const projectPopup = document.getElementById('projectPopup');
       const modalOverlay = document.getElementById('modalOverlay');
       
-      // Show popup
-      showPopupBtn.addEventListener('click', function() {
+      // Only show automatically if this is not loaded in a popup
+      if (window.self === window.top) {
         projectPopup.style.display = 'flex';
         modalOverlay.style.display = 'block';
         document.body.style.overflow = 'hidden'; // Prevent background scrolling
-      });
+      }
       
-      // Close popup
-      closePopupBtn.addEventListener('click', function() {
-        projectPopup.style.display = 'none';
-        modalOverlay.style.display = 'none';
-        document.body.style.overflow = ''; // Restore background scrolling
-      });
+      // Setup close button functionality
+      const closePopupBtn = document.getElementById('closePopupBtn');
+      if (closePopupBtn) {
+        closePopupBtn.addEventListener('click', function() {
+          // If accessed directly, redirect to index
+          if (window.self === window.top) {
+            window.location.href = 'index.html';
+          } else {
+            // If in a popup, just hide
+            projectPopup.style.display = 'none';
+            modalOverlay.style.display = 'none';
+            document.body.style.overflow = '';
+          }
+        });
+      }
       
       // Close when clicking on overlay
       modalOverlay.addEventListener('click', function() {
-        projectPopup.style.display = 'none';
-        modalOverlay.style.display = 'none';
-        document.body.style.overflow = '';
+        if (window.self === window.top) {
+          window.location.href = 'index.html';
+        } else {
+          projectPopup.style.display = 'none';
+          modalOverlay.style.display = 'none';
+          document.body.style.overflow = '';
+        }
       });
       
       // Smooth scrolling for TOC links
