@@ -171,3 +171,110 @@
     background: hsla(220, 70%, 45%, 0.1);
     color: var(--primary-accent);
   }
+
+  /* Add these styles to the end of your light-theme.css file */
+
+/* Project popup specific adjustments for light theme */
+[data-theme="light"] .popup-container,
+body[data-theme="light"] .popup-container {
+  background: var(--bg-card) !important; /* Light background */
+  border-color: var(--border-color) !important;
+  box-shadow: var(--shadow-4) !important;
+}
+
+[data-theme="light"] .popup-header,
+body[data-theme="light"] .popup-header {
+  background: hsl(0, 0%, 95%) !important; /* Light header background */
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+[data-theme="light"] .popup-title,
+body[data-theme="light"] .popup-title {
+  color: var(--primary-accent) !important;
+}
+
+[data-theme="light"] .popup-content,
+body[data-theme="light"] .popup-content {
+  background-color: var(--bg-card) !important;
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] .close-btn,
+body[data-theme="light"] .close-btn {
+  color: var(--text-secondary) !important;
+  background: hsla(0, 0%, 90%, 0.7) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1) !important;
+  transition: all 0.2s ease !important;
+}
+
+[data-theme="light"] .close-btn:hover,
+body[data-theme="light"] .close-btn:hover {
+  color: var(--primary-accent) !important;
+  background: hsla(0, 0%, 95%, 0.9) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Article sections in light theme */
+[data-theme="light"] .article-section,
+body[data-theme="light"] .article-section {
+  color: var(--text-secondary) !important;
+}
+
+[data-theme="light"] .section-title,
+body[data-theme="light"] .section-title {
+  color: var(--primary-accent) !important;
+  border-bottom-color: var(--border-color) !important;
+}
+
+[data-theme="light"] .subsection-title,
+body[data-theme="light"] .subsection-title {
+  color: var(--text-primary) !important;
+}
+
+/* Cards and features in light theme */
+[data-theme="light"] .feature-card,
+[data-theme="light"] .science-card,
+[data-theme="light"] .competition-card,
+[data-theme="light"] .video-card,
+[data-theme="light"] .team-member,
+body[data-theme="light"] .feature-card,
+body[data-theme="light"] .science-card,
+body[data-theme="light"] .competition-card,
+body[data-theme="light"] .video-card,
+body[data-theme="light"] .team-member {
+  background: var(--bg-gradient-onyx) !important;
+  box-shadow: var(--shadow-2) !important;
+}
+
+[data-theme="light"] .feature-card::before,
+[data-theme="light"] .science-card::before,
+[data-theme="light"] .competition-card::before,
+[data-theme="light"] .video-card::before,
+[data-theme="light"] .team-member::before,
+body[data-theme="light"] .feature-card::before,
+body[data-theme="light"] .science-card::before,
+body[data-theme="light"] .competition-card::before,
+body[data-theme="light"] .video-card::before,
+body[data-theme="light"] .team-member::before {
+  background: var(--bg-gradient-jet) !important;
+}
+
+/* Modal overlay */
+[data-theme="light"] .modal-overlay,
+body[data-theme="light"] .modal-overlay {
+  background: rgba(0, 0, 0, 0.3) !important; /* Lighter overlay for light theme */
+}
+
+/* Table of contents */
+[data-theme="light"] .toc,
+body[data-theme="light"] .toc {
+  background: var(--bg-gradient-onyx) !important;
+  box-shadow: var(--shadow-2) !important;
+}
