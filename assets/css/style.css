@@ -1880,3 +1880,24 @@ textarea.form-input::-webkit-resizer { display: none; }
   .timeline-text { max-width: 700px; }
 
 }
+.component-loading {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(249, 168, 38, 0.2);
+  border-radius: 50%;
+  border-top-color: #f9a826;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
