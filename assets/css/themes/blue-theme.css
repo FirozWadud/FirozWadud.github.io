@@ -2,6 +2,7 @@
   #BLUE-THEME.CSS
   Ocean-inspired blue theme color scheme
 \*-----------------------------------*/
+@import url("unified-theme-variables.css");
 
 :root {
     /* Main colors */

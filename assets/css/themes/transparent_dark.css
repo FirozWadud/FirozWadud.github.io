@@ -1,0 +1,464 @@
+/*-----------------------------------*\
+  #INSTAGRAM-THEME.CSS
+  Instagram dark theme with enhanced translucent effects
+\*-----------------------------------*/
+
+/* Import unified theme variables */
+@import url("unified-theme-variables.css");
+
+:root {
+  /* Instagram-inspired colors */
+  --primary-accent: #E1306C; /* Instagram pink */
+  --primary-accent-alt: #F77737; /* Instagram orange */
+  --primary-accent-gradient: linear-gradient(45deg, #FCAF45, #E1306C, #C13584, #833AB4); /* Instagram gradient */
+  
+  /* Background colors with increased translucency */
+  --bg-main: rgba(0, 0, 0, 0.85); /* Very dark background with transparency */
+  --bg-card: rgba(18, 18, 18, 0.65); /* Highly translucent dark cards */
+  --bg-card-alt: rgba(25, 25, 25, 0.65); /* Slightly lighter dark for alternate card backgrounds */
+  
+  /* Border and shadow */
+  --border-color: rgba(38, 38, 38, 0.5); /* Instagram dark mode border color with increased transparency */
+  --card-shadow: 0 8px 32px rgba(0, 0, 0, 0.25); /* Enhanced shadows for dark mode */
+  
+  /* Text colors */
+  --text-primary: #fafafa; /* Instagram dark mode primary text */
+  --text-secondary: #a8a8a8; /* Instagram dark mode secondary text */
+  --text-muted: rgba(168, 168, 168, 0.8); /* Muted text */
+  --text-error: #ed4956; /* Instagram error red */
+
+  /* Gradient overrides with increased transparency */
+  --bg-gradient-onyx: linear-gradient(to bottom right, rgba(25, 25, 25, 0.7) 3%, rgba(18, 18, 18, 0.6) 97%);
+  --bg-gradient-jet: linear-gradient(to bottom right, rgba(38, 38, 38, 0.2) 0%, rgba(18, 18, 18, 0) 100%), rgba(18, 18, 18, 0.3);
+  --bg-gradient-yellow-1: linear-gradient(to right, rgba(225, 48, 108, 0.7) 0%, rgba(131, 58, 180, 0.5) 50%);
+  --bg-gradient-yellow-2: linear-gradient(135deg, rgba(225, 48, 108, 0.3) 0%, rgba(131, 58, 180, 0.1) 59.86%), rgba(18, 18, 18, 0.3);
+  --border-gradient-onyx: linear-gradient(to bottom right, rgba(38, 38, 38, 0.5) 0%, rgba(38, 38, 38, 0) 50%);
+  
+  /* Shadow adjustments for Instagram dark theme with greater spread */
+  --shadow-1: 0 8px 16px rgba(0, 0, 0, 0.3);
+  --shadow-2: 0 12px 24px rgba(0, 0, 0, 0.35);
+  --shadow-3: 0 16px 32px rgba(0, 0, 0, 0.4);
+  --shadow-4: 0 20px 40px rgba(0, 0, 0, 0.45);
+  --shadow-5: 0 24px 48px rgba(0, 0, 0, 0.5);
+}
+
+/* Apply background pattern or texture for translucent effects to be visible */
+body::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(45deg, rgba(225, 48, 108, 0.03) 25%, transparent 25%),
+    linear-gradient(-45deg, rgba(225, 48, 108, 0.03) 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, rgba(225, 48, 108, 0.03) 75%),
+    linear-gradient(-45deg, transparent 75%, rgba(225, 48, 108, 0.03) 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+  z-index: -2;
+}
+
+/* Apply Instagram-style backdrop filter to elements for enhanced frosted glass effect */
+.navbar,
+.sidebar,
+.content-card,
+.popup-header,
+.toc,
+.feature-card,
+.science-card,
+.competition-card,
+.video-card,
+.service-item,
+.team-member,
+.blog-post-item > a,
+.testimonials-modal,
+.form-input {
+  backdrop-filter: blur(15px) !important;
+  -webkit-backdrop-filter: blur(15px) !important;
+}
+
+/* Body background with subtle Instagram gradient */
+body {
+  background: linear-gradient(to bottom right, rgba(10, 10, 10, 0.75), rgba(5, 5, 5, 0.75)) !important;
+  background-attachment: fixed !important;
+}
+
+/* Instagram-style navbar with increased transparency */
+.navbar {
+  background: rgba(18, 18, 18, 0.6) !important;
+  border-color: rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1) !important;
+}
+
+.navbar-link {
+  color: var(--text-secondary) !important;
+  font-weight: 500 !important;
+  transition: color 0.2s !important;
+}
+
+.navbar-link:hover,
+.navbar-link:focus {
+  color: var(--primary-accent) !important;
+}
+
+.navbar-link.active {
+  color: var(--primary-accent) !important;
+  position: relative !important;
+}
+
+.navbar-link.active::after {
+  content: "" !important;
+  position: absolute !important;
+  bottom: -3px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  width: 24px !important;
+  height: 2px !important;
+  background: var(--primary-accent-gradient) !important;
+  border-radius: 2px !important;
+}
+
+/* Sidebar with enhanced Instagram aesthetic */
+.sidebar {
+  background: rgba(18, 18, 18, 0.5) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.avatar-box {
+  border: 2px solid transparent !important;
+  background: var(--primary-accent-gradient) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  padding: 3px !important;
+}
+
+.info-content .name {
+  color: var(--text-primary) !important;
+}
+
+.info-content .title {
+  background: var(--primary-accent-gradient) !important;
+  color: white !important;
+}
+
+.info_more-btn {
+  background: var(--primary-accent-gradient) !important;
+  color: white !important;
+}
+
+.info_more-btn::before {
+  background: transparent !important;
+}
+
+/* Service section with highly translucent cards */
+.service-item {
+  background: rgba(25, 25, 25, 0.4) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.service-item:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.3) !important;
+  background: rgba(25, 25, 25, 0.5) !important;
+}
+
+.service-item::before {
+  background: transparent !important;
+}
+
+.service-item-title {
+  color: var(--text-primary) !important;
+}
+
+.service-item-text {
+  color: var(--text-secondary) !important;
+}
+
+/* Testimonials with Instagram styling and enhanced transparency */
+.testimonials-item {
+  transition: transform 0.3s !important;
+}
+
+.testimonials-item:hover {
+  transform: translateY(-5px) !important;
+}
+
+.content-card {
+  background: rgba(25, 25, 25, 0.4) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.content-card::before {
+  background: transparent !important;
+}
+
+.testimonials-avatar-box {
+  border: 3px solid transparent !important;
+  background: var(--primary-accent-gradient) !important;
+  background-origin: border-box !important;
+  background-clip: padding-box, border-box !important;
+  padding: 3px !important;
+}
+
+/* Modal styling with enhanced glass effect */
+.modal-container.active .overlay {
+  background: rgba(0, 0, 0, 0.6) !important;
+  backdrop-filter: blur(5px) !important;
+}
+
+.testimonials-modal {
+  background: rgba(25, 25, 25, 0.6) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+/* Forms with enhanced frosted glass effect */
+.form-input {
+  background: rgba(38, 38, 38, 0.3) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  color: var(--text-primary) !important;
+  transition: border-color 0.3s, box-shadow 0.3s !important;
+}
+
+.form-input:focus {
+  border-color: var(--primary-accent) !important;
+  box-shadow: 0 0 0 2px rgba(225, 48, 108, 0.2) !important;
+  background: rgba(38, 38, 38, 0.4) !important;
+}
+
+.form-btn {
+  background: var(--primary-accent-gradient) !important;
+  color: white !important;
+  border: none !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.form-btn:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3) !important;
+}
+
+.form-btn::before {
+  display: none !important;
+}
+
+/* Project section with Instagram-like cards and enhanced transparency */
+.project-img {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+.project-img::before {
+  background: transparent !important;
+}
+
+.project-item > a:hover .project-img::before {
+  background: linear-gradient(to bottom, rgba(0,0,0,0), rgba(0,0,0,0.7)) !important;
+}
+
+.project-item-icon-box {
+  background: rgba(25, 25, 25, 0.6) !important;
+  color: var(--primary-accent) !important;
+  backdrop-filter: blur(5px) !important;
+  -webkit-backdrop-filter: blur(5px) !important;
+}
+
+/* Blog posts with enhanced Instagram aesthetic */
+.blog-post-item > a {
+  background: rgba(25, 25, 25, 0.4) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.blog-post-item > a:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.3) !important;
+  background: rgba(25, 25, 25, 0.5) !important;
+}
+
+.blog-post-item > a::before {
+  background: transparent !important;
+}
+
+.blog-banner-box {
+  border-radius: 8px !important;
+  overflow: hidden !important;
+}
+
+/* Timeline with Instagram styling */
+.timeline-item::after {
+  background: var(--primary-accent-gradient) !important;
+  box-shadow: 0 0 0 4px rgba(18, 18, 18, 0.3) !important;
+}
+
+.timeline-item:not(:last-child)::before {
+  background: rgba(38, 38, 38, 0.3) !important;
+}
+
+.timeline-date {
+  color: var(--primary-accent) !important;
+}
+
+/* Project popup styling with enhanced glass effect */
+.popup-container {
+  background: rgba(18, 18, 18, 0.7) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3) !important;
+}
+
+.popup-header {
+  background: rgba(25, 25, 25, 0.6) !important;
+  border-bottom: 1px solid rgba(38, 38, 38, 0.3) !important;
+}
+
+.popup-title {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+.close-btn {
+  color: var(--text-secondary) !important;
+  background: rgba(38, 38, 38, 0.4) !important;
+  border-radius: 50% !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-size: 18px !important;
+  backdrop-filter: blur(10px) !important;
+  transition: all 0.2s ease !important;
+}
+
+.close-btn:hover {
+  color: var(--primary-accent) !important;
+  background: rgba(38, 38, 38, 0.6) !important;
+  transform: scale(1.1) !important;
+}
+
+/* Skills section with enhanced translucency */
+.skill-progress-bg {
+  background: rgba(38, 38, 38, 0.3) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+}
+
+.skill-progress-fill {
+  background: var(--primary-accent-gradient) !important;
+  border-radius: 10px !important;
+}
+
+/* Table of contents with enhanced glass effect */
+.toc {
+  background: rgba(25, 25, 25, 0.5) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+}
+
+.toc::before {
+  background: transparent !important;
+}
+
+.toc-title {
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid rgba(38, 38, 38, 0.3) !important;
+}
+
+.toc-link {
+  color: var(--text-secondary) !important;
+}
+
+.toc-link:hover {
+  color: var(--primary-accent) !important;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px !important;
+  height: 8px !important;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(38, 38, 38, 0.3) !important;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, #FCAF45, #E1306C) !important;
+  border-radius: 8px !important;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, #E1306C, #C13584) !important;
+}
+
+/* Project page elements with enhanced glass effect */
+.feature-card,
+.science-card,
+.competition-card,
+.video-card,
+.team-member {
+  background: rgba(25, 25, 25, 0.4) !important;
+  border: 1px solid rgba(38, 38, 38, 0.3) !important;
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2) !important;
+  transition: transform 0.3s, box-shadow 0.3s !important;
+}
+
+.feature-card:hover,
+.science-card:hover,
+.competition-card:hover,
+.video-card:hover,
+.team-member:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: 0 16px 48px 0 rgba(0, 0, 0, 0.3) !important;
+  background: rgba(25, 25, 25, 0.5) !important;
+}
+
+.feature-card::before,
+.science-card::before,
+.competition-card::before,
+.video-card::before,
+.team-member::before {
+  background: transparent !important;
+}
+
+.feature-title,
+.science-title,
+.competition-name,
+.video-title,
+.team-name {
+  color: var(--text-primary) !important;
+  font-weight: 600 !important;
+}
+
+/* Theme transition effect */
+.theme-transition {
+  animation: instagramFade 0.5s ease-in-out !important;
+}
+
+@keyframes instagramFade {
+  0% { opacity: 0.5; filter: saturate(0.5); }
+  100% { opacity: 1; filter: saturate(1); }
+}
+
+/* Additional glow effects for better visibility of translucency */
+.service-icon-box,
+.project-item-icon-box,
+.close-btn,
+.form-btn {
+  box-shadow: 0 0 15px rgba(225, 48, 108, 0.2) !important;
+}
+
+/* Ensure proper display of translucent elements */
+article.active,
+.sidebar,
+.navbar {
+  z-index: 1 !important;
+}
