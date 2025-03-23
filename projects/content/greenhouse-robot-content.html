@@ -1,0 +1,481 @@
+<!-- Introduction section -->
+<div class="article-section" id="introduction">
+    <h2 class="section-title">Project Overview</h2>
+    <p class="article-text">
+      The Greenhouse Monitoring and Harvesting Robot is an autonomous agricultural solution designed to address critical challenges in modern farming systems. Combining 6DOF manipulation, computer vision, and autonomous navigation, this robot can efficiently perform monitoring, maintenance, and harvesting tasks in greenhouse environments.
+    </p>
+    <p class="article-text">
+      As climate change continues to impact traditional farming, controlled environment agriculture through greenhouses offers a sustainable alternative. Our robotic system enables 24/7 monitoring of plant health, detection of diseases, and selective harvesting of ripe produce—all while minimizing human labor requirements and maximizing efficiency.
+    </p>
+    <p class="article-text">
+      This research project integrated multiple disciplines including robotics, computer vision, machine learning, and agricultural technology to create a comprehensive solution that addresses real-world food security challenges in Bangladesh and beyond.
+    </p>
+  </div>
+  
+  <!-- Key Features section -->
+  <div class="article-section" id="features">
+    <h2 class="section-title">Key Features</h2>
+    <p class="article-text">
+      The Greenhouse Monitoring and Harvesting Robot incorporates several advanced components and algorithms that enable it to operate efficiently in complex greenhouse environments. Each system was carefully designed to handle specific challenges of agricultural automation.
+    </p>
+    
+    <div class="feature-grid">
+      <!-- Feature 1 -->
+      <div class="feature-card">
+        <img src="../assets/images/greenhouse-robot/6dof-manipulator.jpg" alt="6DOF Manipulator" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">6DOF Manipulator</h3>
+          <p class="feature-description">
+            Our custom-designed 6-degree-of-freedom manipulator provides the dexterity needed for precise interactions with plants. The kinematic model allows for targeted movement to specific 3D coordinates, enabling tasks like selective harvesting of ripe tomatoes without damaging surrounding plants.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Feature 2 -->
+      <div class="feature-card">
+        <img src="../assets/images/greenhouse-robot/computer-vision.jpg" alt="Computer Vision System" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">Computer Vision System</h3>
+          <p class="feature-description">
+            Advanced deep learning models (YOLOv5, YOLOR) enable the robot to detect and classify plant health, ripeness levels, and diseases. The system can operate in various lighting conditions, with specialized models for day and night operation to ensure 24/7 monitoring capabilities.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Feature 3 -->
+      <div class="feature-card">
+        <img src="../assets/images/greenhouse-robot/pathplanning.png" alt="Autonomous Navigation" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">Autonomous Navigation</h3>
+          <p class="feature-description">
+            Using grid-based mapping and the A* algorithm, the robot can efficiently navigate between plant beds in greenhouse environments. This system finds optimal paths while avoiding obstacles, making it suitable for various greenhouse layouts and configurations.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Feature 4 -->
+      <div class="feature-card">
+        <img src="../assets/images/greenhouse-robot/rviz.png" alt="ROS Framework" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">ROS Framework</h3>
+          <p class="feature-description">
+            The entire system is built on the Robot Operating System (ROS) framework, providing modular architecture where individual components communicate through standardized messages. This enables easy system expansion and modification to adapt to different greenhouse requirements.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Feature 5 -->
+      <div class="feature-card">
+        <img src="../assets/images/greenhouse-robot/disease-detection.jpg" alt="Disease Detection" class="feature-image">
+        <div class="feature-content">
+          <h3 class="feature-title">Disease Detection</h3>
+          <p class="feature-description">
+            The classification system can identify 8 different classes of tomato diseases using transfer learning with OpenAI CLIP and ResNet34 models. Early disease detection allows for timely intervention, potentially saving entire crops from devastating pathogens.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Technical Architecture section -->
+  <div class="article-section" id="architecture">
+    <h2 class="section-title">Technical Architecture</h2>
+    
+    <h3 class="subsection-title">System Components</h3>
+    <p class="article-text">
+      The robotic system combines hardware and software components in a modular architecture. The physical platform consists of a mobile base with tracked wheels for navigating uneven terrain, a 6DOF manipulator for interacting with plants, and various sensors including cameras and distance sensors.
+    </p>
+    <p class="article-text">
+      All components are integrated through the ROS framework, which provides standardized communication between different modules through topics, messages, and services. The modular design allows for easy expansion and modification of the system to adapt to different agricultural environments.
+    </p>
+    
+    <h3 class="subsection-title">Computer Vision Pipeline</h3>
+    <p class="article-text">
+      Our computer vision system uses a multi-stage pipeline for detecting, classifying, and tracking agricultural objects:
+    </p>
+    <ol style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;">Object detection using YOLOR or YOLOv5 to identify tomatoes and classify their ripeness level</li>
+      <li style="margin-bottom: 10px;">DeepSORT tracking to maintain consistent identification of individual fruits across video frames</li>
+      <li style="margin-bottom: 10px;">Disease classification using transfer learning with OpenAI CLIP and ResNet34</li>
+      <li style="margin-bottom: 10px;">3D position estimation to guide the manipulator for harvesting or inspection</li>
+    </ol>
+    
+    <h3 class="subsection-title">Manipulator Kinematics</h3>
+    <p class="article-text">
+      The 6DOF manipulator uses inverse kinematics to calculate joint angles required to reach a target position. We implemented the Pseudo Inverse Jacobian method for solving these equations, which provides a generalized solution that can be adapted to various manipulator configurations.
+    </p>
+    <p class="article-text">
+      Position feedback from potentiometers in the electric actuators provides closed-loop control of the manipulator joints. We carefully mapped the non-linear relationship between potentiometer readings and joint angles to ensure precise positioning of the end effector.
+    </p>
+    
+    <h3 class="subsection-title">Navigation System</h3>
+    <p class="article-text">
+      The robot's navigation system represents the greenhouse as a grid map where each cell is either traversable or occupied by an obstacle (such as plant beds). Using the A* algorithm, the robot calculates the shortest path between its current position and a target location specified by the user.
+    </p>
+    <p class="article-text">
+      This path-finding approach provides efficient navigation even in complex greenhouse layouts with multiple plant beds and narrow corridors. The system's PD controller ensures smooth movement along the calculated path, adjusting motor speeds to maintain accurate positioning.
+    </p>
+  </div>
+  
+  <!-- Research Methodology section -->
+  <div class="article-section" id="methodology">
+    <h2 class="section-title">Research Methodology</h2>
+    
+    <h3 class="subsection-title">Dataset Creation</h3>
+    <p class="article-text">
+      A significant contribution of this research was the creation of specialized agricultural datasets:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;"><strong>Tomato Detection Dataset:</strong> 4,782 images with 14,346 annotated instances of tomatoes in various ripeness states</li>
+      <li style="margin-bottom: 10px;"><strong>Day/Night Comparison Dataset:</strong> Parallel datasets captured in daytime and nighttime conditions to optimize detection under different lighting scenarios</li>
+      <li style="margin-bottom: 10px;"><strong>Disease Classification Dataset:</strong> 9,978 images across 8 classes of tomato diseases for training classification models</li>
+    </ul>
+    
+    <h3 class="subsection-title">Model Training and Evaluation</h3>
+    <p class="article-text">
+      We employed transfer learning to adapt state-of-the-art deep learning models to our agricultural context:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;">Compared YOLOv5 (nano and small variants), Detectron2, and YOLOR for object detection</li>
+      <li style="margin-bottom: 10px;">Evaluated OpenAI CLIP and ResNet34 for disease classification</li>
+      <li style="margin-bottom: 10px;">Tested model performance on different computing platforms (NVIDIA Jetson Nano, Raspberry Pi 4, and desktop GPU) to identify optimal configurations for deployment</li>
+    </ul>
+    
+    <h3 class="subsection-title">Kinematic Algorithm Development</h3>
+    <p class="article-text">
+      For the 6DOF manipulator, we explored both analytical and numerical approaches to inverse kinematics:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;">Created a detailed kinematic diagram of the custom manipulator</li>
+      <li style="margin-bottom: 10px;">Implemented the Pseudo Inverse Jacobian method for solving inverse kinematics</li>
+      <li style="margin-bottom: 10px;">Developed mapping between potentiometer readings and joint angles to enable precise control</li>
+      <li style="margin-bottom: 10px;">Validated the approach through visualization in ROS Gazebo and RViz before deployment on physical hardware</li>
+    </ul>
+    
+    <h3 class="subsection-title">System Integration</h3>
+    <p class="article-text">
+      The complete system was integrated using ROS as the underlying framework:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;">Created custom ROS packages for navigation, manipulation, and computer vision</li>
+      <li style="margin-bottom: 10px;">Developed a graphical user interface for system control and monitoring</li>
+      <li style="margin-bottom: 10px;">Implemented communication protocols between different hardware components (SBC, microcontrollers, sensors, actuators)</li>
+      <li style="margin-bottom: 10px;">Designed a comprehensive electronic system to power and control all components</li>
+    </ul>
+  </div>
+  
+  <!-- Results and Analysis section -->
+  <div class="article-section" id="results">
+    <h2 class="section-title">Results and Analysis</h2>
+    
+    <h3 class="subsection-title">Computer Vision Performance</h3>
+    <p class="article-text">
+      Our experiments revealed several important insights for agricultural computer vision:
+    </p>
+    
+    <div class="competition-card">
+      <div class="competition-header">
+        <h3 class="competition-name">Object Detection Comparison</h3>
+      </div>
+      <div class="competition-content">
+        <img src="../assets/images/greenhouse-robot/detection-results.jpg" alt="Object Detection Results" class="competition-image">
+        <div class="competition-details">
+          <p class="competition-description">
+            YOLOR achieved the highest mean average precision (85%), but at a cost of lower inference speed (2.5 FPS on Jetson Nano). YOLOv5 nano provided the best balance between accuracy (65% mAP) and speed (4 FPS on Jetson Nano), making it suitable for real-time applications.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="competition-card">
+      <div class="competition-header">
+        <h3 class="competition-name">Day vs. Night Detection</h3>
+      </div>
+      <div class="competition-content">
+        <img src="../assets/images/greenhouse-robot/day-night-comparison.jpg" alt="Day vs. Night Detection" class="competition-image">
+        <div class="competition-details">
+          <p class="competition-description">
+            Our system achieved better detection results at night with artificial lighting (69.65% mAP) compared to daytime conditions (67.13% mAP). This finding supports the feasibility of 24/7 operation, with the robot potentially focusing on harvesting tasks during nighttime hours when human operators are unavailable.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="competition-card">
+      <div class="competition-header">
+        <h3 class="competition-name">Disease Classification Accuracy</h3>
+      </div>
+      <div class="competition-content">
+        <img src="../assets/images/greenhouse-robot/disease-classification.jpg" alt="Disease Classification Results" class="competition-image">
+        <div class="competition-details">
+          <p class="competition-description">
+            OpenAI CLIP outperformed ResNet34 in disease classification tasks, particularly for subtle disease symptoms. The confusion matrices revealed that both models occasionally confused specific disease pairs with similar visual characteristics, suggesting areas for future improvement.
+          </p>
+        </div>
+      </div>
+    </div>
+    
+    <h3 class="subsection-title">Navigation and Path Planning</h3>
+    <p class="article-text">
+      The A* algorithm proved effective for greenhouse navigation, finding optimal paths even in complex layouts. Our analysis revealed that computation time increased with path length, but remained within acceptable limits for practical applications.
+    </p>
+    
+    <div class="gallery-grid">
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/path-planning-1.jpg" alt="Path Planning Example 1" class="gallery-image">
+        <div class="gallery-caption">A* algorithm finding shortest path in a simple greenhouse layout</div>
+      </div>
+      
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/path-planning-2.jpg" alt="Path Planning Example 2" class="gallery-image">
+        <div class="gallery-caption">Path planning in a complex greenhouse configuration</div>
+      </div>
+      
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/path-time-graph.jpg" alt="Path Length vs. Time Graph" class="gallery-image">
+        <div class="gallery-caption">Relationship between path length and computation time</div>
+      </div>
+    </div>
+    
+    <h3 class="subsection-title">Manipulator Kinematics</h3>
+    <p class="article-text">
+      The Pseudo Inverse Jacobian method successfully calculated joint angles for reaching target positions in 3D space. Our mapping between potentiometer readings and joint angles enabled precise control of the physical manipulator, with errors within acceptable limits for agricultural applications.
+    </p>
+  </div>
+  
+  <!-- Challenges and Solutions section -->
+  <div class="article-section" id="challenges">
+    <h2 class="section-title">Challenges and Solutions</h2>
+    
+    <div class="timeline-container">
+      <!-- Challenge 1 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h3 class="timeline-title">Limited Computational Resources</h3>
+        <div class="timeline-content">
+          <p>
+            <strong>Challenge:</strong> Running sophisticated deep learning models on embedded hardware with limited processing power.
+          </p>
+          <p>
+            <strong>Solution:</strong> We compared different model architectures and optimized for both accuracy and speed. YOLOv5 nano emerged as the best compromise for real-time applications on the Jetson Nano. For more complex detection tasks, we implemented a hybrid approach where initial detection used the faster model, with periodic verification from the more accurate model.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Challenge 2 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h3 class="timeline-title">Complex Kinematics for Manipulator</h3>
+        <div class="timeline-content">
+          <p>
+            <strong>Challenge:</strong> Solving the inverse kinematics for a custom 6DOF manipulator to enable precise positioning of the end effector.
+          </p>
+          <p>
+            <strong>Solution:</strong> We implemented the Pseudo Inverse Jacobian method, which offered a generalized solution that could be adapted to different manipulator configurations. By carefully mapping the relationship between potentiometer readings and joint angles, we achieved reliable control of the physical manipulator. Simulation in Gazebo and RViz allowed us to validate the approach before deployment.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Challenge 3 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h3 class="timeline-title">Data Collection and Annotation</h3>
+        <div class="timeline-content">
+          <p>
+            <strong>Challenge:</strong> Creating comprehensive datasets for training models to detect and classify tomatoes and plant diseases.
+          </p>
+          <p>
+            <strong>Solution:</strong> We combined multiple approaches: direct photography in greenhouses, web scraping, and augmentation of existing agricultural datasets. Data augmentation techniques (rotation, cropping, exposure adjustment) expanded our training set while improving model robustness to different lighting conditions and viewing angles.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Challenge 4 -->
+      <div class="timeline-item">
+        <div class="timeline-dot"></div>
+        <h3 class="timeline-title">System Integration</h3>
+        <div class="timeline-content">
+          <p>
+            <strong>Challenge:</strong> Integrating diverse hardware and software components into a cohesive system.
+          </p>
+          <p>
+            <strong>Solution:</strong> We leveraged the ROS framework to create a modular architecture where individual components communicated through standardized messages. A custom electronic system managed power distribution and communication between different modules. The UART protocol enabled reliable data transfer between the SBC and microcontrollers controlling the actuators.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <!-- Future Directions section -->
+  <div class="article-section" id="future">
+    <h2 class="section-title">Future Directions</h2>
+    <p class="article-text">
+      The Greenhouse Monitoring and Harvesting Robot project has established a solid foundation for agricultural automation, but several opportunities for future enhancement remain:
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;"><strong>Multi-crop Capabilities:</strong> Expanding the system to handle different crops beyond tomatoes, potentially using a modular end-effector design that can be swapped for different harvesting tasks</li>
+      <li style="margin-bottom: 10px;"><strong>Reinforcement Learning:</strong> Implementing RL algorithms to optimize harvesting strategies based on plant growth patterns and yield predictions</li>
+      <li style="margin-bottom: 10px;"><strong>Cloud Integration:</strong> Developing a cloud-based system for data storage, analysis, and remote monitoring of multiple robots across different greenhouse facilities</li>
+      <li style="margin-bottom: 10px;"><strong>Cooperative Robotics:</strong> Creating a fleet of specialized robots that work together, with some focused on monitoring and others on harvesting</li>
+      <li style="margin-bottom: 10px;"><strong>Expanded Disease Diagnostics:</strong> Incorporating additional sensors (spectrometers, thermal cameras) to detect diseases before visible symptoms appear</li>
+    </ul>
+    <p class="article-text">
+      This project demonstrates the potential of robotics and AI to address critical challenges in food security and sustainable agriculture. As climate change continues to impact traditional farming methods, technologies like the Greenhouse Monitoring and Harvesting Robot will play an increasingly important role in ensuring food production resilience.
+    </p>
+  </div>
+  
+  <!-- Team and Acknowledgments section -->
+  <div class="article-section" id="team">
+    <h2 class="section-title">Research Team</h2>
+    
+    <div class="team-grid">
+      <!-- Team member 1 -->
+      <div class="team-member">
+        <img src="../assets/images/greenhouse-robot/team-member-1.jpg" alt="Md. Hashibul Islam" class="team-photo">
+        <div class="team-info">
+          <h4 class="team-name">Md. Hashibul Islam</h4>
+          <p class="team-role">Computer Vision Specialist</p>
+          <p class="team-bio">Led the development of object detection and tracking systems.</p>
+        </div>
+      </div>
+      
+      <!-- Team member 2 -->
+      <div class="team-member">
+        <img src="../assets/images/greenhouse-robot/team-member-2.jpg" alt="Md. Firoz Wadud" class="team-photo">
+        <div class="team-info">
+          <h4 class="team-name">Md. Firoz Wadud</h4>
+          <p class="team-role">Robotics Engineer</p>
+          <p class="team-bio">Designed the manipulator and implemented the kinematic algorithms.</p>
+        </div>
+      </div>
+      
+      <!-- Team member 3 -->
+      <div class="team-member">
+        <img src="../assets/images/greenhouse-robot/team-member-3.jpg" alt="Md. Raihan Rahman" class="team-photo">
+        <div class="team-info">
+          <h4 class="team-name">Md. Raihan Rahman</h4>
+          <p class="team-role">Navigation Systems Engineer</p>
+          <p class="team-bio">Developed the path planning and navigation algorithms.</p>
+        </div>
+      </div>
+      
+      <!-- Team member 4 -->
+      <div class="team-member">
+        <img src="../assets/images/greenhouse-robot/team-member-4.jpg" alt="A S M Hasibul Alam" class="team-photo">
+        <div class="team-info">
+          <h4 class="team-name">A S M Hasibul Alam</h4>
+          <p class="team-role">Electronic Systems Engineer</p>
+          <p class="team-bio">Designed and implemented the electronic control systems.</p>
+        </div>
+      </div>
+    </div>
+    
+    <h3 class="subsection-title">Acknowledgments</h3>
+    <p class="article-text">
+      This research was conducted at BRAC University under the guidance of Dr. Md. Khalilur Rhaman and Dr. Golam Rabiul Alam. We extend our gratitude to Aqualink Bangladesh Ltd. for their support in providing access to greenhouse facilities and agricultural expertise. Special thanks to Sihab Sahariar and S.M. Abrar Mustakim Taki for their technical assistance throughout the project.
+    </p>
+    <p class="article-text">
+      This work was inspired by our previous experience with the BRACU Mongol-Tori Mars rover project, which taught us valuable lessons in robotics, team collaboration, and system integration.
+    </p>
+  </div>
+  
+  <!-- Publications and References section -->
+  <div class="article-section" id="publications">
+    <h2 class="section-title">Publications and References</h2>
+    <p class="article-text">
+      This research formed the basis for a thesis submitted to the Department of Computer Science and Engineering at BRAC University in partial fulfillment of the requirements for the degree of B.Sc. in Computer Science.
+    </p>
+    <p class="article-text">
+      <strong>Thesis Title:</strong> Greenhouse monitoring and harvesting mobile robot with 6DOF manipulator utilizing ROS, Inverse Kinematics and deep learning models
+    </p>
+    <p class="article-text">
+      <strong>Key References:</strong>
+    </p>
+    <ul style="color: var(--text-secondary); margin-left: 20px; margin-bottom: 20px;">
+      <li style="margin-bottom: 10px;">Quigley, M., Gerkey, B., & Smart, W. D. (2015). Programming Robots with ROS: a practical introduction to the Robot Operating System. O'Reilly Media, Inc.</li>
+      <li style="margin-bottom: 10px;">Siciliano, B., & Khatib, O. (2016). Springer handbook of robotics. Springer.</li>
+      <li style="margin-bottom: 10px;">Arad, B., Balendonck, J., Barth, R., et al. (2020). Development of a sweet pepper harvesting robot. Journal of Field Robotics, 37(6), 1027-1039.</li>
+      <li style="margin-bottom: 10px;">Benke, K., & Tomkins, B. (2017). Future food-production systems: Vertical farming and controlled-environment agriculture. Sustainability: Science, Practice and Policy, 13(1), 13-26.</li>
+      <li style="margin-bottom: 10px;">Goldenberg, A., Benhabib, B., & Fenton, R. (1985). A complete generalized solution to the inverse kinematics of robots. IEEE Journal on Robotics and Automation, 1(1), 14-20.</li>
+    </ul>
+  </div>
+  
+  <!-- Media Gallery section -->
+  <div class="article-section" id="media">
+    <h2 class="section-title">Media Gallery</h2>
+    
+    <div class="gallery-grid">
+      <!-- Gallery item 1 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/full-robot.jpg" alt="Complete Robot System" class="gallery-image">
+        <div class="gallery-caption">The complete Greenhouse Monitoring and Harvesting Robot system</div>
+      </div>
+      
+      <!-- Gallery item 2 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/manipulator-closeup.jpg" alt="Manipulator Close-up" class="gallery-image">
+        <div class="gallery-caption">Close-up of the 6DOF manipulator with end effector</div>
+      </div>
+      
+      <!-- Gallery item 3 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/electronics.jpg" alt="Electronics System" class="gallery-image">
+        <div class="gallery-caption">Custom electronic control system</div>
+      </div>
+      
+      <!-- Gallery item 4 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/detection-demo.jpg" alt="Detection Demonstration" class="gallery-image">
+        <div class="gallery-caption">Computer vision system detecting ripe tomatoes</div>
+      </div>
+      
+      <!-- Gallery item 5 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/simulation.jpg" alt="Gazebo Simulation" class="gallery-image">
+        <div class="gallery-caption">Gazebo simulation of the robotic system</div>
+      </div>
+      
+      <!-- Gallery item 6 -->
+      <div class="gallery-item">
+        <img src="../assets/images/greenhouse-robot/disease-detection-demo.jpg" alt="Disease Detection" class="gallery-image">
+        <div class="gallery-caption">Disease detection results on tomato leaves</div>
+      </div>
+    </div>
+    
+    <h3 class="subsection-title">Videos</h3>
+    <div class="video-container">
+      <!-- Video 1 -->
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/placeholder-video-id" 
+            title="Greenhouse Robot Demo"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-content">
+          <h4 class="video-title">Robot Operation Demo</h4>
+          <p class="video-description">
+            Demonstration of the robot navigating through a greenhouse environment and harvesting ripe tomatoes.
+          </p>
+        </div>
+      </div>
+      
+      <!-- Video 2 -->
+      <div class="video-card">
+        <div class="video-frame">
+          <iframe src="https://www.youtube.com/embed/placeholder-video-id-2"
+            title="Computer Vision System"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        </div>
+        <div class="video-content">
+          <h4 class="video-title">Computer Vision System</h4>
+          <p class="video-description">
+            Detailed explanation of the computer vision system detecting and tracking tomatoes in various lighting conditions.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>

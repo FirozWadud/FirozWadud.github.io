@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BRACU Mongol-Tori - Mars Rover Project</title>
+
+  <!-- favicon -->
+  <link rel="shortcut icon" href="../assets/images/logo.ico" type="image/x-icon">
+
+  <link rel="stylesheet" href="../assets/css/main.css">
+
+  <!-- Google fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Component loader script -->
+<script src="./assets/js/component-loader.js"></script>
+  <!-- Unified theme handler for project pages -->
+<script src="../assets/js/unified-theme-handler.js"></script>
+
+</head>
+
+<body>
+  <!-- Modal overlay for popup -->
+  <div class="modal-overlay" id="modalOverlay" style="display: none;"></div>
+  
+  <!-- Popup window container -->
+  <div class="popup-container" id="projectPopup" style="display: none;">
+    <!-- Popup header with title and close button -->
+    <div class="popup-header">
+      <h2 class="popup-title" id="popup-title">Mars Rover Project: BRACU Mongol-Tori</h2>
+      <button class="close-btn" id="closePopupBtn">
+        <ion-icon name="close-outline"></ion-icon>
+      </button>
+    </div>
+    
+    <!-- Popup content with scrollbar -->
+    <div class="popup-content">
+      <!-- Article hero section -->
+      <div class="article-hero">
+        <img src="../assets/images/dichari/dichari-team01.jpg" alt="BRACU Mongol-Tori Mars Rover" class="hero-image">
+        <div class="hero-overlay">
+          <h1 class="hero-title">BRACU Dicahri</h1>
+          <p class="hero-subtitle">A multidisciplinary project creating Mars exploration technology for international competitions</p>
+        </div>
+      </div>
+      
+      <!-- Article content -->
+      <div class="article-content">
+        <div class="article-layout">
+          <!-- Main content column - will be loaded from content file -->
+          <div class="article-main" id="article-main"></div>
+          
+          <!-- Sidebar column -->
+          <div class="article-sidebar">
+            <!-- Table of contents -->
+            <div class="toc">
+              <h3 class="toc-title">Contents</h3>
+              <ul class="toc-list">
+                <li class="toc-item"><a href="#introduction" class="toc-link">Project Overview</a></li>
+                <li class="toc-item"><a href="#features" class="toc-link">Key Features</a></li>
+                <li class="toc-item"><a href="#timeline" class="toc-link">Project Timeline</a></li>
+                <li class="toc-item"><a href="#competitions" class="toc-link">International Competitions</a></li>
+                <li class="toc-item"><a href="#technical" class="toc-link">Technical Systems</a></li>
+                <li class="toc-item"><a href="#science" class="toc-link">Science Module</a></li>
+                <li class="toc-item"><a href="#testing" class="toc-link">Testing & Operations</a></li>
+                <li class="toc-item"><a href="#team" class="toc-link">Team Leadership</a></li>
+                <li class="toc-item"><a href="#media" class="toc-link">Project Media</a></li>
+                <li class="toc-item"><a href="#future" class="toc-link">Future Directions</a></li>
+              </ul>
+            </div>
+            
+            <!-- Project stats -->
+            <div class="toc" style="margin-top: 20px;">
+              <h3 class="toc-title">Project Stats</h3>
+              <ul class="toc-list">
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Development Period:</span>
+                  <span style="color: var(--orange-yellow-crayola);">2019-2021</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Team Size:</span>
+                  <span style="color: var(--orange-yellow-crayola);">10+ Members</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Competitions:</span>
+                  <span style="color: var(--orange-yellow-crayola);">URC, IRC</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Chassis Dimensions:</span>
+                  <span style="color: var(--orange-yellow-crayola);">0.7m × 0.55m</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Wheel Diameter:</span>
+                  <span style="color: var(--orange-yellow-crayola);">0.3m</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Range:</span>
+                  <span style="color: var(--orange-yellow-crayola);">1km+</span>
+                </li>
+                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                  <span>Battery Life:</span>
+                  <span style="color: var(--orange-yellow-crayola);">~48 minutes</span>
+                </li>
+              </ul>
+            </div>
+            
+            <!-- Contact info -->
+            <div class="toc" style="margin-top: 20px;">
+              <h3 class="toc-title">Contact Information</h3>
+              <ul class="toc-list">
+                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
+                  <ion-icon name="person-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>Md. Firoz Wadud (Team Lead)</span>
+                </li>
+                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
+                  <ion-icon name="mail-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>mdfirozwadud@gmail.com</span>
+                </li>
+                <li class="toc-item" style="display: flex; align-items: center;">
+                  <ion-icon name="school-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
+                  <span>BRAC University, Dhaka, Bangladesh</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Script to load content -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // Get the current project name from the URL
+      const projectName = window.location.pathname.split('/').pop().replace('.html', '');
+      
+      // Fetch the content file
+      fetch(`./content/${projectName}-content.html`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Failed to load content for ${projectName}`);
+          }
+          return response.text();
+        })
+        .then(html => {
+          // Insert the content into the main content area
+          document.getElementById('article-main').innerHTML = html;
+        })
+        .catch(error => {
+          console.error('Error loading content:', error);
+          document.getElementById('article-main').innerHTML = `
+            <div class="article-section">
+              <h2 class="section-title">Error Loading Content</h2>
+              <p class="article-text">Sorry, there was a problem loading the project content.</p>
+              <p class="article-text">${error.message}</p>
+            </div>
+          `;
+        });
+    });
+  </script>
+
+  <!-- Common JavaScript files -->
+  <script src="../assets/js/project-popup.js"></script>
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+</body>
+
+</html>
