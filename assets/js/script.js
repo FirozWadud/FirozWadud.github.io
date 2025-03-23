@@ -1,17 +1,37 @@
 'use strict';
 
+// Function to parse hash and extract parameters
+function parseHash() {
+  const hash = window.location.hash.substring(1); // Remove the # character
+  
+  if (!hash) return { section: null, params: {} };
+  
+  // Check if there are parameters
+  if (hash.includes('?')) {
+    const [section, paramString] = hash.split('?');
+    const params = {};
+    
+    // Parse parameters
+    const searchParams = new URLSearchParams(paramString);
+    for (const [key, value] of searchParams.entries()) {
+      params[key] = value;
+    }
+    
+    return { section, params };
+  }
+  
+  // No parameters, just section
+  return { section: hash, params: {} };
+}
+
 // Wait for DOM to be ready
 document.addEventListener('DOMContentLoaded', function() {
-  // Check for hash in URL (e.g., #portfolio)
+  // Check for hash in URL (e.g., #portfolio?filter=projects)
   if (window.location.hash) {
-    // Get the section name from the hash (remove the # character)
-    const sectionName = window.location.hash.substring(1);
+    const { section, params } = parseHash();
     
     // We'll handle this after components are loaded
-    const hashSection = sectionName;
-    
-    // Start component loading check
-    checkComponentsLoaded(hashSection);
+    checkComponentsLoaded(section, params);
   } else {
     // No hash, just check if components are loaded
     checkComponentsLoaded();
@@ -19,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 // Function to check if components are loaded
-function checkComponentsLoaded(hashSection) {
+function checkComponentsLoaded(hashSection, hashParams) {
   // Check if all components are loaded every 100ms
   const componentsLoaded = setInterval(function() {
     // Count how many component placeholders are still empty
@@ -28,13 +48,13 @@ function checkComponentsLoaded(hashSection) {
     if (pendingComponents === 0) {
       // All components are loaded, clear interval and initialize
       clearInterval(componentsLoaded);
-      initializePortfolio(hashSection);
+      initializePortfolio(hashSection, hashParams);
     }
   }, 100);
 }
 
 // Main initialization function - only called after all components are loaded
-function initializePortfolio(hashSection) {
+function initializePortfolio(hashSection, hashParams = {}) {
   console.log('All components loaded, initializing functionality');
   
   // Initialize sidebar
@@ -49,8 +69,11 @@ function initializePortfolio(hashSection) {
   // Initialize contact form
   initContactForm();
   
-  // Initialize page navigation
-  initNavigation(hashSection);
+  // Initialize page navigation with parameters
+  initNavigation(hashSection, hashParams);
+  
+  // Initialize filter memory enhancement
+  enhanceFilterMemory();
 }
 
 // Sidebar functionality
@@ -145,6 +168,9 @@ function initSelectAndFilter() {
         selectValue.innerText = this.innerText;
         elementToggleFunc(select);
         filterFunc(selectedValue);
+        
+        // Store the active category in localStorage
+        localStorage.setItem('activeFilterCategory', selectedValue);
       });
     }
     
@@ -160,6 +186,9 @@ function initSelectAndFilter() {
         lastClickedBtn.classList.remove("active");
         this.classList.add("active");
         lastClickedBtn = this;
+        
+        // Store the active category in localStorage
+        localStorage.setItem('activeFilterCategory', selectedValue);
       });
     }
   }
@@ -188,17 +217,12 @@ function initContactForm() {
 }
 
 // Page navigation functionality
-function initNavigation(hashSection) {
+function initNavigation(hashSection, hashParams = {}) {
   const navigationLinks = document.querySelectorAll("[data-nav-link]");
   const pages = document.querySelectorAll("[data-page]");
   
-  // Priority for activation:
-  // 1. Hash fragment in URL (direct link to section)
-  // 2. localStorage (remembered section)
-  // 3. Default (first section)
-  
   // Helper function to activate a specific section
-  function activateSection(sectionName) {
+  function activateSection(sectionName, params = {}) {
     // Loop through all nav links and pages
     for (let i = 0; i < navigationLinks.length; i++) {
       if (navigationLinks[i].innerHTML.toLowerCase() === sectionName) {
@@ -211,6 +235,14 @@ function initNavigation(hashSection) {
     for (let i = 0; i < pages.length; i++) {
       if (pages[i].dataset.page === sectionName) {
         pages[i].classList.add("active");
+        
+        // If this is the portfolio section and we have a filter parameter
+        if (sectionName === 'portfolio' && params.filter) {
+          // Activate the specified filter after a short delay to ensure DOM is ready
+          setTimeout(() => {
+            activateFilter(params.filter);
+          }, 100);
+        }
       } else {
         pages[i].classList.remove("active");
       }
@@ -219,10 +251,62 @@ function initNavigation(hashSection) {
     window.scrollTo(0, 0);
   }
   
-  // First check if we have a hash section (highest priority)
+  // Helper function to activate a specific filter
+  function activateFilter(filterName) {
+    const filterButtons = document.querySelectorAll("[data-filter-btn]");
+    const selectValue = document.querySelector("[data-selecct-value]");
+    let lastClickedBtn = null;
+    
+    // Normalize the filter name for comparison
+    filterName = filterName.toLowerCase();
+    
+    // Find the corresponding filter button and activate it
+    for (let i = 0; i < filterButtons.length; i++) {
+      const btnText = filterButtons[i].innerText.toLowerCase();
+      
+      if (btnText === filterName) {
+        // This is our target filter button
+        filterButtons[i].classList.add("active");
+        lastClickedBtn = filterButtons[i];
+        
+        // Update select value text if available
+        if (selectValue) {
+          selectValue.innerText = filterButtons[i].innerText;
+        }
+        
+        // Define and call the filter function
+        const filterItems = document.querySelectorAll("[data-filter-item]");
+        for (let j = 0; j < filterItems.length; j++) {
+          if (filterName === "all") {
+            filterItems[j].classList.add("active");
+          } else if (filterName === filterItems[j].dataset.category) {
+            filterItems[j].classList.add("active");
+          } else {
+            filterItems[j].classList.remove("active");
+          }
+        }
+        
+        // Store the active filter
+        localStorage.setItem('activeFilterCategory', filterName);
+        
+      } else if (filterButtons[i].classList.contains("active")) {
+        // Deactivate any other active button
+        filterButtons[i].classList.remove("active");
+      }
+    }
+  }
+  
+  // First check if we have a hash section with parameters (highest priority)
   if (hashSection) {
-    // Activate the section from hash
-    activateSection(hashSection);
+    // Check if there's a filter parameter in the hashParams
+    if (hashParams.filter) {
+      // Activate the section with filter parameter
+      activateSection(hashSection, { filter: hashParams.filter });
+    } else {
+      // No parameters, just activate the section
+      activateSection(hashSection);
+    }
+    
     // Also store it in localStorage for future visits
     localStorage.setItem('activeSection', hashSection);
   } 
@@ -230,7 +314,17 @@ function initNavigation(hashSection) {
   else {
     const storedSection = localStorage.getItem('activeSection');
     if (storedSection) {
-      activateSection(storedSection);
+      // Check if we have a stored filter for the portfolio section
+      if (storedSection === 'portfolio') {
+        const storedFilter = localStorage.getItem('activeFilterCategory');
+        if (storedFilter) {
+          activateSection(storedSection, { filter: storedFilter });
+        } else {
+          activateSection(storedSection);
+        }
+      } else {
+        activateSection(storedSection);
+      }
     }
     // Default behavior is already handled by HTML (first section active)
   }
@@ -243,10 +337,22 @@ function initNavigation(hashSection) {
       // Store the active section
       localStorage.setItem('activeSection', targetPage);
       
-      // Activate the section
+      // If going to portfolio and we have a stored filter, activate with filter
+      if (targetPage === 'portfolio') {
+        const storedFilter = localStorage.getItem('activeFilterCategory');
+        if (storedFilter) {
+          activateSection(targetPage, { filter: storedFilter });
+          
+          // Update URL hash with filter parameter
+          history.replaceState(null, null, '#' + targetPage + '?filter=' + storedFilter);
+          return;
+        }
+      }
+      
+      // Otherwise just activate the section
       activateSection(targetPage);
       
-      // Update URL hash without page reload (optional, makes back button work better)
+      // Update URL hash without page reload
       history.replaceState(null, null, '#' + targetPage);
     });
   }
@@ -265,3 +371,53 @@ function initNavigation(hashSection) {
     });
   }
 }
+
+// Enhance the filter functionality to remember the active category
+function enhanceFilterMemory() {
+  // Store the currently selected filter category when clicking on a project
+  const projectLinks = document.querySelectorAll('.project-item a');
+  
+  if (projectLinks.length) {
+    projectLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        // Find the active filter
+        const activeFilterBtn = document.querySelector('[data-filter-btn].active');
+        if (activeFilterBtn) {
+          const activeCategory = activeFilterBtn.innerText.toLowerCase();
+          // Store the active category
+          localStorage.setItem('activeFilterCategory', activeCategory);
+          console.log(`Stored active category: ${activeCategory}`);
+        }
+      });
+    });
+  }
+}
+
+// Store section when clicking on project links
+document.addEventListener('DOMContentLoaded', function() {
+  // Find all section containers
+  const sectionContainers = document.querySelectorAll('[data-page]');
+  
+  // Process each section
+  sectionContainers.forEach(section => {
+    // Find all links in this section that go to other pages
+    const externalLinks = section.querySelectorAll('a[href$=".html"]');
+    
+    // Add click handler to remember which section we're in
+    externalLinks.forEach(link => {
+      link.addEventListener('click', function() {
+        // Store the current section name
+        localStorage.setItem('activeSection', section.dataset.page);
+        
+        // If in portfolio section, also store the active filter
+        if (section.dataset.page === 'portfolio') {
+          const activeFilterBtn = document.querySelector('[data-filter-btn].active');
+          if (activeFilterBtn) {
+            const activeCategory = activeFilterBtn.innerText.toLowerCase();
+            localStorage.setItem('activeFilterCategory', activeCategory);
+          }
+        }
+      });
+    });
+  });
+});
