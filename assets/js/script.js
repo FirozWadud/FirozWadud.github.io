@@ -53,7 +53,92 @@ function checkComponentsLoaded(hashSection, hashParams) {
   }, 100);
 }
 
-// Main initialization function - only called after all components are loaded
+// Project modal functionality
+function initProjectModals() {
+  const projectLinks = document.querySelectorAll('a[data-project]');
+  const modalContainer = document.querySelector('[data-project-modal-container]');
+  const modalCloseBtn = document.querySelector('[data-project-modal-close-btn]');
+  const overlay = document.querySelector('[data-project-overlay]');
+  const modalContent = document.querySelector('[data-project-modal-content]');
+  
+  if (!projectLinks.length || !modalContainer || !modalCloseBtn || !overlay || !modalContent) return;
+  
+  // Toggle modal function
+  const toggleProjectModal = function() {
+    modalContainer.classList.toggle("active");
+    overlay.classList.toggle("active");
+    document.body.classList.toggle("modal-open"); // Add this class to prevent background scrolling
+  };
+  
+  // Load project content and show modal
+  const loadProjectContent = function(projectName) {
+    // Show loading indicator
+    modalContent.innerHTML = '<div class="loading-spinner">Loading project content</div>';
+    
+    // Fetch project content
+    fetch(`./projects/content/${projectName}-content.html`)
+      .then(response => {
+        if (!response.ok) {
+          throw new Error(`Failed to load content for ${projectName}`);
+        }
+        return response.text();
+      })
+      .then(html => {
+        // Create wrapper for content
+        const contentWrapper = document.createElement('div');
+        contentWrapper.className = 'article-content';
+        
+        // Create hero section
+        const heroSection = document.createElement('div');
+        heroSection.className = 'article-hero';
+        heroSection.innerHTML = `
+          <img src="./assets/images/${projectName}/${projectName}_cover.jpg" alt="${projectName}" class="hero-image">
+          <div class="hero-overlay">
+            <h1 class="hero-title">${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
+            <p class="hero-subtitle">Project Details</p>
+          </div>
+        `;
+        
+        // Create content container
+        const mainContent = document.createElement('div');
+        mainContent.className = 'article-main';
+        mainContent.innerHTML = html;
+        
+        // Add content to wrapper
+        contentWrapper.appendChild(heroSection);
+        contentWrapper.appendChild(mainContent);
+        
+        // Update modal content
+        modalContent.innerHTML = '';
+        modalContent.appendChild(contentWrapper);
+      })
+      .catch(error => {
+        console.error('Error loading content:', error);
+        modalContent.innerHTML = `
+          <div class="error-message">
+            <h3>Error Loading Content</h3>
+            <p>Sorry, there was a problem loading the project content.</p>
+            <p>${error.message}</p>
+          </div>
+        `;
+      });
+  };
+  
+  // Add click event to project links
+  for (let i = 0; i < projectLinks.length; i++) {
+    projectLinks[i].addEventListener("click", function(e) {
+      e.preventDefault();
+      const projectName = this.getAttribute('data-project');
+      loadProjectContent(projectName);
+      toggleProjectModal();
+    });
+  }
+  
+  // Add click events to close button and overlay
+  modalCloseBtn.addEventListener("click", toggleProjectModal);
+  overlay.addEventListener("click", toggleProjectModal);
+}
+
 function initializePortfolio(hashSection, hashParams = {}) {
   console.log('All components loaded, initializing functionality');
   
@@ -62,6 +147,9 @@ function initializePortfolio(hashSection, hashParams = {}) {
   
   // Initialize testimonials
   initTestimonials();
+  
+  // Initialize project modals
+  initProjectModals();
   
   // Initialize select and filter
   initSelectAndFilter();

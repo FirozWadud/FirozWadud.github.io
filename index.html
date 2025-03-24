@@ -16,6 +16,8 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="./assets/css/project-content.css">
   
   <!-- Component loader script -->
   <script src="./assets/js/component-loader.js"></script>
@@ -49,36 +51,104 @@
       <!-- Contact Section -->
       <div data-component="sections/contact.html"></div>
     </div>
+
+    <!-- Project Modal Container -->
+    <div class="project-modal-container" id="projectModalContainer">
+      <div class="overlay" id="projectOverlay"></div>
+      
+      <section class="project-modal">
+        <button class="modal-close-btn" id="projectModalCloseBtn">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+        
+        <div class="project-modal-content" id="projectModalContent">
+          <!-- Content will be loaded here -->
+        </div>
+      </section>
+    </div>
   </main>
 
   <!-- Scripts -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
   <script src="./assets/js/theme-switcher.js"></script>
-
   
   <!-- Main script - load this after components -->
   <script src="./assets/js/script.js"></script>
-  <script>
-    // This script remembers which section you were in when clicking external links
-    document.addEventListener('DOMContentLoaded', function() {
-      // Find all section containers
-      const sectionContainers = document.querySelectorAll('[data-page]');
-      
-      // Process each section
-      sectionContainers.forEach(section => {
-        // Find all links in this section that go to other pages
-        const externalLinks = section.querySelectorAll('a[href$=".html"]');
-        
-        // Add click handler to remember which section we're in
-        externalLinks.forEach(link => {
-          link.addEventListener('click', function() {
-            // Store the current section name
-            localStorage.setItem('activeSection', section.dataset.page);
-          });
-        });
-      });
+  <script src="./assets/js/project-modal.js"></script>
+
+  
+<!-- Simple Project Modal -->
+<div id="projectModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999;">
+  <div style="position:relative; width:90%; max-width:1200px; height:90vh; margin:30px auto; background:var(--bg-card); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
+    <button id="closeProjectBtn" style="position:absolute; top:15px; right:15px; z-index:10; background:var(--border-color); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--text-primary); cursor:pointer; border:none;">
+      <ion-icon name="close-outline"></ion-icon>
+    </button>
+    <div id="projectContent" style="flex:1; overflow-y:auto;"></div>
+  </div>
+</div>
+
+<script>
+function openProjectModal(projectName) {
+  console.log('Opening project:', projectName);
+  
+  // Show loading indicator
+  document.getElementById('projectContent').innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100%; color:var(--text-secondary);"><p>Loading project content...</p></div>';
+  
+  // Show modal
+  document.getElementById('projectModal').style.display = 'block';
+  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  
+  // Load content
+  fetch(`./projects/content/${projectName}-content.html`)
+    .then(response => {
+      if (!response.ok) {
+        throw new Error(`Failed to load content for ${projectName}`);
+      }
+      return response.text();
+    })
+    .then(html => {
+      // Insert content with project cover image
+      document.getElementById('projectContent').innerHTML = `
+        <div>
+          <div style="position:relative; height:350px; overflow:hidden;">
+            <img src="./assets/images/${projectName}/${projectName}_cover.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='./assets/images/${projectName}/fullrover.png'">
+            <div style="position:absolute; bottom:0; left:0; right:0; padding:30px; background:linear-gradient(transparent, rgba(0,0,0,0.8));">
+              <h1 style="color:var(--text-primary); margin:0 0 10px 0; font-size:28px;">${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
+              <p style="color:var(--primary-accent); margin:0; font-size:16px;">Project Details</p>
+            </div>
+          </div>
+          <div style="padding:30px;">${html}</div>
+        </div>
+      `;
+    })
+    .catch(error => {
+      console.error('Error loading content:', error);
+      document.getElementById('projectContent').innerHTML = `
+        <div style="padding:30px; text-align:center; color:var(--text-error);">
+          <h3>Error Loading Content</h3>
+          <p>Sorry, there was a problem loading the project content.</p>
+          <p>${error.message}</p>
+          <p>Check the browser console for more details.</p>
+        </div>
+      `;
     });
-  </script>
+}
+
+// Set up close button
+document.getElementById('closeProjectBtn').addEventListener('click', function() {
+  document.getElementById('projectModal').style.display = 'none';
+  document.body.style.overflow = ''; // Restore background scrolling
+});
+
+// Close when clicking outside content
+document.getElementById('projectModal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    document.getElementById('projectModal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+</script>
+
 </body>
 </html>

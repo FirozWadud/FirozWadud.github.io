@@ -9,17 +9,147 @@
   <!-- favicon -->
   <link rel="shortcut icon" href="../assets/images/logo.ico" type="image/x-icon">
 
+  <!-- main CSS files -->
   <link rel="stylesheet" href="../assets/css/main.css">
+  <link rel="stylesheet" href="../assets/css/storytelling.css">
+  
+  <!-- Animation library -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  
+  <!-- Custom styling for this project page -->
+  <style>
+    /* Hero section styling */
+    .hero-section {
+      height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+    
+    .hero-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+    }
+    
+    .hero-bg img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: brightness(0.6);
+    }
+    
+    .hero-content {
+      max-width: 800px;
+      padding: 30px;
+      background: rgba(0,0,0,0.6);
+      border-radius: 15px;
+      backdrop-filter: blur(10px);
+    }
+    
+    .hero-title {
+      font-size: 4rem;
+      margin-bottom: 20px;
+      color: var(--primary-accent);
+    }
+    
+    .hero-subtitle {
+      font-size: 1.5rem;
+      margin-bottom: 30px;
+    }
+    
+    /* Section headers */
+    .section-header {
+      text-align: center;
+      margin-bottom: 50px;
+      position: relative;
+    }
+    
+    .section-header::after {
+      content: "";
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 100px;
+      height: 3px;
+      background: var(--primary-accent-gradient);
+    }
+    
+    /* Parallax sections */
+    .parallax-section {
+      position: relative;
+      min-height: 400px;
+      background-attachment: fixed;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: cover;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 80px 0;
+    }
+    
+    .parallax-content {
+      background: var(--bg-card);
+      padding: 30px;
+      border-radius: 15px;
+      max-width: 600px;
+      box-shadow: var(--shadow-3);
+    }
+    
+    /* Flexbox layout helpers */
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      margin: 0 -15px;
+    }
+    
+    .col {
+      flex: 1;
+      padding: 0 15px;
+      min-width: 300px;
+    }
+    
+    /* Popup content adjustments */
+    .popup-content {
+      padding: 0 !important;
+      overflow-x: hidden !important;
+    }
+    
+    .scroll-indicator {
+      position: absolute;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 2rem;
+      animation: bounce 2s infinite;
+    }
+    
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% {transform: translateY(0) translateX(-50%);}
+      40% {transform: translateY(-30px) translateX(-50%);}
+      60% {transform: translateY(-15px) translateX(-50%);}
+    }
+  </style>
 
   <!-- Google fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
-    <!-- Component loader script -->
-<script src="./assets/js/component-loader.js"></script>
+  
+  <!-- Component loader script -->
+  <script src="../assets/js/component-loader.js"></script>
+  
   <!-- Unified theme handler for project pages -->
-<script src="../assets/js/unified-theme-handler.js"></script>
-
+  <script src="../assets/js/unified-theme-handler.js"></script>
 </head>
 
 <body>
@@ -30,7 +160,7 @@
   <div class="popup-container" id="projectPopup" style="display: none;">
     <!-- Popup header with title and close button -->
     <div class="popup-header">
-      <h2 class="popup-title" id="popup-title">Mars Rover Project: BRACU Mongol-Tori</h2>
+      <h2 class="popup-title" id="popup-title">BRACU Mongol-Tori: Journey to Mars</h2>
       <button class="close-btn" id="closePopupBtn">
         <ion-icon name="close-outline"></ion-icon>
       </button>
@@ -38,116 +168,38 @@
     
     <!-- Popup content with scrollbar -->
     <div class="popup-content">
-      <!-- Article hero section -->
-      <div class="article-hero">
-        <img src="../assets/images/mongoltori/fullrover.png" alt="BRACU Mongol-Tori Mars Rover" class="hero-image">
-        <div class="hero-overlay">
-          <h1 class="hero-title">BRACU Mongol-Tori: Mars Rover</h1>
-          <p class="hero-subtitle">A multidisciplinary project creating Mars exploration technology for international competitions</p>
-        </div>
-      </div>
-      
       <!-- Article content -->
-      <div class="article-content">
-        <div class="article-layout">
-          <!-- Main content column - will be loaded from content file -->
-          <div class="article-main" id="article-main"></div>
-          
-          <!-- Sidebar column -->
-          <div class="article-sidebar">
-            <!-- Table of contents -->
-            <div class="toc">
-              <h3 class="toc-title">Contents</h3>
-              <ul class="toc-list">
-                <li class="toc-item"><a href="#introduction" class="toc-link">Project Overview</a></li>
-                <li class="toc-item"><a href="#features" class="toc-link">Key Features</a></li>
-                <li class="toc-item"><a href="#timeline" class="toc-link">Project Timeline</a></li>
-                <li class="toc-item"><a href="#competitions" class="toc-link">International Competitions</a></li>
-                <li class="toc-item"><a href="#technical" class="toc-link">Technical Systems</a></li>
-                <li class="toc-item"><a href="#science" class="toc-link">Science Module</a></li>
-                <li class="toc-item"><a href="#testing" class="toc-link">Testing & Operations</a></li>
-                <li class="toc-item"><a href="#team" class="toc-link">Team Leadership</a></li>
-                <li class="toc-item"><a href="#media" class="toc-link">Project Media</a></li>
-                <li class="toc-item"><a href="#future" class="toc-link">Future Directions</a></li>
-              </ul>
-            </div>
-            
-            <!-- Project stats -->
-            <div class="toc" style="margin-top: 20px;">
-              <h3 class="toc-title">Project Stats</h3>
-              <ul class="toc-list">
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Development Period:</span>
-                  <span style="color: var(--orange-yellow-crayola);">2019-2021</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Team Size:</span>
-                  <span style="color: var(--orange-yellow-crayola);">10+ Members</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Competitions:</span>
-                  <span style="color: var(--orange-yellow-crayola);">URC, IRC</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Chassis Dimensions:</span>
-                  <span style="color: var(--orange-yellow-crayola);">0.7m × 0.55m</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Wheel Diameter:</span>
-                  <span style="color: var(--orange-yellow-crayola);">0.3m</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Range:</span>
-                  <span style="color: var(--orange-yellow-crayola);">1km+</span>
-                </li>
-                <li class="toc-item" style="display: flex; justify-content: space-between; margin-bottom: 10px;">
-                  <span>Battery Life:</span>
-                  <span style="color: var(--orange-yellow-crayola);">~48 minutes</span>
-                </li>
-              </ul>
-            </div>
-            
-            <!-- Contact info -->
-            <div class="toc" style="margin-top: 20px;">
-              <h3 class="toc-title">Contact Information</h3>
-              <ul class="toc-list">
-                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
-                  <ion-icon name="person-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
-                  <span>Md. Firoz Wadud (Team Lead)</span>
-                </li>
-                <li class="toc-item" style="display: flex; align-items: center; margin-bottom: 15px;">
-                  <ion-icon name="mail-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
-                  <span>mdfirozwadud@gmail.com</span>
-                </li>
-                <li class="toc-item" style="display: flex; align-items: center;">
-                  <ion-icon name="school-outline" style="margin-right: 10px; color: var(--orange-yellow-crayola);"></ion-icon>
-                  <span>BRAC University, Dhaka, Bangladesh</span>
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div class="article-main" id="article-main"></div>
+      
+      <!-- Back to top button -->
+      <button class="back-to-top" id="backToTop">
+        <ion-icon name="arrow-up-outline"></ion-icon>
+      </button>
     </div>
   </div>
 
   <!-- Script to load content -->
   <script>
     document.addEventListener('DOMContentLoaded', function() {
-      // Get the current project name from the URL
-      const projectName = window.location.pathname.split('/').pop().replace('.html', '');
-      
       // Fetch the content file
-      fetch(`./content/${projectName}-content.html`)
+      fetch('./content/mongoltori-content.html')
         .then(response => {
           if (!response.ok) {
-            throw new Error(`Failed to load content for ${projectName}`);
+            throw new Error('Failed to load content for mongoltori');
           }
           return response.text();
         })
         .then(html => {
           // Insert the content into the main content area
           document.getElementById('article-main').innerHTML = html;
+          
+          // Initialize storytelling features
+          if (typeof initStoryExperience === 'function') {
+            setTimeout(initStoryExperience, 100);
+          }
+          
+          // Initialize scroll effects
+          initScrollEffects();
         })
         .catch(error => {
           console.error('Error loading content:', error);
@@ -160,12 +212,118 @@
           `;
         });
     });
+    
+    // Custom scroll effects
+    function initScrollEffects() {
+      // Reveal elements on scroll
+      const revealElements = document.querySelectorAll('.reveal-element');
+      
+      const revealOnScroll = function() {
+        for (let i = 0; i < revealElements.length; i++) {
+          const elementTop = revealElements[i].getBoundingClientRect().top;
+          const windowHeight = window.innerHeight;
+          
+          if (elementTop < windowHeight - 100) {
+            revealElements[i].classList.add('revealed');
+          }
+        }
+      };
+      
+      // Initial check
+      setTimeout(revealOnScroll, 300);
+      
+      // Check on scroll
+      document.querySelector('.popup-content').addEventListener('scroll', revealOnScroll);
+      
+      // Animate feature cards on hover
+      const featureCards = document.querySelectorAll('.feature-card');
+      featureCards.forEach(card => {
+        card.addEventListener('mouseenter', function() {
+          this.style.transform = 'translateY(-10px)';
+        });
+        
+        card.addEventListener('mouseleave', function() {
+          this.style.transform = 'translateY(0)';
+        });
+      });
+      
+      // Initialize interactive elements
+      const interactiveElements = document.querySelectorAll('.interactive-element');
+      interactiveElements.forEach(element => {
+        const title = element.querySelector('.interactive-title');
+        
+        if (title) {
+          title.addEventListener('click', function() {
+            element.classList.toggle('open');
+            const icon = this.querySelector('.interactive-icon');
+            if (icon) {
+              icon.style.transform = element.classList.contains('open') ? 'rotate(180deg)' : 'rotate(0)';
+            }
+          });
+        }
+      });
+      
+      // Initialize gallery modal
+      const galleryItems = document.querySelectorAll('.gallery-item');
+      const galleryModal = document.querySelector('.gallery-modal');
+      
+      if (galleryItems.length && galleryModal) {
+        galleryItems.forEach(item => {
+          item.addEventListener('click', function() {
+            const imgSrc = this.querySelector('img').src;
+            const caption = this.getAttribute('data-caption') || '';
+            
+            const modalImg = galleryModal.querySelector('.modal-img');
+            const modalCaption = galleryModal.querySelector('.modal-caption');
+            
+            if (modalImg && modalCaption) {
+              modalImg.src = imgSrc;
+              modalCaption.textContent = caption;
+              galleryModal.classList.add('open');
+            }
+          });
+        });
+        
+        const modalClose = galleryModal.querySelector('.modal-close');
+        if (modalClose) {
+          modalClose.addEventListener('click', function() {
+            galleryModal.classList.remove('open');
+          });
+        }
+      }
+      
+      // Back to top button
+      const backToTop = document.getElementById('backToTop');
+      const popupContent = document.querySelector('.popup-content');
+      
+      if (backToTop && popupContent) {
+        popupContent.addEventListener('scroll', function() {
+          if (this.scrollTop > 600) {
+            backToTop.classList.add('visible');
+          } else {
+            backToTop.classList.remove('visible');
+          }
+        });
+        
+        backToTop.addEventListener('click', function() {
+          popupContent.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+          });
+        });
+      }
+    }
   </script>
 
   <!-- Common JavaScript files -->
   <script src="../assets/js/project-popup.js"></script>
+  <script src="../assets/js/storytelling.js"></script>
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+  
+  <!-- GSAP for more advanced animations (optional) -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/ScrollTrigger.min.js"></script>
 </body>
 
 </html>
