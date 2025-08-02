@@ -234,7 +234,15 @@ article {
   }
 
   article { 
-    min-height: 100%; 
+    min-height: 100%;
+    /* Remove any conflicting positioning */
+    position: relative !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 30px !important;
   }
 
   main {
@@ -249,9 +257,9 @@ article {
   }
 
   .sidebar {
-    position: sticky;
-    top: 20px;
-    max-height: calc(100vh - 40px);
+    position: sticky !important;
+    top: 20px !important;
+    max-height: calc(100vh - 40px) !important;
     height: fit-content;
     margin-bottom: 0;
     padding-top: 0;
@@ -262,28 +270,40 @@ article {
   }
 
   .main-content {
-    min-width: 75%;
-    width: 75%;
-    margin: 0;
-    position: relative;
-    background: rgba(255, 255, 255, 0.03);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 0;
-    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
-    overflow: hidden;
-    min-height: calc(100vh - 40px);
+    min-width: 75% !important;
+    width: 75% !important;
+    margin: 0 !important;
+    position: relative !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    border-radius: 20px !important;
+    padding: 0 !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
+    overflow: hidden !important;
+    min-height: calc(100vh - 40px) !important;
   }
 
   /* Ensure articles have no margin within main-content */
   .main-content article {
-    margin: 0;
-    border-radius: 0;
-    border: none;
-    box-shadow: none;
-    background: transparent;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 30px !important;
+  }
+
+  /* Navbar stays inside main-content */
+  .main-content .navbar {
+    position: sticky !important;
+    top: 0 !important;
+    margin: 0 !important;
+    border-radius: 20px 20px 0 0 !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-top: none !important;
   }
 
   /* Sidebar scrollbar styling */
@@ -312,16 +332,23 @@ article {
 
 @media (max-width: 768px) {
   .sidebar {
-    position: relative;
-    top: auto;
-    max-height: none;
+    position: relative !important;
+    top: auto !important;
+    max-height: none !important;
     margin: 10px;
+    overflow: visible;
   }
   
   .main-content {
     margin: 10px;
     width: calc(100% - 20px);
-    padding-bottom: 80px; /* Space for mobile navbar */
+    padding-bottom: 80px !important; /* Space for mobile navbar */
+    border-radius: 20px !important;
+    background: rgba(255, 255, 255, 0.03) !important;
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    border: 1px solid rgba(255, 255, 255, 0.1) !important;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
   }
 
   main {
@@ -329,6 +356,15 @@ article {
     padding: 0;
     flex-direction: column;
     gap: 15px;
+  }
+
+  /* Mobile articles */
+  .main-content article {
+    padding: 20px !important;
+    background: transparent !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
   }
 }
 
@@ -341,5 +377,9 @@ article {
   .main-content {
     margin: 5px;
     width: calc(100% - 10px);
+  }
+
+  .main-content article {
+    padding: 15px !important;
   }
 }

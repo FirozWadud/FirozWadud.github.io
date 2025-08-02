@@ -276,26 +276,23 @@
 }
 
 /*-----------------------------------*\
-  #NAVBAR
+  #NAVBAR - INSIDE MAIN CONTENT
 \*-----------------------------------*/
 
 .navbar {
   position: sticky;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 50%;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-top: none;
-  border-left: none;
-  border-right: none;
+  border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px 20px 0 0;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 50;
-  margin: 0 0 0 0;
+  margin: 0;
   padding: 0 20px;
   transition: all 0.3s ease;
 }
@@ -492,9 +489,9 @@
 
 @media (min-width: 1250px) {
   .sidebar {
-    position: sticky;
-    top: 20px;
-    max-height: calc(100vh - 40px);
+    position: sticky !important;
+    top: 20px !important;
+    max-height: calc(100vh - 40px) !important;
     height: fit-content;
     margin-bottom: 0;
     padding-top: 0;
@@ -591,9 +588,9 @@
 
 @media (max-width: 768px) {
   .sidebar {
-    position: relative;
-    top: auto;
-    max-height: none;
+    position: relative !important;
+    top: auto !important;
+    max-height: none !important;
     margin: 10px;
     overflow: visible;
   }

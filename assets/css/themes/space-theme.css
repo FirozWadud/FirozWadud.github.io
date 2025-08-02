@@ -175,9 +175,9 @@ article:hover,
   position: sticky !important;
   top: 0 !important;
   right: 0 !important;
-  left: 0 !important;
+  left: 100px !important;
   bottom: auto !important;
-  width: 100% !important;
+  width: 80 !important;
   border-radius: 20px 20px 0 0 !important;
   margin: 0 0 20px 0 !important;
   padding: 0 20px !important;
