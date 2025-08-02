@@ -1,6 +1,6 @@
 /**
  * Space Theme Handler
- * Simplified theme handler for space theme
+ * Simplified theme handler for sidebar theme toggle
  */
 (function() {
   'use strict';
@@ -30,17 +30,17 @@
     applyTheme(currentTheme);
     
     // Set up theme toggle when components are loaded
-    setupThemeToggle();
+    setupSidebarThemeToggle();
     
     // Update theme toggle UI
     updateThemeToggleUI();
   }
 
-  function setupThemeToggle() {
-    // Wait for component to load
+  function setupSidebarThemeToggle() {
+    // Wait for sidebar component to load
     const checkForToggle = setInterval(() => {
-      const themeToggle = document.getElementById('themeToggle');
-      const themeLabel = document.getElementById('themeLabel');
+      const themeToggle = document.getElementById('sidebarThemeToggle');
+      const themeLabel = document.getElementById('sidebarThemeLabel');
       
       if (themeToggle && themeLabel) {
         clearInterval(checkForToggle);
@@ -67,14 +67,18 @@
     // You can add more themes here later
     addTransitionEffect();
     
-    // Optional: Add theme switching animation
+    // Add theme switching animation
     const spaceElements = document.querySelector('.space-bg');
     if (spaceElements) {
-      spaceElements.style.opacity = '0.5';
+      spaceElements.style.transition = 'opacity 0.3s ease';
+      spaceElements.style.opacity = '0.3';
       setTimeout(() => {
         spaceElements.style.opacity = '1';
       }, 300);
     }
+
+    // Add sparkle effect from the sidebar
+    createSidebarSparkleEffect();
   }
 
   function applyTheme(theme) {
@@ -91,11 +95,11 @@
   }
 
   function updateThemeToggleUI() {
-    const themeLabel = document.getElementById('themeLabel');
+    const themeLabel = document.getElementById('sidebarThemeLabel');
     
     if (themeLabel) {
-      // Update label text with space emoji
-      themeLabel.innerHTML = '🌌 Space Theme';
+      // Update label text
+      themeLabel.textContent = 'Space';
     }
   }
 
@@ -103,36 +107,37 @@
     // Add transition class to body for smooth theme change
     document.body.classList.add('theme-transition');
     
-    // Add sparkle effect
-    createSparkleEffect();
-    
     // Remove transition class after animation
     setTimeout(() => {
       document.body.classList.remove('theme-transition');
     }, 300);
   }
 
-  function createSparkleEffect() {
-    const sparkleCount = 15;
-    const container = document.body;
+  function createSidebarSparkleEffect() {
+    const sparkleCount = 8;
+    const sidebar = document.querySelector('.sidebar');
+    
+    if (!sidebar) return;
     
     for (let i = 0; i < sparkleCount; i++) {
       const sparkle = document.createElement('div');
+      const sidebarRect = sidebar.getBoundingClientRect();
+      
       sparkle.style.cssText = `
         position: fixed;
-        width: 4px;
-        height: 4px;
+        width: 3px;
+        height: 3px;
         background: #ffc107;
         border-radius: 50%;
         pointer-events: none;
         z-index: 1000;
-        left: ${Math.random() * window.innerWidth}px;
-        top: ${Math.random() * window.innerHeight}px;
-        box-shadow: 0 0 10px #ffc107;
-        animation: sparkleAnim 1s ease-out forwards;
+        left: ${sidebarRect.left + Math.random() * sidebarRect.width}px;
+        top: ${sidebarRect.top + Math.random() * sidebarRect.height}px;
+        box-shadow: 0 0 8px #ffc107;
+        animation: miniSparkleAnim 1s ease-out forwards;
       `;
       
-      container.appendChild(sparkle);
+      document.body.appendChild(sparkle);
       
       // Remove sparkle after animation
       setTimeout(() => {
@@ -143,15 +148,15 @@
     }
   }
 
-  // Add sparkle animation CSS
+  // Add mini sparkle animation CSS
   const sparkleCSS = `
-    @keyframes sparkleAnim {
+    @keyframes miniSparkleAnim {
       0% {
         transform: scale(0) rotate(0deg);
         opacity: 1;
       }
       50% {
-        transform: scale(1) rotate(180deg);
+        transform: scale(1.2) rotate(180deg);
         opacity: 1;
       }
       100% {
@@ -176,7 +181,7 @@
       }
     },
     toggleTheme: toggleTheme,
-    createSparkle: createSparkleEffect
+    createSparkle: createSidebarSparkleEffect
   };
 
 })();

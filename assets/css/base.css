@@ -8,238 +8,338 @@
 \*-----------------------------------*/
 
 main {
-    margin: var(--space-md) var(--space-sm);
-    margin-bottom: 75px;
-    min-width: 259px;
+  margin: var(--space-md) var(--space-sm);
+  margin-bottom: 75px;
+  min-width: 259px;
+}
+
+article {
+  display: none;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--content-border-radius);
+  padding: var(--content-padding-small);
+  box-shadow: var(--shadow-1);
+  z-index: 1;
+}
+
+article.active {
+  display: block;
+  animation: fade 0.5s ease backwards;
+}
+
+@keyframes fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.sidebar,
+article {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: var(--content-border-radius);
+  padding: var(--content-padding-small);
+  box-shadow: var(--shadow-1);
+  z-index: 1;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: var(--border-color);
+  margin: 16px 0;
+}
+
+.icon-box {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: var(--primary-accent);
+  box-shadow: var(--shadow-1);
+  z-index: 1;
+}
+
+.icon-box::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-card-alt);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+.icon-box ion-icon { --ionicon-stroke-width: 35px; }
+
+.content-card {
+  position: relative;
+  background: var(--border-gradient-onyx);
+  padding: var(--content-padding-small);
+  padding-top: 45px;
+  border-radius: var(--card-border-radius);
+  box-shadow: var(--shadow-2);
+  cursor: pointer;
+  z-index: 1;
+}
+
+.content-card::before {
+  content: "";
+  position: absolute;
+  inset: 1px;
+  background: var(--bg-gradient-jet);
+  border-radius: inherit;
+  z-index: -1;
+}
+
+/*-----------------------------------*\
+  #TYPOGRAPHY STYLES
+\*-----------------------------------*/
+
+.h2,
+.h3,
+.h4,
+.h5 {
+  color: var(--text-primary);
+  text-transform: capitalize;
+}
+
+.h2 { font-size: var(--fs-1); }
+.h3 { font-size: var(--fs-2); }
+.h4 { font-size: var(--fs-4); }
+.h5 {
+  font-size: var(--fs-7);
+  font-weight: var(--fw-medium);
+}
+
+.article-title {
+  position: relative;
+  padding-bottom: 7px;
+}
+
+.article-title::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 30px;
+  height: 3px;
+  background: var(--primary-accent-gradient);
+  border-radius: 3px;
+}
+
+/*-----------------------------------*\
+  #COMPONENT LOADERS
+\*-----------------------------------*/
+
+.component-loading {
+  min-height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.loader {
+  width: 48px;
+  height: 48px;
+  border: 5px solid rgba(249, 168, 38, 0.2);
+  border-radius: 50%;
+  border-top-color: #f9a826;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
-  
-  article {
-    display: none;
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--content-border-radius);
-    padding: var(--content-padding-small);
-    box-shadow: var(--shadow-1);
-    z-index: 1;
+}
+
+/*-----------------------------------*\
+  #MAIN CONTENT STYLING
+\*-----------------------------------*/
+
+/* Remove any padding-top from main-content since navbar is now inside */
+.main-content {
+  padding-top: 0 !important;
+}
+
+/*-----------------------------------*\
+  #MEDIA RESPONSIVE ADJUSTMENTS
+\*-----------------------------------*/
+
+@media (min-width: 580px) {
+  main {
+    margin-top: 60px;
+    margin-bottom: 100px;
   }
-  
-  article.active {
-    display: block;
-    animation: fade 0.5s ease backwards;
+
+  .sidebar, article {
+    width: 520px;
+    margin-inline: auto;
+    padding: var(--content-padding-medium);
   }
-  
-  @keyframes fade {
-    0% { opacity: 0; }
-    100% { opacity: 1; }
-  }
-  
-  .sidebar,
-  article {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: var(--content-border-radius);
-    padding: var(--content-padding-small);
-    box-shadow: var(--shadow-1);
-    z-index: 1;
-  }
-  
-  .separator {
-    width: 100%;
-    height: 1px;
-    background: var(--border-color);
-    margin: 16px 0;
-  }
-  
-  .icon-box {
-    position: relative;
-    background: var(--border-gradient-onyx);
-    width: 30px;
-    height: 30px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 16px;
-    color: var(--primary-accent);
-    box-shadow: var(--shadow-1);
-    z-index: 1;
-  }
-  
-  .icon-box::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    background: var(--bg-card-alt);
-    border-radius: inherit;
-    z-index: -1;
-  }
-  
-  .icon-box ion-icon { --ionicon-stroke-width: 35px; }
-  
-  .content-card {
-    position: relative;
-    background: var(--border-gradient-onyx);
-    padding: var(--content-padding-small);
-    padding-top: 45px;
-    border-radius: var(--card-border-radius);
-    box-shadow: var(--shadow-2);
-    cursor: pointer;
-    z-index: 1;
-  }
-  
-  .content-card::before {
-    content: "";
-    position: absolute;
-    inset: 1px;
-    background: var(--bg-gradient-jet);
-    border-radius: inherit;
-    z-index: -1;
-  }
-  
-  /*-----------------------------------*\
-    #TYPOGRAPHY STYLES
-  \*-----------------------------------*/
-  
-  .h2,
-  .h3,
-  .h4,
-  .h5 {
-    color: var(--text-primary);
-    text-transform: capitalize;
-  }
-  
-  .h2 { font-size: var(--fs-1); }
-  .h3 { font-size: var(--fs-2); }
-  .h4 { font-size: var(--fs-4); }
-  .h5 {
-    font-size: var(--fs-7);
-    font-weight: var(--fw-medium);
-  }
-  
+
   .article-title {
-    position: relative;
-    padding-bottom: 7px;
+    font-weight: var(--fw-semibold);
+    padding-bottom: 15px;
   }
-  
+
   .article-title::after {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 30px;
-    height: 3px;
-    background: var(--primary-accent-gradient);
-    border-radius: 3px;
+    width: 40px;
+    height: 5px;
   }
-  
-  /*-----------------------------------*\
-    #COMPONENT LOADERS
-  \*-----------------------------------*/
-  
-  .component-loading {
-    min-height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-  
-  .loader {
+
+  .icon-box {
     width: 48px;
     height: 48px;
-    border: 5px solid rgba(249, 168, 38, 0.2);
-    border-radius: 50%;
-    border-top-color: #f9a826;
-    animation: spin 1s linear infinite;
+    border-radius: 12px;
+    font-size: 18px;
+  }
+}
+
+@media (min-width: 768px) {
+  .sidebar, article { 
+    width: 700px; 
+  }
+
+  .has-scrollbar::-webkit-scrollbar-button { 
+    width: 100px; 
+  }
+}
+
+@media (min-width: 1024px) {
+  .sidebar, article {
+    width: 950px;
+    box-shadow: var(--shadow-5);
+  }
+
+  main { 
+    margin-bottom: 60px; 
+  }
+
+  .main-content {
+    position: relative;
+    width: max-content;
+    margin: auto;
+  }
+}
+
+@media (min-width: 1250px) {
+  .sidebar, article { 
+    width: auto; 
+  }
+
+  article { 
+    min-height: 100%; 
+  }
+
+  main {
+    max-width: 1200px;
+    margin-inline: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 25px;
+    padding: 20px;
+    min-height: 100vh;
+  }
+
+  .sidebar {
+    position: sticky;
+    top: 20px;
+    max-height: calc(100vh - 40px);
+    height: fit-content;
+    margin-bottom: 0;
+    padding-top: 0;
+    z-index: 15;
+    min-width: 300px;
+    flex-shrink: 0;
+    overflow-y: auto;
+  }
+
+  .main-content {
+    min-width: 75%;
+    width: 75%;
+    margin: 0;
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 20px;
+    padding: 0;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+    min-height: calc(100vh - 40px);
+  }
+
+  /* Ensure articles have no margin within main-content */
+  .main-content article {
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background: transparent;
+  }
+
+  /* Sidebar scrollbar styling */
+  .sidebar::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  .sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 5px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 193, 7, 0.3);
+    border-radius: 5px;
+  }
+
+  .sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 193, 7, 0.5);
+  }
+}
+
+/*-----------------------------------*\
+  #MOBILE SPECIFIC ADJUSTMENTS
+\*-----------------------------------*/
+
+@media (max-width: 768px) {
+  .sidebar {
+    position: relative;
+    top: auto;
+    max-height: none;
+    margin: 10px;
   }
   
-  @keyframes spin {
-    to {
-      transform: rotate(360deg);
-    }
+  .main-content {
+    margin: 10px;
+    width: calc(100% - 20px);
+    padding-bottom: 80px; /* Space for mobile navbar */
   }
-  
-  /*-----------------------------------*\
-    #MEDIA RESPONSIVE ADJUSTMENTS
-  \*-----------------------------------*/
-  
-  @media (min-width: 580px) {
-    main {
-      margin-top: 60px;
-      margin-bottom: 100px;
-    }
-  
-    .sidebar, article {
-      width: 520px;
-      margin-inline: auto;
-      padding: var(--content-padding-medium);
-    }
-  
-    .article-title {
-      font-weight: var(--fw-semibold);
-      padding-bottom: 15px;
-    }
-  
-    .article-title::after {
-      width: 40px;
-      height: 5px;
-    }
-  
-    .icon-box {
-      width: 48px;
-      height: 48px;
-      border-radius: 12px;
-      font-size: 18px;
-    }
+
+  main {
+    margin: 10px;
+    padding: 0;
+    flex-direction: column;
+    gap: 15px;
   }
-  
-  @media (min-width: 768px) {
-    .sidebar, article { 
-      width: 700px; 
-    }
-  
-    .has-scrollbar::-webkit-scrollbar-button { 
-      width: 100px; 
-    }
+}
+
+@media (max-width: 480px) {
+  main {
+    margin: 5px;
   }
-  
-  @media (min-width: 1024px) {
-    .sidebar, article {
-      width: 950px;
-      box-shadow: var(--shadow-5);
-    }
-  
-    main { 
-      margin-bottom: 60px; 
-    }
-  
-    .main-content {
-      position: relative;
-      width: max-content;
-      margin: auto;
-    }
+
+  .sidebar,
+  .main-content {
+    margin: 5px;
+    width: calc(100% - 10px);
   }
-  
-  @media (min-width: 1250px) {
-    .sidebar, article { 
-      width: auto; 
-    }
-  
-    article { 
-      min-height: 100%; 
-    }
-  
-    main {
-      max-width: 1200px;
-      margin-inline: auto;
-      display: flex;
-      justify-content: center;
-      align-items: stretch;
-      gap: 25px;
-    }
-  
-    .main-content {
-      min-width: 75%;
-      width: 75%;
-      margin: 0;
-    }
-  }
+}

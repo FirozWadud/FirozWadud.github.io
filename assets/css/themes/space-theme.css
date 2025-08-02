@@ -172,14 +172,14 @@ article:hover,
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
   z-index: 50 !important;
-  position: absolute !important;
+  position: sticky !important;
   top: 0 !important;
   right: 0 !important;
-  left: auto !important;
+  left: 0 !important;
   bottom: auto !important;
-  width: max-content !important;
-  border-radius: 0 20px 0 20px !important;
-  margin: 0 !important;
+  width: 100% !important;
+  border-radius: 20px 20px 0 0 !important;
+  margin: 0 0 20px 0 !important;
   padding: 0 20px !important;
   transition: all 0.3s ease !important;
 }
@@ -198,6 +198,7 @@ article:hover,
   gap: 30px !important;
   padding: 15px 20px !important;
   margin: 0 !important;
+  justify-content: center !important;
 }
 
 .navbar-link {
@@ -205,19 +206,23 @@ article:hover,
   transition: var(--transition-short);
   font-weight: 500 !important;
   font-size: 14px !important;
-  padding: 8px 0 !important;
+  padding: 8px 16px !important;
   white-space: nowrap !important;
+  border-radius: 25px !important;
 }
 
 .navbar-link:hover,
 .navbar-link:focus {
   color: var(--text-muted) !important;
+  background: rgba(255, 255, 255, 0.05) !important;
 }
 
 .navbar-link.active {
   color: var(--primary-accent) !important;
+  background: rgba(255, 193, 7, 0.1) !important;
   text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
 }
+
 
 /* Form Styling */
 .form-input {
