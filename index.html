@@ -21,13 +21,25 @@
   
   <!-- Component loader script -->
   <script src="./assets/js/component-loader.js"></script>
-  <script src="./assets/js/unified-theme-handler.js"></script>
+  
+  <!-- Minimalistic theme handler -->
+  <script src="./assets/js/minimal-theme-handler.js"></script>
 </head>
 
-<body>
+<body data-theme="dark">
   <main>
-    <!-- Theme Switcher -->
-    <div data-component="components/theme-switcher.html"></div>
+    <!-- Minimalistic Theme Switcher -->
+    <div class="theme-toggle">
+      <button class="theme-toggle-btn" id="themeToggle" aria-label="Toggle theme">
+        <div class="toggle-track">
+          <div class="toggle-thumb">
+            <ion-icon name="sunny-outline" class="sun-icon"></ion-icon>
+            <ion-icon name="moon-outline" class="moon-icon"></ion-icon>
+          </div>
+        </div>
+      </button>
+      <span class="theme-label" id="themeLabel">Dark</span>
+    </div>
 
     <!-- Sidebar Component -->
     <div data-component="components/sidebar.html"></div>
@@ -71,7 +83,6 @@
   <!-- Scripts -->
   <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
   <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-  <script src="./assets/js/theme-switcher.js"></script>
   
   <!-- Main script - load this after components -->
   <script src="./assets/js/script.js"></script>
