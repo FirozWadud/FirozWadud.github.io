@@ -1,12 +1,7 @@
 /*-----------------------------------*\
   #MAIN.CSS
-  Main stylesheet that imports all modular CSS files
+  Main stylesheet with space theme integration
 \*-----------------------------------*/
-
-/**
- * This is the main stylesheet that imports all modular CSS files.
- * Edit specific modules rather than this file.
- */
 
 /*-----------------------------------*\
   #IMPORTS
@@ -28,11 +23,14 @@
 /* Components - UI component styles */
 @import url("components.css");
 
-/* Project - Project details page styles */
-@import url("project.css");
-
 /* Responsive - Media queries for responsive design */
 @import url("responsive.css");
+
+/* Space Theme */
+@import url("themes/space-theme.css");
+
+/* Space Elements (planets, shooting stars) */
+@import url("themes/space-elements.css");
 
 /* Minimalistic Theme Switcher */
 @import url("minimal-theme-switcher.css");
@@ -80,6 +78,8 @@
   display: flex;
   flex-direction: column;
   overflow: hidden;
+  backdrop-filter: var(--backdrop-blur);
+  -webkit-backdrop-filter: var(--backdrop-blur);
 }
 
 .project-modal-container.active .project-modal {
@@ -107,7 +107,7 @@
   content: "";
   width: 40px;
   height: 40px;
-  border: 5px solid rgba(249, 168, 38, 0.2);
+  border: 5px solid rgba(255, 193, 7, 0.2);
   border-radius: 50%;
   border-top-color: var(--primary-accent);
   animation: spin 1s linear infinite;
@@ -115,9 +115,7 @@
 }
 
 @keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  to { transform: rotate(360deg); }
 }
 
 /* Error message */
@@ -138,11 +136,11 @@ body.modal-open {
 
 /* Base glassmorphism effect for better browser support */
 .glass-effect {
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.5);
 }
 
 /* Smooth transitions for theme changes */
@@ -162,6 +160,47 @@ input:focus-visible,
 textarea:focus-visible {
   outline: 2px solid var(--primary-accent);
   outline-offset: 2px;
+}
+
+/* Shimmer effect for glass elements */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.glass-shimmer::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.1),
+    transparent
+  );
+  background-size: 200% 100%;
+  animation: shimmer 2s ease-in-out;
+  border-radius: inherit;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* Space theme specific modal styling */
+#projectModal {
+  background: rgba(0, 0, 0, 0.9) !important;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+#projectModal > div {
+  background: var(--glass-bg) !important;
+  backdrop-filter: var(--backdrop-blur) !important;
+  -webkit-backdrop-filter: var(--backdrop-blur) !important;
+  border: 1px solid var(--glass-border) !important;
+  box-shadow: var(--glass-shadow) !important;
 }
 
 /* Reduced motion for users who prefer it */

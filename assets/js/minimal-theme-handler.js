@@ -1,18 +1,18 @@
 /**
- * Minimalistic Theme Handler
- * Handles switching between dark and light glassmorphism themes
+ * Space Theme Handler
+ * Simplified theme handler for space theme
  */
 (function() {
   'use strict';
 
   // Theme configuration
   const THEMES = {
-    DARK: 'dark',
-    LIGHT: 'light'
+    SPACE: 'space',
+    CLASSIC: 'classic' // Optional alternative theme
   };
 
   const STORAGE_KEY = 'selectedTheme';
-  const DEFAULT_THEME = THEMES.DARK;
+  const DEFAULT_THEME = THEMES.SPACE;
 
   // State
   let currentTheme = DEFAULT_THEME;
@@ -63,43 +63,21 @@
   }
 
   function toggleTheme() {
-    // Switch between themes
-    currentTheme = currentTheme === THEMES.DARK ? THEMES.LIGHT : THEMES.DARK;
-    
-    // Apply the new theme
-    applyTheme(currentTheme);
-    
-    // Update UI
-    updateThemeToggleUI();
-    
-    // Add transition effect
+    // For now, just provide visual feedback
+    // You can add more themes here later
     addTransitionEffect();
+    
+    // Optional: Add theme switching animation
+    const spaceElements = document.querySelector('.space-bg');
+    if (spaceElements) {
+      spaceElements.style.opacity = '0.5';
+      setTimeout(() => {
+        spaceElements.style.opacity = '1';
+      }, 300);
+    }
   }
 
   function applyTheme(theme) {
-    // Remove existing theme stylesheets
-    const existingTheme = document.getElementById('theme-stylesheet');
-    if (existingTheme) {
-      existingTheme.remove();
-    }
-
-    // Determine correct path to theme file based on current location
-    let themePath;
-    if (window.location.pathname.includes('/projects/')) {
-      // For project pages, go up one directory
-      themePath = `../assets/css/themes/enhanced-${theme}-glassmorphism-theme.css`;
-    } else {
-      // For main page
-      themePath = `./assets/css/themes/enhanced-${theme}-glassmorphism-theme.css`;
-    }
-
-    // Create and add the theme stylesheet
-    const themeLink = document.createElement('link');
-    themeLink.id = 'theme-stylesheet';
-    themeLink.rel = 'stylesheet';
-    themeLink.href = themePath;
-    document.head.appendChild(themeLink);
-
     // Save theme preference
     localStorage.setItem(STORAGE_KEY, theme);
 
@@ -116,8 +94,8 @@
     const themeLabel = document.getElementById('themeLabel');
     
     if (themeLabel) {
-      // Update label text
-      themeLabel.textContent = currentTheme === THEMES.DARK ? 'Dark' : 'Light';
+      // Update label text with space emoji
+      themeLabel.innerHTML = '🌌 Space Theme';
     }
   }
 
@@ -125,41 +103,80 @@
     // Add transition class to body for smooth theme change
     document.body.classList.add('theme-transition');
     
+    // Add sparkle effect
+    createSparkleEffect();
+    
     // Remove transition class after animation
     setTimeout(() => {
       document.body.classList.remove('theme-transition');
     }, 300);
   }
 
-  // Handle system theme preference change
-  function handleSystemThemeChange() {
-    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+  function createSparkleEffect() {
+    const sparkleCount = 15;
+    const container = document.body;
     
-    mediaQuery.addEventListener('change', function(e) {
-      // Only auto-switch if no manual preference is saved
-      if (!localStorage.getItem(STORAGE_KEY)) {
-        const systemTheme = e.matches ? THEMES.DARK : THEMES.LIGHT;
-        currentTheme = systemTheme;
-        applyTheme(currentTheme);
-        updateThemeToggleUI();
-      }
-    });
+    for (let i = 0; i < sparkleCount; i++) {
+      const sparkle = document.createElement('div');
+      sparkle.style.cssText = `
+        position: fixed;
+        width: 4px;
+        height: 4px;
+        background: #ffc107;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 1000;
+        left: ${Math.random() * window.innerWidth}px;
+        top: ${Math.random() * window.innerHeight}px;
+        box-shadow: 0 0 10px #ffc107;
+        animation: sparkleAnim 1s ease-out forwards;
+      `;
+      
+      container.appendChild(sparkle);
+      
+      // Remove sparkle after animation
+      setTimeout(() => {
+        if (sparkle.parentNode) {
+          sparkle.parentNode.removeChild(sparkle);
+        }
+      }, 1000);
+    }
   }
 
-  // Initialize system theme change handling
-  handleSystemThemeChange();
+  // Add sparkle animation CSS
+  const sparkleCSS = `
+    @keyframes sparkleAnim {
+      0% {
+        transform: scale(0) rotate(0deg);
+        opacity: 1;
+      }
+      50% {
+        transform: scale(1) rotate(180deg);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(0) rotate(360deg);
+        opacity: 0;
+      }
+    }
+  `;
+  
+  const styleSheet = document.createElement('style');
+  styleSheet.textContent = sparkleCSS;
+  document.head.appendChild(styleSheet);
 
   // Public API (if needed)
   window.ThemeHandler = {
     getCurrentTheme: () => currentTheme,
     setTheme: (theme) => {
-      if (theme === THEMES.DARK || theme === THEMES.LIGHT) {
+      if (theme === THEMES.SPACE || theme === THEMES.CLASSIC) {
         currentTheme = theme;
         applyTheme(theme);
         updateThemeToggleUI();
       }
     },
-    toggleTheme: toggleTheme
+    toggleTheme: toggleTheme,
+    createSparkle: createSparkleEffect
   };
 
 })();

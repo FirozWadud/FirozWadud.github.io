@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Personal Portfolio</title>
+  <title>Firoz Wadud - Robotics Engineer | Space Portfolio</title>
 
   <!-- favicon -->
   <link rel="shortcut icon" href="./assets/images/logo.ico" type="image/x-icon">
@@ -24,9 +24,345 @@
   
   <!-- Minimalistic theme handler -->
   <script src="./assets/js/minimal-theme-handler.js"></script>
+
+  <!-- Embedded Planet Styles to ensure they load -->
+  <style>
+    /* Space background container */
+    .space-bg {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      pointer-events: none;
+      top: 0;
+      left: 0;
+    }
+
+    .planet {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(1px);
+    }
+
+    /* Large gradient planet - pink/purple */
+    .planet1 {
+      width: 300px;
+      height: 300px;
+      background: 
+        radial-gradient(circle at 30% 30%, #ff6b9d, #c44569),
+        radial-gradient(circle at 70% 70%, #8b2635, #5d1a28);
+      top: 10%;
+      left: -5%;
+      animation: float1 12s ease-in-out infinite;
+      box-shadow: 
+        0 0 100px rgba(255, 107, 157, 0.4),
+        inset -30px -30px 60px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Medium planet - blue/teal */
+    .planet2 {
+      width: 200px;
+      height: 200px;
+      background: 
+        radial-gradient(circle at 25% 25%, #00d2ff, #3a7bd5),
+        radial-gradient(circle at 75% 75%, #1e3c72, #2a5298);
+      top: 60%;
+      right: -3%;
+      animation: float2 15s ease-in-out infinite;
+      box-shadow: 
+        0 0 80px rgba(0, 210, 255, 0.4),
+        inset -20px -20px 40px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Small planet - purple */
+    .planet3 {
+      width: 150px;
+      height: 150px;
+      background: 
+        radial-gradient(circle at 30% 30%, #a855f7, #7c3aed),
+        radial-gradient(circle at 70% 70%, #5b21b6, #4c1d95);
+      top: 30%;
+      left: 70%;
+      animation: float3 10s ease-in-out infinite;
+      box-shadow: 
+        0 0 60px rgba(168, 85, 247, 0.4),
+        inset -15px -15px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Earth-like planet */
+    .earth {
+      width: 250px;
+      height: 250px;
+      background: 
+        radial-gradient(circle at 40% 30%, #4ade80, #22c55e),
+        radial-gradient(circle at 60% 70%, #0ea5e9, #0284c7),
+        radial-gradient(circle at 20% 80%, #16a34a, #15803d);
+      top: 70%;
+      left: 15%;
+      animation: earthRotate 20s linear infinite, float1 15s ease-in-out infinite;
+      box-shadow: 
+        0 0 80px rgba(34, 197, 94, 0.4),
+        inset -25px -25px 50px rgba(0, 0, 0, 0.3);
+      position: relative;
+    }
+
+    /* Moon */
+    .moon {
+      width: 80px;
+      height: 80px;
+      background: 
+        radial-gradient(circle at 30% 30%, #f8fafc, #e2e8f0),
+        radial-gradient(circle at 70% 70%, #cbd5e1, #94a3b8);
+      top: 75%;
+      left: 35%;
+      animation: moonOrbit 25s linear infinite, float2 8s ease-in-out infinite;
+      box-shadow: 
+        0 0 40px rgba(248, 250, 252, 0.3),
+        inset -10px -10px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Saturn with rings */
+    .saturn {
+      width: 180px;
+      height: 180px;
+      background: 
+        radial-gradient(circle at 35% 25%, #fbbf24, #f59e0b),
+        radial-gradient(circle at 65% 75%, #d97706, #b45309);
+      top: 5%;
+      right: 15%;
+      animation: float3 18s ease-in-out infinite;
+      box-shadow: 
+        0 0 70px rgba(251, 191, 36, 0.4),
+        inset -20px -20px 40px rgba(0, 0, 0, 0.2);
+      position: relative;
+    }
+
+    .saturn::before {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 280px;
+      height: 280px;
+      border: 3px solid rgba(251, 191, 36, 0.3);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(75deg);
+      box-shadow: 
+        0 0 20px rgba(251, 191, 36, 0.2),
+        inset 0 0 20px rgba(251, 191, 36, 0.1);
+    }
+
+    .saturn::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 240px;
+      height: 240px;
+      border: 2px solid rgba(251, 191, 36, 0.2);
+      border-radius: 50%;
+      transform: translate(-50%, -50%) rotateX(75deg);
+    }
+
+    /* Planet animations */
+    @keyframes float1 {
+      0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      33% { transform: translateY(-20px) translateX(10px) rotate(2deg); }
+      66% { transform: translateY(10px) translateX(-5px) rotate(-1deg); }
+    }
+
+    @keyframes float2 {
+      0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      50% { transform: translateY(15px) translateX(-15px) rotate(3deg); }
+    }
+
+    @keyframes float3 {
+      0%, 100% { transform: translateY(0px) translateX(0px) rotate(0deg); }
+      33% { transform: translateY(-10px) translateX(-20px) rotate(-2deg); }
+      66% { transform: translateY(5px) translateX(10px) rotate(1deg); }
+    }
+
+    @keyframes earthRotate {
+      0% { filter: hue-rotate(0deg); }
+      100% { filter: hue-rotate(360deg); }
+    }
+
+    @keyframes moonOrbit {
+      0% { transform: rotate(0deg) translateX(100px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(100px) rotate(-360deg); }
+    }
+
+    /* Shooting stars */
+    .shooting-star {
+      position: absolute;
+      width: 2px;
+      height: 2px;
+      background: white;
+      border-radius: 50%;
+      box-shadow: 0 0 10px white;
+    }
+
+    .shooting-star::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 150px;
+      height: 1px;
+      background: linear-gradient(to right, white, transparent);
+      transform-origin: right;
+    }
+
+    .star1 {
+      top: 15%;
+      right: 80%;
+      animation: shoot1 3s linear infinite;
+    }
+
+    .star2 {
+      top: 40%;
+      right: 90%;
+      animation: shoot2 4s linear infinite 1s;
+    }
+
+    .star3 {
+      top: 65%;
+      right: 85%;
+      animation: shoot3 3.5s linear infinite 2s;
+    }
+
+    .star4 {
+      top: 25%;
+      right: 70%;
+      animation: shoot4 4.5s linear infinite 3s;
+    }
+
+    .star5 {
+      top: 80%;
+      right: 60%;
+      animation: shoot5 3.8s linear infinite 0.5s;
+    }
+
+    /* Shooting star animations */
+    @keyframes shoot1 {
+      0% { 
+        transform: translateX(0) translateY(0) rotate(-45deg);
+        opacity: 1;
+      }
+      70% { opacity: 1; }
+      100% { 
+        transform: translateX(300px) translateY(300px) rotate(-45deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shoot2 {
+      0% { 
+        transform: translateX(0) translateY(0) rotate(-30deg);
+        opacity: 1;
+      }
+      70% { opacity: 1; }
+      100% { 
+        transform: translateX(400px) translateY(200px) rotate(-30deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shoot3 {
+      0% { 
+        transform: translateX(0) translateY(0) rotate(-60deg);
+        opacity: 1;
+      }
+      70% { opacity: 1; }
+      100% { 
+        transform: translateX(350px) translateY(350px) rotate(-60deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shoot4 {
+      0% { 
+        transform: translateX(0) translateY(0) rotate(-40deg);
+        opacity: 1;
+      }
+      70% { opacity: 1; }
+      100% { 
+        transform: translateX(320px) translateY(280px) rotate(-40deg);
+        opacity: 0;
+      }
+    }
+
+    @keyframes shoot5 {
+      0% { 
+        transform: translateX(0) translateY(0) rotate(-50deg);
+        opacity: 1;
+      }
+      70% { opacity: 1; }
+      100% { 
+        transform: translateX(380px) translateY(320px) rotate(-50deg);
+        opacity: 0;
+      }
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .planet1, .planet2, .planet3, .earth, .saturn {
+        transform: scale(0.7);
+      }
+
+      .moon {
+        transform: scale(0.8);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .planet1, .planet2, .planet3, .earth, .saturn {
+        transform: scale(0.5);
+      }
+
+      .moon {
+        transform: scale(0.6);
+      }
+      
+      .shooting-star::before {
+        width: 100px;
+      }
+    }
+
+    /* Reduce motion for accessibility */
+    @media (prefers-reduced-motion: reduce) {
+      .planet1, .planet2, .planet3, .earth, .saturn, .moon,
+      .shooting-star, .star1, .star2, .star3, .star4, .star5 {
+        animation: none !important;
+      }
+    }
+
+    /* Spin animation for loading */
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+  </style>
 </head>
 
-<body data-theme="dark">
+<body data-theme="space">
+  <!-- Space background with planets and shooting stars - MUST BE FIRST -->
+  <div class="space-bg">
+    <!-- Planets -->
+    <div class="planet planet1"></div>
+    <div class="planet planet2"></div>
+    <div class="planet planet3"></div>
+    <div class="planet earth"></div>
+    <div class="planet moon"></div>
+    <div class="planet saturn"></div>
+    
+    <!-- Shooting stars -->
+    <div class="shooting-star star1"></div>
+    <div class="shooting-star star2"></div>
+    <div class="shooting-star star3"></div>
+    <div class="shooting-star star4"></div>
+    <div class="shooting-star star5"></div>
+  </div>
+
   <main>
     <!-- Minimalistic Theme Switcher -->
     <div class="theme-toggle">
@@ -38,7 +374,7 @@
           </div>
         </div>
       </button>
-      <span class="theme-label" id="themeLabel">Dark</span>
+      <span class="theme-label" id="themeLabel">🌌 Space</span>
     </div>
 
     <!-- Sidebar Component -->
@@ -90,12 +426,12 @@
 
   
 <!-- Simple Project Modal -->
-<div id="projectModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.8); z-index:9999;">
-  <div style="position:relative; width:90%; max-width:1200px; height:90vh; margin:30px auto; background:var(--bg-card); border-radius:14px; overflow:hidden; display:flex; flex-direction:column; box-shadow:0 10px 30px rgba(0,0,0,0.3);">
-    <button id="closeProjectBtn" style="position:absolute; top:15px; right:15px; z-index:10; background:var(--border-color); width:32px; height:32px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--text-primary); cursor:pointer; border:none;">
-      <ion-icon name="close-outline"></ion-icon>
+<div id="projectModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);">
+  <div style="position:relative; width:90%; max-width:1200px; height:90vh; margin:30px auto; background:var(--glass-bg); backdrop-filter:var(--backdrop-blur); -webkit-backdrop-filter:var(--backdrop-blur); border:1px solid var(--glass-border); border-radius:20px; overflow:hidden; display:flex; flex-direction:column; box-shadow:var(--glass-shadow);">
+    <button id="closeProjectBtn" style="position:absolute; top:15px; right:15px; z-index:10; background:var(--glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px); width:40px; height:40px; border-radius:50%; display:flex; align-items:center; justify-content:center; color:var(--text-primary); cursor:pointer; border:1px solid var(--glass-border); transition: all 0.3s ease;">
+      <ion-icon name="close-outline" style="font-size: 20px;"></ion-icon>
     </button>
-    <div id="projectContent" style="flex:1; overflow-y:auto;"></div>
+    <div id="projectContent" style="flex:1; overflow-y:auto; color:var(--text-secondary);"></div>
   </div>
 </div>
 
@@ -104,11 +440,18 @@ function openProjectModal(projectName) {
   console.log('Opening project:', projectName);
   
   // Show loading indicator
-  document.getElementById('projectContent').innerHTML = '<div style="display:flex; justify-content:center; align-items:center; height:100%; color:var(--text-secondary);"><p>Loading project content...</p></div>';
+  document.getElementById('projectContent').innerHTML = `
+    <div style="display:flex; justify-content:center; align-items:center; height:100%; color:var(--text-secondary);">
+      <div style="text-align:center;">
+        <div style="width:50px; height:50px; border:3px solid var(--primary-accent); border-top:3px solid transparent; border-radius:50%; animation: spin 1s linear infinite; margin:0 auto 20px;"></div>
+        <p>Loading project content...</p>
+      </div>
+    </div>
+  `;
   
   // Show modal
   document.getElementById('projectModal').style.display = 'block';
-  document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  document.body.style.overflow = 'hidden';
   
   // Load content
   fetch(`./projects/content/${projectName}-content.html`)
@@ -122,14 +465,14 @@ function openProjectModal(projectName) {
       // Insert content with project cover image
       document.getElementById('projectContent').innerHTML = `
         <div>
-          <div style="position:relative; height:350px; overflow:hidden;">
+          <div style="position:relative; height:350px; overflow:hidden; border-radius:20px 20px 0 0;">
             <img src="./assets/images/${projectName}/${projectName}_cover.jpg" style="width:100%; height:100%; object-fit:cover;" onerror="this.src='./assets/images/${projectName}/fullrover.png'">
-            <div style="position:absolute; bottom:0; left:0; right:0; padding:30px; background:linear-gradient(transparent, rgba(0,0,0,0.8));">
-              <h1 style="color:var(--text-primary); margin:0 0 10px 0; font-size:28px;">${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
-              <p style="color:var(--primary-accent); margin:0; font-size:16px;">Project Details</p>
+            <div style="position:absolute; bottom:0; left:0; right:0; padding:30px; background:linear-gradient(transparent, rgba(0,0,0,0.9));">
+              <h1 style="color:var(--text-primary); margin:0 0 10px 0; font-size:28px; text-shadow: 0 0 15px rgba(255, 193, 7, 0.3);">${projectName.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</h1>
+              <p style="color:var(--primary-accent); margin:0; font-size:16px; text-shadow: 0 0 10px rgba(255, 193, 7, 0.2);">Project Details</p>
             </div>
           </div>
-          <div style="padding:30px;">${html}</div>
+          <div style="padding:30px; background:var(--glass-bg); backdrop-filter:blur(10px); -webkit-backdrop-filter:blur(10px);">${html}</div>
         </div>
       `;
     })
@@ -137,10 +480,10 @@ function openProjectModal(projectName) {
       console.error('Error loading content:', error);
       document.getElementById('projectContent').innerHTML = `
         <div style="padding:30px; text-align:center; color:var(--text-error);">
-          <h3>Error Loading Content</h3>
-          <p>Sorry, there was a problem loading the project content.</p>
-          <p>${error.message}</p>
-          <p>Check the browser console for more details.</p>
+          <h3 style="color:var(--text-error); margin-bottom:15px;">Error Loading Content</h3>
+          <p style="margin-bottom:10px;">Sorry, there was a problem loading the project content.</p>
+          <p style="margin-bottom:10px; font-family:monospace; background:rgba(255,255,255,0.05); padding:10px; border-radius:8px;">${error.message}</p>
+          <p style="font-size:14px; opacity:0.7;">Check the browser console for more details.</p>
         </div>
       `;
     });
@@ -149,7 +492,7 @@ function openProjectModal(projectName) {
 // Set up close button
 document.getElementById('closeProjectBtn').addEventListener('click', function() {
   document.getElementById('projectModal').style.display = 'none';
-  document.body.style.overflow = ''; // Restore background scrolling
+  document.body.style.overflow = '';
 });
 
 // Close when clicking outside content
@@ -157,6 +500,39 @@ document.getElementById('projectModal').addEventListener('click', function(e) {
   if (e.target === this) {
     document.getElementById('projectModal').style.display = 'none';
     document.body.style.overflow = '';
+  }
+});
+
+// Add hover effect to close button
+document.getElementById('closeProjectBtn').addEventListener('mouseenter', function() {
+  this.style.background = 'var(--primary-accent)';
+  this.style.color = '#0a0a0a';
+  this.style.transform = 'scale(1.1)';
+  this.style.boxShadow = '0 0 20px rgba(255, 193, 7, 0.5)';
+});
+
+document.getElementById('closeProjectBtn').addEventListener('mouseleave', function() {
+  this.style.background = 'var(--glass-bg)';
+  this.style.color = 'var(--text-primary)';
+  this.style.transform = 'scale(1)';
+  this.style.boxShadow = '';
+});
+
+// Debug: Check if planets are created
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🚀 Space elements loaded:');
+  console.log('Planets:', document.querySelectorAll('.planet').length);
+  console.log('Shooting stars:', document.querySelectorAll('.shooting-star').length);
+  
+  // Ensure space-bg is visible
+  const spaceBg = document.querySelector('.space-bg');
+  if (spaceBg) {
+    console.log('✅ Space background found');
+    spaceBg.style.display = 'block';
+    spaceBg.style.visibility = 'visible';
+    spaceBg.style.opacity = '1';
+  } else {
+    console.error('❌ Space background not found');
   }
 });
 </script>
