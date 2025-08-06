@@ -1,6 +1,14 @@
 <aside class="sidebar" data-sidebar>
 
   <div class="sidebar-info">
+    <!-- Minimalistic Theme Switcher -->
+    <div class="mini-theme-switcher">
+      <button class="theme-toggle-mini" id="miniThemeToggle" aria-label="Toggle theme">
+        <ion-icon name="sunny-outline" class="sun-icon"></ion-icon>
+        <ion-icon name="moon-outline" class="moon-icon"></ion-icon>
+      </button>
+    </div>
+
     <figure class="avatar-box">
       <img src="./assets/images/firoz_profile.png" alt="Md Firoz Wadud" width="90">
     </figure>
@@ -12,7 +20,6 @@
 
     <button class="info_more-btn" data-sidebar-btn>
       <span>Show Contacts</span>
-
       <ion-icon name="chevron-down"></ion-icon>
     </button>
 
@@ -22,54 +29,36 @@
 
     <div class="separator"></div>
 
-    <!-- Theme Switcher in Sidebar -->
-    <div class="sidebar-theme-switcher">
-      <div class="theme-switcher-header">
-        <ion-icon name="color-palette-outline"></ion-icon>
-        <span>Theme</span>
-      </div>
-      <div class="mini-theme-toggle">
-        <button class="mini-theme-toggle-btn" id="sidebarThemeToggle" aria-label="Toggle theme">
-          <div class="mini-toggle-track">
-            <div class="mini-toggle-thumb">
-              <ion-icon name="rocket-outline" class="space-icon"></ion-icon>
-            </div>
-          </div>
-        </button>
-        <span class="mini-theme-label" id="sidebarThemeLabel">Space</span>
-      </div>
-    </div>
-
-    <div class="separator"></div>
-
     <ul class="contacts-list">
 
       <li class="contact-item">
-
         <div class="icon-box">
           <ion-icon name="mail-outline"></ion-icon>
         </div>
-
         <div class="contact-info">
           <p class="contact-title">Email</p>
-
           <a href="mailto:mdfirozwadud@gmail.com" class="contact-link">mdfirozwadud@gmail.com</a>
         </div>
-
       </li>
 
       <li class="contact-item">
-
         <div class="icon-box">
           <ion-icon name="phone-portrait-outline"></ion-icon>
         </div>
-
         <div class="contact-info">
           <p class="contact-title">Phone</p>
-
           <a href="tel:+8801762416878" class="contact-link">(+880) 176-241-6878</a>
         </div>
+      </li>
 
+      <li class="contact-item">
+        <div class="icon-box">
+          <ion-icon name="location-outline"></ion-icon>
+        </div>
+        <div class="contact-info">
+          <p class="contact-title">Address</p>
+          <address class="contact-link">Dhaka, Bangladesh</address>
+        </div>
       </li>
 
     </ul>
@@ -77,6 +66,12 @@
     <div class="separator"></div>
 
     <ul class="social-list">
+
+      <li class="social-item">
+        <a href="https://linkedin.com/in/your-profile" class="social-link" target="_blank" rel="noopener">
+          <ion-icon name="logo-linkedin"></ion-icon>
+        </a>
+      </li>
 
       <li class="social-item">
         <a href="#" class="social-link">

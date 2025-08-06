@@ -383,3 +383,85 @@ article {
     padding: 15px !important;
   }
 }
+/* Body spacing adjustment for fixed sidebar */
+@media (min-width: 1250px) {
+  body {
+    padding-left: 340px; /* Space for fixed sidebar */
+    transition: padding-left 0.3s ease;
+  }
+  
+  main {
+    max-width: none; /* Remove max-width constraint */
+    margin-inline: 0; /* Remove centering */
+    padding-left: 0; /* Remove left padding */
+    display: block; /* Change from flex to block */
+  }
+  
+  .main-content {
+    min-width: 100% !important;
+    width: 100% !important;
+    margin: 20px 20px 20px 0 !important; /* Right margin for spacing */
+  }
+}
+
+/* Smooth transition for layout changes */
+.main-content,
+main {
+  transition: all 0.3s ease;
+}
+
+/* Additional sidebar enhancements */
+@media (min-width: 1250px) {
+  .sidebar {
+    /* Ensure proper stacking */
+    z-index: 100;
+    
+    /* Add subtle shadow to separate from content */
+    box-shadow: 
+      2px 0 20px rgba(0, 0, 0, 0.3),
+      0 0 40px rgba(255, 193, 7, 0.1) !important;
+    
+    /* Smooth backdrop blur */
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    
+    /* Border styling */
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 0 20px 20px 0 !important;
+  }
+}
+
+/* Mobile: Remove body padding */
+@media (max-width: 1249px) {
+  body {
+    padding-left: 0 !important;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin-inline: auto;
+    gap: 25px;
+    padding: 20px;
+  }
+}
+
+/* Performance optimizations */
+.sidebar {
+  /* GPU acceleration for smooth animations */
+  transform: translateZ(0);
+  will-change: transform;
+  
+  /* Prevent text selection on interactive elements */
+  user-select: none;
+}
+
+.sidebar *:not(input):not(textarea) {
+  user-select: none;
+}
+
+/* Allow text selection for contact info */
+.contact-info {
+  user-select: text;
+}

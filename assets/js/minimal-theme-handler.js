@@ -1,6 +1,6 @@
 /**
  * Space Theme Handler
- * Simplified theme handler for sidebar theme toggle
+ * Simplified theme handler for minimalistic theme toggle
  */
 (function() {
   'use strict';
@@ -30,19 +30,18 @@
     applyTheme(currentTheme);
     
     // Set up theme toggle when components are loaded
-    setupSidebarThemeToggle();
+    setupMiniThemeToggle();
     
     // Update theme toggle UI
     updateThemeToggleUI();
   }
 
-  function setupSidebarThemeToggle() {
+  function setupMiniThemeToggle() {
     // Wait for sidebar component to load
     const checkForToggle = setInterval(() => {
-      const themeToggle = document.getElementById('sidebarThemeToggle');
-      const themeLabel = document.getElementById('sidebarThemeLabel');
+      const themeToggle = document.getElementById('miniThemeToggle');
       
-      if (themeToggle && themeLabel) {
+      if (themeToggle) {
         clearInterval(checkForToggle);
         
         // Add click event listener
@@ -63,22 +62,35 @@
   }
 
   function toggleTheme() {
-    // For now, just provide visual feedback
-    // You can add more themes here later
+    // Add click animation
+    const themeToggle = document.getElementById('miniThemeToggle');
+    if (themeToggle) {
+      themeToggle.style.transform = 'scale(0.9)';
+      setTimeout(() => {
+        themeToggle.style.transform = '';
+      }, 150);
+    }
+
+    // Add transition effect
     addTransitionEffect();
     
     // Add theme switching animation
     const spaceElements = document.querySelector('.space-bg');
     if (spaceElements) {
       spaceElements.style.transition = 'opacity 0.3s ease';
-      spaceElements.style.opacity = '0.3';
+      spaceElements.style.opacity = '0.7';
       setTimeout(() => {
         spaceElements.style.opacity = '1';
       }, 300);
     }
 
-    // Add sparkle effect from the sidebar
-    createSidebarSparkleEffect();
+    // Add sparkle effect from the toggle button
+    createToggleSparkleEffect();
+    
+    // Toggle night mode class for visual feedback
+    if (themeToggle) {
+      themeToggle.classList.toggle('night-mode');
+    }
   }
 
   function applyTheme(theme) {
@@ -95,11 +107,15 @@
   }
 
   function updateThemeToggleUI() {
-    const themeLabel = document.getElementById('sidebarThemeLabel');
+    const themeToggle = document.getElementById('miniThemeToggle');
     
-    if (themeLabel) {
-      // Update label text
-      themeLabel.textContent = 'Space';
+    if (themeToggle) {
+      // Set initial state based on current theme
+      if (currentTheme === THEMES.SPACE) {
+        themeToggle.classList.remove('night-mode');
+      } else {
+        themeToggle.classList.add('night-mode');
+      }
     }
   }
 
@@ -113,29 +129,39 @@
     }, 300);
   }
 
-  function createSidebarSparkleEffect() {
-    const sparkleCount = 8;
-    const sidebar = document.querySelector('.sidebar');
+  function createToggleSparkleEffect() {
+    const sparkleCount = 6;
+    const themeToggle = document.getElementById('miniThemeToggle');
     
-    if (!sidebar) return;
+    if (!themeToggle) return;
+    
+    const toggleRect = themeToggle.getBoundingClientRect();
+    const centerX = toggleRect.left + toggleRect.width / 2;
+    const centerY = toggleRect.top + toggleRect.height / 2;
     
     for (let i = 0; i < sparkleCount; i++) {
       const sparkle = document.createElement('div');
-      const sidebarRect = sidebar.getBoundingClientRect();
+      const angle = (i / sparkleCount) * Math.PI * 2;
+      const distance = 30 + Math.random() * 20;
+      const x = centerX + Math.cos(angle) * distance;
+      const y = centerY + Math.sin(angle) * distance;
       
       sparkle.style.cssText = `
         position: fixed;
-        width: 3px;
-        height: 3px;
+        width: 4px;
+        height: 4px;
         background: #ffc107;
         border-radius: 50%;
         pointer-events: none;
         z-index: 1000;
-        left: ${sidebarRect.left + Math.random() * sidebarRect.width}px;
-        top: ${sidebarRect.top + Math.random() * sidebarRect.height}px;
-        box-shadow: 0 0 8px #ffc107;
-        animation: miniSparkleAnim 1s ease-out forwards;
+        left: ${centerX}px;
+        top: ${centerY}px;
+        box-shadow: 0 0 10px #ffc107;
+        animation: toggleSparkleAnim 0.8s ease-out forwards;
       `;
+      
+      sparkle.style.setProperty('--target-x', `${x}px`);
+      sparkle.style.setProperty('--target-y', `${y}px`);
       
       document.body.appendChild(sparkle);
       
@@ -144,31 +170,78 @@
         if (sparkle.parentNode) {
           sparkle.parentNode.removeChild(sparkle);
         }
-      }, 1000);
+      }, 800);
     }
   }
 
-  // Add mini sparkle animation CSS
+  // Add sparkle animation CSS
   const sparkleCSS = `
-    @keyframes miniSparkleAnim {
+    @keyframes toggleSparkleAnim {
       0% {
-        transform: scale(0) rotate(0deg);
+        transform: scale(0) translateX(0) translateY(0);
         opacity: 1;
       }
       50% {
-        transform: scale(1.2) rotate(180deg);
+        transform: scale(1.2) translateX(calc(var(--target-x) - ${window.innerWidth/2}px)) translateY(calc(var(--target-y) - ${window.innerHeight/2}px));
         opacity: 1;
       }
       100% {
-        transform: scale(0) rotate(360deg);
+        transform: scale(0) translateX(calc(var(--target-x) - ${window.innerWidth/2}px)) translateY(calc(var(--target-y) - ${window.innerHeight/2}px));
         opacity: 0;
       }
+    }
+    
+    /* Smooth theme transition */
+    .theme-transition,
+    .theme-transition * {
+      transition: background-color 0.3s ease, 
+                  border-color 0.3s ease, 
+                  color 0.3s ease,
+                  box-shadow 0.3s ease !important;
     }
   `;
   
   const styleSheet = document.createElement('style');
   styleSheet.textContent = sparkleCSS;
   document.head.appendChild(styleSheet);
+
+  // Add subtle parallax effect for sidebar
+  let ticking = false;
+  
+  function updateSidebarParallax() {
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar && window.innerWidth >= 1250) {
+      const scrolled = window.pageYOffset;
+      const rate = scrolled * 0.1; // Very subtle movement
+      sidebar.style.transform = `translateY(${rate}px)`;
+    }
+    ticking = false;
+  }
+
+  function requestSidebarParallax() {
+    if (!ticking) {
+      requestAnimationFrame(updateSidebarParallax);
+      ticking = true;
+    }
+  }
+
+  // Only apply parallax on desktop
+  if (window.innerWidth >= 1250) {
+    window.addEventListener('scroll', requestSidebarParallax);
+  }
+
+  // Update on resize
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1250) {
+      window.addEventListener('scroll', requestSidebarParallax);
+    } else {
+      window.removeEventListener('scroll', requestSidebarParallax);
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) {
+        sidebar.style.transform = '';
+      }
+    }
+  });
 
   // Public API (if needed)
   window.ThemeHandler = {
@@ -181,7 +254,7 @@
       }
     },
     toggleTheme: toggleTheme,
-    createSparkle: createSidebarSparkleEffect
+    createSparkle: createToggleSparkleEffect
   };
 
 })();

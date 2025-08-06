@@ -8,15 +8,41 @@
 \*-----------------------------------*/
 
 .sidebar {
-  margin-bottom: var(--space-md);
+  position: fixed !important;
+  top: 20px !important;
+  left: 20px !important;
+  z-index: 100 !important;
+  margin-bottom: 0;
   max-height: var(--sidebar-max-height-collapsed);
   overflow: hidden;
   transition: var(--transition-medium);
-  position: relative;
+  /* Remove any scrollbar */
+  overflow-y: hidden !important;
+  scrollbar-width: none !important; /* Firefox */
+  -ms-overflow-style: none !important; /* IE/Edge */
+  /* Add subtle floating animation */
+  animation: sidebarFloat 6s ease-in-out infinite;
+}
+
+/* Hide scrollbar for Webkit browsers */
+.sidebar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  background: transparent !important;
 }
 
 .sidebar.active { 
   max-height: var(--sidebar-max-height-expanded); 
+}
+
+/* Subtle floating parallax animation */
+@keyframes sidebarFloat {
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-8px); 
+  }
 }
 
 .sidebar-info {
@@ -25,11 +51,139 @@
   justify-content: flex-start;
   align-items: center;
   gap: var(--space-md);
+  flex-wrap: wrap;
 }
 
+/* Minimalistic Theme Switcher */
+.mini-theme-switcher {
+  position: absolute;
+  top: -10px;
+  right: -10px;
+  z-index: 10;
+}
+
+.theme-toggle-mini {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.theme-toggle-mini:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 193, 7, 0.4);
+  transform: scale(1.1);
+  box-shadow: 0 0 15px rgba(255, 193, 7, 0.3);
+}
+
+.theme-toggle-mini:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle-mini .sun-icon,
+.theme-toggle-mini .moon-icon {
+  position: absolute;
+  font-size: 14px;
+  transition: all 0.4s ease;
+}
+
+.theme-toggle-mini .sun-icon {
+  color: #ffc107;
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+.theme-toggle-mini .moon-icon {
+  color: #64b5f6;
+  opacity: 0;
+  transform: scale(0.8) rotate(180deg);
+}
+
+/* Theme toggle states */
+.theme-toggle-mini.night-mode .sun-icon {
+  opacity: 0;
+  transform: scale(0.8) rotate(-180deg);
+}
+
+.theme-toggle-mini.night-mode .moon-icon {
+  opacity: 1;
+  transform: scale(1) rotate(0deg);
+}
+
+/* Glass Tile Avatar */
 .avatar-box {
-  background: var(--bg-gradient-onyx);
-  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.1) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 2px solid rgba(255, 255, 255, 0.2) !important;
+  border-radius: 25px !important;
+  padding: 8px !important;
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
+  transition: all 0.4s ease !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.avatar-box::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, 
+    transparent, 
+    rgba(255, 193, 7, 0.1), 
+    transparent, 
+    rgba(255, 193, 7, 0.1), 
+    transparent);
+  border-radius: 27px;
+  z-index: -1;
+  animation: borderGlow 3s linear infinite;
+  opacity: 0;
+}
+
+.avatar-box:hover::before {
+  opacity: 1;
+}
+
+.avatar-box:hover {
+  transform: translateY(-5px) scale(1.02);
+  border-color: rgba(255, 193, 7, 0.4) !important;
+  box-shadow: 
+    0 20px 45px rgba(0, 0, 0, 0.4),
+    0 0 30px rgba(255, 193, 7, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+}
+
+@keyframes borderGlow {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.avatar-box img {
+  width: 90px !important;
+  height: 90px !important;
+  object-fit: cover !important;
+  border-radius: 18px !important;
+  transition: all 0.3s ease;
+}
+
+.info-content {
+  flex: 1;
+  text-align: left;
 }
 
 .info-content .name {
@@ -53,7 +207,7 @@
 .info_more-btn {
   position: absolute;
   top: -15px;
-  right: -15px;
+  right: 35px; /* Adjusted to avoid theme switcher */
   border-radius: 0 15px;
   font-size: 13px;
   color: var(--primary-accent);
@@ -97,124 +251,6 @@
 .sidebar.active .sidebar-info_more {
   opacity: 1;
   visibility: visible;
-}
-
-/*-----------------------------------*\
-  #SIDEBAR THEME SWITCHER
-\*-----------------------------------*/
-
-.sidebar-theme-switcher {
-  padding: 15px 0;
-  text-align: center;
-}
-
-.theme-switcher-header {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  margin-bottom: 12px;
-  color: var(--text-secondary);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.theme-switcher-header ion-icon {
-  font-size: 16px;
-  color: var(--primary-accent);
-}
-
-.mini-theme-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-}
-
-.mini-theme-toggle-btn {
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
-  outline: none;
-  transition: transform 0.2s ease;
-}
-
-.mini-theme-toggle-btn:hover {
-  transform: scale(1.05);
-}
-
-.mini-theme-toggle-btn:active {
-  transform: scale(0.95);
-}
-
-.mini-toggle-track {
-  width: 36px;
-  height: 20px;
-  background: rgba(255, 193, 7, 0.2);
-  border-radius: 10px;
-  position: relative;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid rgba(255, 193, 7, 0.3);
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.mini-toggle-thumb {
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 14px;
-  height: 14px;
-  background: var(--primary-accent-gradient);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 
-    0 2px 6px rgba(0, 0, 0, 0.2),
-    0 0 12px rgba(255, 193, 7, 0.3);
-  animation: miniPulse 2s ease-in-out infinite;
-}
-
-@keyframes miniPulse {
-  0%, 100% { 
-    box-shadow: 
-      0 2px 6px rgba(0, 0, 0, 0.2),
-      0 0 12px rgba(255, 193, 7, 0.3);
-  }
-  50% { 
-    box-shadow: 
-      0 2px 6px rgba(0, 0, 0, 0.2),
-      0 0 18px rgba(255, 193, 7, 0.5);
-  }
-}
-
-.space-icon {
-  font-size: 8px;
-  color: #0a0a0a;
-  transition: transform 0.3s ease;
-}
-
-.mini-theme-toggle-btn:hover .space-icon {
-  transform: rotate(360deg);
-}
-
-.mini-theme-label {
-  font-size: 12px;
-  color: var(--text-secondary);
-  font-weight: 500;
-  letter-spacing: 0.5px;
-  transition: color 0.3s ease;
-}
-
-.mini-theme-toggle-btn:hover + .mini-theme-label {
-  color: var(--primary-accent);
-}
-
-/* Theme toggle active state animation */
-.mini-theme-toggle-btn:active .mini-toggle-thumb {
-  transform: scale(0.9);
 }
 
 /*-----------------------------------*\
@@ -268,11 +304,30 @@
   color: var(--text-muted);
   font-size: 18px;
   transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 .social-item .social-link:hover { 
-  color: var(--text-secondary);
-  transform: translateY(-2px);
+  color: var(--primary-accent);
+  transform: translateY(-3px) scale(1.1);
+  background: rgba(255, 193, 7, 0.1);
+  border-color: rgba(255, 193, 7, 0.3);
+  box-shadow: 0 8px 25px rgba(255, 193, 7, 0.2);
+}
+
+/* LinkedIn specific styling */
+.social-item .social-link[href*="linkedin"]:hover {
+  color: #0077b5;
+  background: rgba(0, 119, 181, 0.1);
+  border-color: rgba(0, 119, 181, 0.3);
+  box-shadow: 0 8px 25px rgba(0, 119, 181, 0.2);
 }
 
 /*-----------------------------------*\
@@ -283,7 +338,7 @@
   position: sticky;
   top: 0;
   left: 0;
-  width: 50%;
+  width: 100%;
   background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
@@ -369,7 +424,7 @@
 @media (min-width: 580px) {
   .sidebar {
     max-height: 180px;
-    margin-bottom: var(--space-xl);
+    margin-bottom: 0;
   }
 
   .sidebar.active { 
@@ -382,10 +437,13 @@
 
   .avatar-box { 
     border-radius: 30px; 
+    padding: 10px;
   }
 
   .avatar-box img { 
-    width: 120px; 
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 22px !important;
   }
 
   .info-content .name { 
@@ -398,7 +456,7 @@
 
   .info_more-btn {
     top: -30px;
-    right: -30px;
+    right: 45px;
     padding: 10px 15px;
   }
 
@@ -425,22 +483,14 @@
   }
 
   /* Theme switcher adjustments */
-  .mini-toggle-track {
-    width: 40px;
-    height: 22px;
+  .theme-toggle-mini {
+    width: 32px;
+    height: 32px;
   }
 
-  .mini-toggle-thumb {
-    width: 16px;
-    height: 16px;
-  }
-
-  .space-icon {
-    font-size: 9px;
-  }
-
-  .mini-theme-label {
-    font-size: 13px;
+  .theme-toggle-mini .sun-icon,
+  .theme-toggle-mini .moon-icon {
+    font-size: 16px;
   }
 }
 
@@ -489,14 +539,15 @@
 
 @media (min-width: 1250px) {
   .sidebar {
-    position: sticky !important;
+    position: fixed !important;
     top: 20px !important;
+    left: 20px !important;
     max-height: calc(100vh - 40px) !important;
     height: fit-content;
     margin-bottom: 0;
-    padding-top: 0;
-    z-index: 15;
-    overflow-y: auto;
+    padding-top: 60px;
+    z-index: 100;
+    overflow-y: hidden !important;
     min-width: 300px;
     flex-shrink: 0;
   }
@@ -506,7 +557,9 @@
   }
 
   .avatar-box img { 
-    width: 150px; 
+    width: 150px !important;
+    height: 150px !important;
+    border-radius: 25px !important;
   }
 
   .info-content .name {
@@ -551,34 +604,10 @@
     justify-content: center; 
   }
 
-  /* Sidebar scrollbar styling */
-  .sidebar::-webkit-scrollbar {
-    width: 5px;
-  }
-
-  .sidebar::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 5px;
-  }
-
-  .sidebar::-webkit-scrollbar-thumb {
-    background: rgba(255, 193, 7, 0.3);
-    border-radius: 5px;
-  }
-
-  .sidebar::-webkit-scrollbar-thumb:hover {
-    background: rgba(255, 193, 7, 0.5);
-  }
-
-  /* Navbar inside content adjustments */
-  .navbar {
-    position: sticky;
-    top: 0;
-    margin: 0;
-    border-radius: 20px 20px 0 0;
-    border-left: none;
-    border-right: none;
-    border-top: none;
+  /* Theme switcher desktop positioning */
+  .mini-theme-switcher {
+    top: 15px;
+    right: 15px;
   }
 }
 
@@ -590,9 +619,12 @@
   .sidebar {
     position: relative !important;
     top: auto !important;
+    left: auto !important;
     max-height: none !important;
-    margin: 10px;
-    overflow: visible;
+    margin: 10px !important;
+    overflow: visible !important;
+    /* Disable floating animation on mobile */
+    animation: none !important;
   }
   
   /* Mobile navbar positioning - stays at bottom */
@@ -626,38 +658,26 @@
     text-align: center !important;
   }
 
-  /* Theme switcher mobile adjustments */
-  .sidebar-theme-switcher {
-    padding: 12px 0;
+  /* Mobile theme switcher */
+  .mini-theme-switcher {
+    top: -5px;
+    right: -5px;
   }
 
-  .theme-switcher-header {
-    font-size: 13px;
-    margin-bottom: 10px;
+  .theme-toggle-mini {
+    width: 24px;
+    height: 24px;
   }
 
-  .mini-toggle-track {
-    width: 34px;
-    height: 18px;
-  }
-
-  .mini-toggle-thumb {
-    width: 12px;
-    height: 12px;
-  }
-
-  .space-icon {
-    font-size: 7px;
-  }
-
-  .mini-theme-label {
-    font-size: 11px;
+  .theme-toggle-mini .sun-icon,
+  .theme-toggle-mini .moon-icon {
+    font-size: 12px;
   }
 }
 
 @media (max-width: 480px) {
   .sidebar {
-    margin: 5px;
+    margin: 5px !important;
   }
 
   .navbar-link {
@@ -670,20 +690,6 @@
     gap: 8px !important;
     padding: 12px 8px !important;
   }
-
-  /* Compact theme switcher on very small screens */
-  .sidebar-theme-switcher {
-    padding: 10px 0;
-  }
-
-  .theme-switcher-header {
-    font-size: 12px;
-    gap: 6px;
-  }
-
-  .mini-theme-toggle {
-    gap: 8px;
-  }
 }
 
 /*-----------------------------------*\
@@ -691,10 +697,10 @@
 \*-----------------------------------*/
 
 /* Focus states for accessibility */
-.mini-theme-toggle-btn:focus-visible {
+.theme-toggle-mini:focus-visible {
   outline: 2px solid var(--primary-accent);
   outline-offset: 3px;
-  border-radius: 12px;
+  border-radius: 50%;
 }
 
 .navbar-link:focus-visible {
@@ -704,7 +710,12 @@
 
 /* Reduce motion for users who prefer it */
 @media (prefers-reduced-motion: reduce) {
-  .mini-toggle-thumb,
+  .sidebar {
+    animation: none !important;
+  }
+  
+  .avatar-box,
+  .theme-toggle-mini,
   .navbar-link,
   .social-item .social-link {
     animation: none !important;
