@@ -509,3 +509,142 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   });
 });
+
+// Add this function to the existing script.js file, or replace the similar section if it exists
+
+// Enhanced sidebar functionality with parallax effect
+function initSidebar() {
+  const sidebar = document.querySelector("[data-sidebar]");
+  const sidebarBtn = document.querySelector("[data-sidebar-btn]");
+  
+  // Check if elements exist (sidebar component loaded)
+  if (sidebar && sidebarBtn) {
+    // sidebar toggle functionality for mobile
+    sidebarBtn.addEventListener("click", function() {
+      sidebar.classList.toggle("active");
+      
+      // Add click effect
+      this.style.transform = 'scale(0.95)';
+      setTimeout(() => {
+        this.style.transform = '';
+      }, 150);
+    });
+  }
+  
+  // Add subtle parallax effect for sidebar on desktop
+  if (window.innerWidth >= 1250) {
+    let ticking = false;
+    
+    function updateSidebarParallax() {
+      const sidebar = document.querySelector('.sidebar');
+      if (sidebar) {
+        const scrolled = window.pageYOffset;
+        const rate = scrolled * 0.05; // Very subtle movement (reduced from 0.1)
+        
+        // Combine with the existing floating animation
+        sidebar.style.setProperty('--parallax-offset', `${rate}px`);
+      }
+      ticking = false;
+    }
+
+    function requestSidebarParallax() {
+      if (!ticking) {
+        requestAnimationFrame(updateSidebarParallax);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', requestSidebarParallax, { passive: true });
+  }
+}
+
+// Add CSS custom property support for parallax (add this to your CSS or include here)
+const parallaxCSS = `
+  .sidebar {
+    transform: translateY(calc(var(--parallax-offset, 0px)));
+  }
+  
+  /* Ensure smooth scrolling performance */
+  .sidebar {
+    will-change: transform;
+    transform-style: preserve-3d;
+  }
+  
+  /* Reduce parallax on mobile */
+  @media (max-width: 768px) {
+    .sidebar {
+      transform: none !important;
+      --parallax-offset: 0px !important;
+    }
+  }
+`;
+
+// Add the CSS if it doesn't exist
+if (!document.querySelector('#sidebar-parallax-css')) {
+  const style = document.createElement('style');
+  style.id = 'sidebar-parallax-css';
+  style.textContent = parallaxCSS;
+  document.head.appendChild(style);
+}
+
+// Update the main initialization function to include new sidebar features
+function initializePortfolio(hashSection, hashParams = {}) {
+  console.log('All components loaded, initializing functionality with enhanced sidebar');
+  
+  // Initialize enhanced sidebar
+  initSidebar();
+  
+  // Initialize testimonials
+  initTestimonials();
+  
+  // Initialize project modals
+  initProjectModals();
+  
+  // Initialize select and filter
+  initSelectAndFilter();
+  
+  // Initialize contact form
+  initContactForm();
+  
+  // Initialize page navigation with parameters
+  initNavigation(hashSection, hashParams);
+  
+  // Initialize filter memory enhancement
+  enhanceFilterMemory();
+  
+  // Initialize theme handler (this will be handled by minimal-theme-handler.js)
+  console.log('✨ Enhanced sidebar with parallax effect initialized');
+}
+
+// Performance optimization: Throttle resize events
+let resizeTimeout;
+window.addEventListener('resize', function() {
+  clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(function() {
+    // Re-initialize parallax based on screen size
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      if (window.innerWidth < 1250) {
+        sidebar.style.transform = '';
+        sidebar.style.setProperty('--parallax-offset', '0px');
+      }
+    }
+  }, 250);
+});
+
+// Add smooth scrolling enhancement
+document.addEventListener('DOMContentLoaded', function() {
+  // Enhance smooth scrolling for better parallax performance
+  if ('scrollBehavior' in document.documentElement.style) {
+    document.documentElement.style.scrollBehavior = 'smooth';
+  }
+});
+
+// Export functions if needed for other modules
+window.SidebarEnhancements = {
+  initSidebar: initSidebar,
+  updateParallax: function() {
+    const event = new Event('scroll');
+    window.dispatchEvent(event);
+  }
+};
