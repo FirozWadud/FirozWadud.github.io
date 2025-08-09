@@ -162,15 +162,9 @@ article {
   #MAIN CONTENT STYLING
 \*-----------------------------------*/
 
-/* Remove any padding-top from main-content since navbar is now inline */
+/* Remove any padding-top from main-content since navbar is now inside */
 .main-content {
   padding-top: 0 !important;
-  position: relative;
-}
-
-/* Reset article spacing - navbar is now inline with title */
-.main-content article {
-  padding-top: 30px !important;
 }
 
 /*-----------------------------------*\
