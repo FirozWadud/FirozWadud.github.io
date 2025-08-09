@@ -22,6 +22,7 @@
   -ms-overflow-style: none !important; /* IE/Edge */
   /* Add subtle floating animation */
   animation: sidebarFloat 6s ease-in-out infinite;
+  border-radius: 15px !important;
 }
 
 /* Hide scrollbar for Webkit browsers */
@@ -344,7 +345,7 @@
   -webkit-backdrop-filter: blur(20px);
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px 20px 0 0;
+  border-radius: 20px 20 0 0; 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 50;
   margin: 0;

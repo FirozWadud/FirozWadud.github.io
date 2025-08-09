@@ -29,9 +29,6 @@
 /* Space Theme */
 @import url("themes/space-theme.css");
 
-/* Space Elements (planets, shooting stars) */
-@import url("themes/space-elements.css");
-
 /* Minimalistic Theme Switcher */
 @import url("minimal-theme-switcher.css");
 
@@ -130,71 +127,6 @@ body.modal-open {
   overflow: hidden;
 }
 
-/*-----------------------------------*\
-  #GLASSMORPHISM ENHANCEMENTS
-\*-----------------------------------*/
-
-/* Base glassmorphism effect for better browser support */
-.glass-effect {
-  backdrop-filter: blur(25px);
-  -webkit-backdrop-filter: blur(25px);
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: 0 30px 60px 0 rgba(0, 0, 0, 0.5);
-}
-
-/* Smooth transitions for theme changes */
-.theme-transition,
-.theme-transition * {
-  transition: background-color 0.3s ease, 
-              border-color 0.3s ease, 
-              color 0.3s ease,
-              box-shadow 0.3s ease,
-              backdrop-filter 0.3s ease !important;
-}
-
-/* Enhanced focus states for accessibility */
-button:focus-visible,
-a:focus-visible,
-input:focus-visible,
-textarea:focus-visible {
-  outline: 2px solid var(--primary-accent);
-  outline-offset: 2px;
-}
-
-/* Shimmer effect for glass elements */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.glass-shimmer::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    rgba(255, 255, 255, 0.1),
-    transparent
-  );
-  background-size: 200% 100%;
-  animation: shimmer 2s ease-in-out;
-  border-radius: inherit;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Space theme specific modal styling */
-#projectModal {
-  background: rgba(0, 0, 0, 0.9) !important;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
-
 #projectModal > div {
   background: var(--glass-bg) !important;
   backdrop-filter: var(--backdrop-blur) !important;
@@ -203,19 +135,3 @@ textarea:focus-visible {
   box-shadow: var(--glass-shadow) !important;
 }
 
-/* Reduced motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  
-  .theme-toggle,
-  .glass-effect {
-    animation: none !important;
-  }
-}

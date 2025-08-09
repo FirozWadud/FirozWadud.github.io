@@ -86,22 +86,6 @@ body::before {
   50% { opacity: 1; }
 }
 
-/* Main content container */
-main {
-  position: relative;
-  z-index: 10;
-}
-
-/* Main content area positioning */
-.main-content {
-  position: relative !important;
-  padding-top: 80px !important; /* Add space for navbar */
-}
-
-/* Article positioning to account for navbar */
-article {
-  margin-top: 0 !important;
-}
 
 /* Glass Effects for Main Components */
 .sidebar,
@@ -163,66 +147,6 @@ article:hover,
     0 0 40px rgba(255, 193, 7, 0.2),
     inset 0 1px 0 rgba(255, 255, 255, 0.15) !important;
 }
-
-/* Navbar Styling */
-.navbar {
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3) !important;
-  z-index: 50 !important;
-  position: sticky !important;
-  top: 0 !important;
-  right: 0 !important;
-  left: 100px !important;
-  bottom: auto !important;
-  width: 80 !important;
-  border-radius: 20px 20px 0 0 !important;
-  margin: 0 0 20px 0 !important;
-  padding: 0 20px !important;
-  transition: all 0.3s ease !important;
-}
-
-.navbar:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border-color: rgba(255, 255, 255, 0.15) !important;
-  box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(255, 193, 7, 0.1) !important;
-}
-
-/* Navbar Links */
-.navbar-list {
-  display: flex !important;
-  gap: 30px !important;
-  padding: 15px 20px !important;
-  margin: 0 !important;
-  justify-content: center !important;
-}
-
-.navbar-link {
-  color: var(--text-secondary) !important;
-  transition: var(--transition-short);
-  font-weight: 500 !important;
-  font-size: 14px !important;
-  padding: 8px 16px !important;
-  white-space: nowrap !important;
-  border-radius: 25px !important;
-}
-
-.navbar-link:hover,
-.navbar-link:focus {
-  color: var(--text-muted) !important;
-  background: rgba(255, 255, 255, 0.05) !important;
-}
-
-.navbar-link.active {
-  color: var(--primary-accent) !important;
-  background: rgba(255, 193, 7, 0.1) !important;
-  text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-}
-
 
 /* Form Styling */
 .form-input {
