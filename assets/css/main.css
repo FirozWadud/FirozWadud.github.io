@@ -1,17 +1,17 @@
 /*-----------------------------------*\
   #MAIN.CSS
-  Main stylesheet with space theme integration
+  Main stylesheet with proper import order
 \*-----------------------------------*/
 
 /*-----------------------------------*\
   #IMPORTS
-  Import all modular CSS files in the correct order
+  Import all modular CSS files in the correct cascade order
 \*-----------------------------------*/
 
-/* Variables - Edit colors, sizes and fonts here */
+/* Variables - Define custom properties first */
 @import url("variables.css");
 
-/* Reset - Browser normalization */
+/* Reset - Browser normalization second */
 @import url("reset.css");
 
 /* Base - Common elements and utilities */
@@ -23,115 +23,14 @@
 /* Components - UI component styles */
 @import url("components.css");
 
-/* Responsive - Media queries for responsive design */
-@import url("responsive.css");
+/* Modals - Modal components */
+@import url("modals.css");
 
-/* Space Theme */
+/* Theme - Apply theme after base styles */
 @import url("themes/space-theme.css");
 
-/* Minimalistic Theme Switcher */
+/* Theme switcher - Interactive theme controls */
 @import url("minimal-theme-switcher.css");
 
-/*-----------------------------------*\
-  #PROJECT MODAL STYLING
-\*-----------------------------------*/
-
-/* Project Modal Styling */
-.project-modal-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  z-index: 20;
-  pointer-events: none;
-  visibility: hidden;
-}
-
-.project-modal-container.active {
-  pointer-events: all;
-  visibility: visible;
-}
-
-.project-modal {
-  background: var(--bg-card);
-  position: relative;
-  width: 90%;
-  max-width: 1200px;
-  height: 90vh;
-  margin: 20px;
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  box-shadow: var(--shadow-5);
-  transform: scale(1.2);
-  opacity: 0;
-  transition: var(--transition-short);
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  backdrop-filter: var(--backdrop-blur);
-  -webkit-backdrop-filter: var(--backdrop-blur);
-}
-
-.project-modal-container.active .project-modal {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.project-modal-content {
-  flex: 1;
-  overflow-y: auto;
-  padding: 0;
-}
-
-/* Loading spinner */
-.loading-spinner {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 200px;
-  color: var(--text-secondary);
-  font-size: var(--fs-4);
-}
-
-.loading-spinner::after {
-  content: "";
-  width: 40px;
-  height: 40px;
-  border: 5px solid rgba(255, 193, 7, 0.2);
-  border-radius: 50%;
-  border-top-color: var(--primary-accent);
-  animation: spin 1s linear infinite;
-  margin-left: 15px;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-/* Error message */
-.error-message {
-  text-align: center;
-  padding: 50px;
-  color: var(--text-error);
-}
-
-/* Prevent background scrolling when modal is open */
-body.modal-open {
-  overflow: hidden;
-}
-
-#projectModal > div {
-  background: var(--glass-bg) !important;
-  backdrop-filter: var(--backdrop-blur) !important;
-  -webkit-backdrop-filter: var(--backdrop-blur) !important;
-  border: 1px solid var(--glass-border) !important;
-  box-shadow: var(--glass-shadow) !important;
-}
-
+/* Responsive - Media queries last to override everything */
+@import url("responsive.css");

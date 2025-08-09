@@ -1,6 +1,7 @@
 /*-----------------------------------*\
   #LAYOUT
   Layout, grids, and structural elements
+  (No media queries - all moved to responsive.css)
 \*-----------------------------------*/
 
 /*-----------------------------------*\
@@ -8,28 +9,28 @@
 \*-----------------------------------*/
 
 .sidebar {
-  position: fixed !important;
-  top: 20px !important;
-  left: 20px !important;
-  z-index: 100 !important;
+  position: fixed;
+  top: 20px;
+  left: 20px;
+  z-index: 100;
   margin-bottom: 0;
   max-height: var(--sidebar-max-height-collapsed);
   overflow: hidden;
   transition: var(--transition-medium);
-  /* Remove any scrollbar */
-  overflow-y: hidden !important;
-  scrollbar-width: none !important; /* Firefox */
-  -ms-overflow-style: none !important; /* IE/Edge */
-  /* Add subtle floating animation */
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
   animation: sidebarFloat 6s ease-in-out infinite;
   border-radius: 15px !important;
+  min-width: 300px;
+  width: 300px;
 }
 
 /* Hide scrollbar for Webkit browsers */
 .sidebar::-webkit-scrollbar {
-  display: none !important;
-  width: 0 !important;
-  background: transparent !important;
+  display: none;
+  width: 0;
+  background: transparent;
 }
 
 .sidebar.active { 
@@ -123,16 +124,16 @@
 
 /* Glass Tile Avatar */
 .avatar-box {
-  background: rgba(255, 255, 255, 0.1) !important;
-  backdrop-filter: blur(20px) !important;
-  -webkit-backdrop-filter: blur(20px) !important;
-  border: 2px solid rgba(255, 255, 255, 0.2) !important;
-  border-radius: 25px !important;
-  padding: 8px !important;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  border-radius: 25px;
+  padding: 8px;
   box-shadow: 
     0 15px 35px rgba(0, 0, 0, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2) !important;
-  transition: all 0.4s ease !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  transition: all 0.4s ease;
   position: relative;
   overflow: hidden;
 }
@@ -162,11 +163,11 @@
 
 .avatar-box:hover {
   transform: translateY(-5px) scale(1.02);
-  border-color: rgba(255, 193, 7, 0.4) !important;
+  border-color: rgba(255, 193, 7, 0.4);
   box-shadow: 
     0 20px 45px rgba(0, 0, 0, 0.4),
     0 0 30px rgba(255, 193, 7, 0.3),
-    inset 0 1px 0 rgba(255, 255, 255, 0.3) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 @keyframes borderGlow {
@@ -175,10 +176,10 @@
 }
 
 .avatar-box img {
-  width: 90px !important;
-  height: 90px !important;
-  object-fit: cover !important;
-  border-radius: 18px !important;
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 18px;
   transition: all 0.3s ease;
 }
 
@@ -208,7 +209,7 @@
 .info_more-btn {
   position: absolute;
   top: -15px;
-  right: 35px; /* Adjusted to avoid theme switcher */
+  right: 35px;
   border-radius: 0 15px;
   font-size: 13px;
   color: var(--primary-accent);
@@ -332,7 +333,7 @@
 }
 
 /*-----------------------------------*\
-  #NAVBAR - INSIDE MAIN CONTENT
+  #NAVBAR
 \*-----------------------------------*/
 
 .navbar {
@@ -345,7 +346,7 @@
   -webkit-backdrop-filter: blur(20px);
   border: none;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px 20 0 0; 
+  border-radius: 20px 20px 0 0; 
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
   z-index: 50;
   margin: 0;
@@ -419,285 +420,71 @@
 }
 
 /*-----------------------------------*\
-  #MEDIA RESPONSIVE ADJUSTMENTS
+  #HOVER LAYOUT EFFECTS
+  Structural hover effects (positioning, sizing)
 \*-----------------------------------*/
 
-@media (min-width: 580px) {
-  .sidebar {
-    max-height: 180px;
-    margin-bottom: 0;
-  }
-
-  .sidebar.active { 
-    max-height: 584px; 
-  }
-
-  .sidebar-info { 
-    gap: 25px; 
-  }
-
-  .avatar-box { 
-    border-radius: 30px; 
-    padding: 10px;
-  }
-
-  .avatar-box img { 
-    width: 120px !important;
-    height: 120px !important;
-    border-radius: 22px !important;
-  }
-
-  .info-content .name { 
-    margin-bottom: 15px; 
-  }
-
-  .info-content .title { 
-    padding: 5px 18px; 
-  }
-
-  .info_more-btn {
-    top: -30px;
-    right: 45px;
-    padding: 10px 15px;
-  }
-
-  .info_more-btn span {
-    display: block;
-    font-size: var(--fs-8);
-  }
-
-  .info_more-btn ion-icon { 
-    display: none; 
-  }
-
-  .separator { 
-    margin: 32px 0; 
-  }
-
-  .contacts-list { 
-    gap: 20px; 
-  }
-
-  .contact-info {
-    max-width: calc(100% - 64px);
-    width: calc(100% - 64px);
-  }
-
-  /* Theme switcher adjustments */
-  .theme-toggle-mini {
-    width: 32px;
-    height: 32px;
-  }
-
-  .theme-toggle-mini .sun-icon,
-  .theme-toggle-mini .moon-icon {
-    font-size: 16px;
-  }
+.sidebar:hover,
+article:hover,
+.service-item:hover,
+.feature-card:hover,
+.science-card:hover,
+.competition-card:hover,
+.video-card:hover,
+.team-member:hover,
+.blog-post-item > a:hover,
+.project-item > a:hover {
+  transform: translateY(-8px);
 }
 
-@media (min-width: 768px) {
-  .navbar-link { 
-    font-size: 14px;
-    padding: 10px 18px;
-  }
-
-  .contacts-list {
-    grid-template-columns: 1fr 1fr;
-    gap: 30px 15px;
-  }
-
-  .navbar-list {
-    gap: 35px;
-    padding: 18px 25px;
-  }
+.form-btn:hover {
+  transform: translateY(-3px);
 }
 
-@media (min-width: 1024px) {
-  .navbar {
-    position: sticky;
-    top: 0;
-    left: 0;
-    right: 0;
-    width: 100%;
-    border-radius: 20px 20px 0 0;
-    padding: 0 25px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-    margin: 0;
-  }
-
-  .navbar-list {
-    gap: 40px;
-    padding: 20px 30px;
-    justify-content: center;
-  }
-
-  .navbar-link { 
-    font-weight: 500;
-    font-size: 15px;
-    padding: 10px 20px;
-  }
-}
-
-@media (min-width: 1250px) {
-  .sidebar {
-    position: fixed !important;
-    top: 20px !important;
-    left: 20px !important;
-    max-height: calc(100vh - 40px) !important;
-    height: fit-content;
-    margin-bottom: 0;
-    padding-top: 60px;
-    z-index: 100;
-    overflow-y: hidden !important;
-    min-width: 300px;
-    flex-shrink: 0;
-  }
-
-  .sidebar-info { 
-    flex-direction: column; 
-  }
-
-  .avatar-box img { 
-    width: 150px !important;
-    height: 150px !important;
-    border-radius: 25px !important;
-  }
-
-  .info-content .name {
-    white-space: nowrap;
-    text-align: center;
-  }
-
-  .info-content .title { 
-    margin: auto; 
-  }
-
-  .info_more-btn { 
-    display: none; 
-  }
-
-  .sidebar-info_more {
-    opacity: 1;
-    visibility: visible;
-  }
-
-  .contacts-list { 
-    grid-template-columns: 1fr; 
-  }
-
-  .contact-info :is(.contact-link) {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-  }
-
-  .contact-info :is(.contact-link, time, address) {
-    --fs-7: 14px;
-    font-weight: var(--fw-light);
-  }
-
-  .separator:last-of-type {
-    margin: 15px 0;
-    opacity: 0;
-  }
-
-  .social-list { 
-    justify-content: center; 
-  }
-
-  /* Theme switcher desktop positioning */
-  .mini-theme-switcher {
-    top: 15px;
-    right: 15px;
-  }
+.close-btn:hover {
+  transform: scale(1.1);
 }
 
 /*-----------------------------------*\
-  #MOBILE SPECIFIC ADJUSTMENTS
+  #COMPONENT POSITIONING
+  Z-index and relative positioning
 \*-----------------------------------*/
 
-@media (max-width: 768px) {
-  .sidebar {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    max-height: none !important;
-    margin: 10px !important;
-    overflow: visible !important;
-    /* Disable floating animation on mobile */
-    animation: none !important;
-  }
-  
-  /* Mobile navbar positioning - stays at bottom */
-  .navbar {
-    position: fixed !important;
-    bottom: 0 !important;
-    top: auto !important;
-    left: 0 !important;
-    right: 0 !important;
-    width: 100% !important;
-    border-radius: 12px 12px 0 0 !important;
-    margin: 0 !important;
-    padding: 0 10px !important;
-    border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-bottom: none !important;
-  }
-  
-  .navbar-list {
-    justify-content: center !important;
-    gap: 15px !important;
-    padding: 15px 10px !important;
-    flex-wrap: nowrap !important;
-  }
-  
-  .navbar-link {
-    font-size: 12px !important;
-    padding: 12px 8px !important;
-    min-width: 60px !important;
-    text-align: center !important;
-  }
-
-  /* Mobile theme switcher */
-  .mini-theme-switcher {
-    top: -5px;
-    right: -5px;
-  }
-
-  .theme-toggle-mini {
-    width: 24px;
-    height: 24px;
-  }
-
-  .theme-toggle-mini .sun-icon,
-  .theme-toggle-mini .moon-icon {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 480px) {
-  .sidebar {
-    margin: 5px !important;
-  }
-
-  .navbar-link {
-    font-size: 11px !important;
-    padding: 10px 6px !important;
-    min-width: 50px !important;
-  }
-
-  .navbar-list {
-    gap: 8px !important;
-    padding: 12px 8px !important;
-  }
+.sidebar,
+article,
+.content-card,
+.service-item,
+.testimonials-modal,
+.popup-container,
+.feature-card,
+.science-card,
+.competition-card,
+.video-card,
+.team-member,
+.blog-post-item > a,
+.project-item > a {
+  position: relative;
+  z-index: 10;
+  transition: all 0.4s ease;
 }
 
 /*-----------------------------------*\
-  #ACCESSIBILITY IMPROVEMENTS
+  #MODAL POSITIONING
 \*-----------------------------------*/
 
-/* Focus states for accessibility */
+.modal-container.active .overlay {
+  z-index: 999;
+}
+
+.popup-container,
+.testimonials-modal {
+  z-index: 1000;
+}
+
+/*-----------------------------------*\
+  #ACCESSIBILITY
+\*-----------------------------------*/
+
 .theme-toggle-mini:focus-visible {
   outline: 2px solid var(--primary-accent);
   outline-offset: 3px;
@@ -707,19 +494,4 @@
 .navbar-link:focus-visible {
   outline: 2px solid var(--primary-accent);
   outline-offset: 2px;
-}
-
-/* Reduce motion for users who prefer it */
-@media (prefers-reduced-motion: reduce) {
-  .sidebar {
-    animation: none !important;
-  }
-  
-  .avatar-box,
-  .theme-toggle-mini,
-  .navbar-link,
-  .social-item .social-link {
-    animation: none !important;
-    transition-duration: 0.01ms !important;
-  }
 }
