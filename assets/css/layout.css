@@ -8,7 +8,10 @@
 \*-----------------------------------*/
 
 .sidebar {
-  /* Remove fixed positioning - will be handled by flexbox in base.css */
+  position: fixed !important;
+  top: 20px !important;
+  left: 20px !important;
+  z-index: 100 !important;
   margin-bottom: 0;
   max-height: var(--sidebar-max-height-collapsed);
   overflow: hidden;
@@ -19,8 +22,6 @@
   -ms-overflow-style: none !important; /* IE/Edge */
   /* Add subtle floating animation */
   animation: sidebarFloat 6s ease-in-out infinite;
-  /* Keep original width - don't force min-width */
-  width: auto;
 }
 
 /* Hide scrollbar for Webkit browsers */
@@ -595,21 +596,18 @@
 }
 
 @media (min-width: 1250px) {
-  /* Note: Sidebar positioning is now handled by base.css flexbox layout */
   .sidebar {
+    position: fixed !important;
+    top: 20px !important;
+    left: 20px !important;
+    max-height: calc(100vh - 40px) !important;
+    height: fit-content;
+    margin-bottom: 0;
+    padding-top: 60px;
+    z-index: 100;
     overflow-y: hidden !important;
-    /* FIXED: Keep original width, don't force min-width */
-    width: auto;
+    min-width: 300px;
     flex-shrink: 0;
-    /* FIXED: Fully rounded corners */
-    border-radius: 20px !important;
-    /* Add subtle shadow to separate from content */
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 40px rgba(255, 193, 7, 0.1) !important;
-    /* Smooth backdrop blur */
-    backdrop-filter: blur(25px) !important;
-    -webkit-backdrop-filter: blur(25px) !important;
   }
 
   .sidebar-info { 
@@ -675,14 +673,13 @@
   #MOBILE SPECIFIC ADJUSTMENTS
 \*-----------------------------------*/
 
-@media (max-width: 1249px) {
+@media (max-width: 768px) {
   .sidebar {
-    /* Mobile: Use relative positioning (base.css handles the layout) */
     position: relative !important;
     top: auto !important;
     left: auto !important;
     max-height: none !important;
-    margin: 0 !important;
+    margin: 10px !important;
     overflow: visible !important;
     /* Disable floating animation on mobile */
     animation: none !important;

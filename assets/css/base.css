@@ -235,51 +235,51 @@ article {
 }
 
 @media (min-width: 1250px) {
-  /* FIXED: Proper two-column layout with centered content and gaps */
+  .sidebar, article { 
+    width: auto; 
+  }
+
+  article { 
+    min-height: 100%;
+    /* Remove any conflicting positioning */
+    position: relative !important;
+    margin: 0 !important;
+    border: none !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding: 30px !important;
+  }
+
   main {
     max-width: 1200px;
-    margin: 20px auto; /* Center the entire layout */
+    margin-inline: auto;
     display: flex;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: flex-start;
-    gap: 25px; /* Gap between sidebar and main content */
+    gap: 25px;
     padding: 20px;
-    min-height: calc(100vh - 40px);
+    min-height: 100vh;
   }
-  
+
   .sidebar {
-    /* Reset positioning for flex layout */
     position: sticky !important;
     top: 20px !important;
-    left: auto !important;
-    right: auto !important;
-    /* Fixed width for consistency */
-    width: 300px;
-    max-height: calc(100vh - 40px);
+    max-height: calc(100vh - 40px) !important;
     height: fit-content;
-    margin: 0; /* Remove margins for flex */
-    padding: 30px;
+    margin-bottom: 0;
+    padding-top: 0;
     z-index: 15;
+    min-width: 300px;
     flex-shrink: 0;
     overflow-y: auto;
-    
-    /* Fully rounded corners */
-    border-radius: 20px !important;
-    /* Add subtle shadow */
-    box-shadow: 
-      0 20px 40px rgba(0, 0, 0, 0.3),
-      0 0 40px rgba(255, 193, 7, 0.1) !important;
-    /* Smooth backdrop blur */
-    backdrop-filter: blur(25px) !important;
-    -webkit-backdrop-filter: blur(25px) !important;
   }
 
   .main-content {
-    /* Take remaining space */
-    flex: 1;
-    min-width: 0; /* Allow flex shrinking */
-    max-width: calc(100% - 325px); /* Account for sidebar width + gap */
-    margin: 0;
+    min-width: 75% !important;
+    width: 75% !important;
+    margin: 0 !important;
+    position: relative !important;
     background: rgba(255, 255, 255, 0.03) !important;
     backdrop-filter: blur(25px) !important;
     -webkit-backdrop-filter: blur(25px) !important;
@@ -288,12 +288,11 @@ article {
     padding: 0 !important;
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
     overflow: hidden !important;
-    min-height: calc(100vh - 40px);
+    min-height: calc(100vh - 40px) !important;
   }
 
-  /* Ensure articles have no conflicting styles within main-content */
+  /* Ensure articles have no margin within main-content */
   .main-content article {
-    width: auto !important;
     margin: 0 !important;
     border-radius: 0 !important;
     border: none !important;
@@ -337,29 +336,18 @@ article {
   #MOBILE SPECIFIC ADJUSTMENTS
 \*-----------------------------------*/
 
-@media (max-width: 1249px) {
-  /* Mobile and tablet: Stack vertically */
-  main {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    margin: 10px;
-    padding: 0;
-  }
-  
+@media (max-width: 768px) {
   .sidebar {
     position: relative !important;
     top: auto !important;
-    left: auto !important;
-    width: 100% !important;
     max-height: none !important;
-    margin: 0;
-    overflow: visible !important;
+    margin: 10px;
+    overflow: visible;
   }
   
   .main-content {
-    width: 100%;
-    margin: 0;
+    margin: 10px;
+    width: calc(100% - 20px);
     padding-bottom: 80px !important; /* Space for mobile navbar */
     border-radius: 20px !important;
     background: rgba(255, 255, 255, 0.03) !important;
@@ -369,6 +357,13 @@ article {
     box-shadow: 0 30px 60px rgba(0, 0, 0, 0.5) !important;
   }
 
+  main {
+    margin: 10px;
+    padding: 0;
+    flex-direction: column;
+    gap: 15px;
+  }
+
   /* Mobile articles */
   .main-content article {
     padding: 20px !important;
@@ -376,27 +371,86 @@ article {
     border: none !important;
     border-radius: 0 !important;
     box-shadow: none !important;
-    width: auto !important;
-    margin: 0 !important;
   }
 }
 
 @media (max-width: 480px) {
   main {
     margin: 5px;
-    gap: 10px;
+  }
+
+  .sidebar,
+  .main-content {
+    margin: 5px;
+    width: calc(100% - 10px);
   }
 
   .main-content article {
     padding: 15px !important;
   }
 }
+/* Body spacing adjustment for fixed sidebar */
+@media (min-width: 1250px) {
+  body {
+    padding-left: 340px; /* Space for fixed sidebar */
+    transition: padding-left 0.3s ease;
+  }
+  
+  main {
+    max-width: none; /* Remove max-width constraint */
+    margin-inline: 0; /* Remove centering */
+    padding-left: 0; /* Remove left padding */
+    display: block; /* Change from flex to block */
+  }
+  
+  .main-content {
+    min-width: 100% !important;
+    width: 100% !important;
+    margin: 20px 20px 20px 0 !important; /* Right margin for spacing */
+  }
+}
 
 /* Smooth transition for layout changes */
 .main-content,
-main,
-.sidebar {
+main {
   transition: all 0.3s ease;
+}
+
+/* Additional sidebar enhancements */
+@media (min-width: 1250px) {
+  .sidebar {
+    /* Ensure proper stacking */
+    z-index: 100;
+    
+    /* Add subtle shadow to separate from content */
+    box-shadow: 
+      2px 0 20px rgba(0, 0, 0, 0.3),
+      0 0 40px rgba(255, 193, 7, 0.1) !important;
+    
+    /* Smooth backdrop blur */
+    backdrop-filter: blur(25px) !important;
+    -webkit-backdrop-filter: blur(25px) !important;
+    
+    /* Border styling */
+    border-right: 1px solid rgba(255, 255, 255, 0.15) !important;
+    border-radius: 0 20px 20px 0 !important;
+  }
+}
+
+/* Mobile: Remove body padding */
+@media (max-width: 1249px) {
+  body {
+    padding-left: 0 !important;
+  }
+  
+  main {
+    display: flex;
+    flex-direction: column;
+    max-width: 1200px;
+    margin-inline: auto;
+    gap: 25px;
+    padding: 20px;
+  }
 }
 
 /* Performance optimizations */
@@ -404,18 +458,16 @@ main,
   /* GPU acceleration for smooth animations */
   transform: translateZ(0);
   will-change: transform;
+  
+  /* Prevent text selection on interactive elements */
+  user-select: none;
 }
 
-/* Parallax effect support */
-.sidebar {
-  transform: translateY(calc(var(--parallax-offset, 0px)));
+.sidebar *:not(input):not(textarea) {
+  user-select: none;
 }
 
-/* Reduce parallax on mobile */
-@media (max-width: 1249px) {
-  .sidebar {
-    transform: none !important;
-    --parallax-offset: 0px !important;
-    animation: none !important; /* Disable floating animation on mobile */
-  }
+/* Allow text selection for contact info */
+.contact-info {
+  user-select: text;
 }
