@@ -330,56 +330,100 @@
 }
 
 /*-----------------------------------*\
-  #NAVBAR - INSIDE MAIN CONTENT
+  #NAVBAR - INLINE WITH ARTICLE TITLE
 \*-----------------------------------*/
 
 .navbar {
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: none;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 20px 20px 0 0;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  position: relative;
   z-index: 50;
-  margin: 0;
-  padding: 0 20px;
-  transition: all 0.3s ease;
+  margin: 0 0 0 auto;
+  width: auto;
+  
+  /* Enhanced Glass Effect */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(25px);
+  -webkit-backdrop-filter: blur(25px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 50px;
+  
+  /* Space-themed shadows */
+  box-shadow: 
+    0 15px 35px rgba(0, 0, 0, 0.4),
+    0 0 25px rgba(255, 193, 7, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  
+  /* Subtle floating animation */
+  animation: navbarFloat 8s ease-in-out infinite;
+  
+  /* Smooth transitions */
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Padding */
+  padding: 8px 12px;
+}
+
+/* Header container to align navbar with title */
+.article-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+  gap: 20px;
+}
+
+.article-title {
+  margin: 0 !important;
+  padding: 0 !important;
+  flex-shrink: 0;
+}
+
+@keyframes navbarFloat {
+  0%, 100% { 
+    transform: translateY(0px) translateX(0px); 
+  }
+  33% { 
+    transform: translateY(-3px) translateX(2px); 
+  }
+  66% { 
+    transform: translateY(2px) translateX(-1px); 
+  }
 }
 
 .navbar:hover {
-  background: rgba(255, 255, 255, 0.08);
-  border-bottom-color: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 193, 7, 0.3);
+  transform: translateY(-3px);
   box-shadow: 
-    0 12px 40px rgba(0, 0, 0, 0.4),
-    0 0 30px rgba(255, 193, 7, 0.1);
+    0 20px 45px rgba(0, 0, 0, 0.5),
+    0 0 35px rgba(255, 193, 7, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
 }
 
 .navbar-list {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: center;
-  padding: 15px 20px;
+  padding: 0;
   margin: 0;
-  gap: 30px;
+  gap: 8px;
+  list-style: none;
 }
 
 .navbar-link {
-  color: var(--text-secondary);
-  font-size: 14px;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 13px;
   font-weight: 500;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 25px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   position: relative;
   white-space: nowrap;
+  text-decoration: none;
+  background: transparent;
+  border: 1px solid transparent;
+  overflow: hidden;
 }
 
+/* Subtle glow effect for all links */
 .navbar-link::before {
   content: "";
   position: absolute;
@@ -390,30 +434,44 @@
   background: rgba(255, 255, 255, 0.05);
   border-radius: 25px;
   opacity: 0;
-  transition: opacity 0.3s ease;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
   z-index: -1;
 }
 
 .navbar-link:hover,
 .navbar-link:focus {
-  color: var(--text-muted);
-  transform: translateY(-2px);
+  color: rgba(255, 255, 255, 0.9);
+  transform: translateY(-2px) scale(1.05);
+  border-color: rgba(255, 255, 255, 0.2);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .navbar-link:hover::before,
 .navbar-link:focus::before {
   opacity: 1;
+  transform: scale(1);
 }
 
+/* Active state with space glow */
 .navbar-link.active {
-  color: var(--primary-accent);
-  background: rgba(255, 193, 7, 0.1);
-  text-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-  box-shadow: 0 0 20px rgba(255, 193, 7, 0.2);
+  color: #ffc107;
+  background: rgba(255, 193, 7, 0.15);
+  border-color: rgba(255, 193, 7, 0.4);
+  text-shadow: 0 0 12px rgba(255, 193, 7, 0.6);
+  box-shadow: 
+    0 0 20px rgba(255, 193, 7, 0.3),
+    inset 0 1px 0 rgba(255, 193, 7, 0.2);
+  transform: scale(1.05);
 }
 
 .navbar-link.active::before {
   opacity: 0;
+}
+
+/* Click effect */
+.navbar-link:active {
+  transform: translateY(0) scale(0.98);
 }
 
 /*-----------------------------------*\
